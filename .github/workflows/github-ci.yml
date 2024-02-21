@@ -1,0 +1,67 @@
+name: github-ci
+
+on:
+  pull_request:
+    branches: ['*']
+  push:
+    branches: ['main']
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install Dependencies & Run ESLint & Run Prettier (Front-end)
+        run: |
+          cd front
+          npm install 
+          npm run lint
+          npm run prettier
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install Dependencies & Run Tests (Front-end)
+        run: |
+          cd front
+          npm install 
+          npm run test
+
+  lint_back:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install Dependencies & Run ESLint & Run Prettier (Back-end)
+        run: |
+          cd back
+          npm install 
+          npm run lint
+          npm run prettier
+          
+  test_back:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install Dependencies and Run Tests (Back-end)
+        run: |
+          cd back
+          npm install
+          npm run test
