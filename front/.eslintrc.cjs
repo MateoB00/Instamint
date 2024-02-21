@@ -9,7 +9,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'prettier', '@typescript-eslint'],
+  plugins: ['react-refresh', 'prettier', '@typescript-eslint', 'unused-imports'],
   rules: {
     "array-callback-return": [
       "error",
@@ -122,6 +122,7 @@ module.exports = {
     "no-useless-rename": "error",
     "no-useless-return": "error",
     "no-var": "error",
+    "unused-imports/no-unused-imports": "error",
     "no-warning-comments": [
       "error",
       {
