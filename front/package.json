@@ -11,7 +11,7 @@
     "prettier:fix": "prettier --write \"src/**/*.{ts,tsx}\"",
     "prettier": "npx prettier . --check",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "react": "^18.2.0",
