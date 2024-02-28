@@ -18,7 +18,6 @@ jobs:
       - name: Install Dependencies & Run ESLint & Run Prettier (Front-end)
         run: |
           cd front
-          rm -rf package-lock.json
           npm install 
           npm run lint
           npm run prettier
@@ -34,7 +33,6 @@ jobs:
       - name: Install Dependencies & Run Tests (Front-end)
         run: |
           cd front
-          rm -rf package-lock.json
           npm install 
           npm run test
 
