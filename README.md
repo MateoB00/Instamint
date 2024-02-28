@@ -45,6 +45,7 @@ front/
     index.html
     favicon.ico
   src/
+    scss/
     assets/
     components/
     pages/
