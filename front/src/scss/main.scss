@@ -1,0 +1,25 @@
+@import '../scss/utils/variables';
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+// We do not want rounded design, but we may accept extra little rounded corners on actionable elements.
+// All sizes which are not expressed in % must be done with rem.
+
+// Padding
+// Default padding for any content should be 1.5U for content spacing, and 1U for border-spacing
+// When used with non-text, keep 1/1 ratio
+
+// Margin
+// Use top margins instead of bottom 
+// Default margin (both x and y) 2U
+// Margins should only be used to space different logical blocks limited with or not by borders
+
+// Responsive
+// When used with text, x/y padding ration must be 3/2 ratio on small screens, 4/3 ratio with large screen
+
+// Any decision made on a component must be enforced everywhere else
+// All components must share consistent relation in terms of size, colors, etc.
