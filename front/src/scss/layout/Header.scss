@@ -1,4 +1,4 @@
-@import '../scss/main.scss';
+@import '../main.scss';
 .header {
     background-color: $colorAccent3;
     padding: $U $defaultPadding; 
@@ -10,12 +10,15 @@
 .logo {
     display: flex;
     align-items: center; 
+    img{
+        width: 1.875rem;
+        height: auto;
+    }
+    h1{
+        color: $colorNeutralDark;
+    }
 }
 
-.logo img {
-    width: 30px;
-    height: auto;
-}
 
 .logo-text {
     margin-left: $defaultMargin; 
@@ -44,3 +47,4 @@
     text-decoration: none; 
     font-weight: $headingFontWeight; 
 }
+
