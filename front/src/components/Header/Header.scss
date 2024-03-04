@@ -1,0 +1,46 @@
+@import '../scss/main.scss';
+.header {
+    background-color: $colorAccent3;
+    padding: $U $defaultPadding; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center; 
+}
+
+.logo img {
+    width: 30px;
+    height: auto;
+}
+
+.logo-text {
+    margin-left: $defaultMargin; 
+    font-size: $subHeadingFontSize; 
+    font-weight: $headingFontWeight;
+    color: $colorAccent1; 
+}
+
+.nav ul {
+    display: flex;
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.nav ul li {
+    margin-left: $defaultMargin;
+}
+
+.nav ul li:first-child {
+    margin-left: 0;
+}
+
+.nav ul li a {
+    color: $colorAccent1; 
+    text-decoration: none; 
+    font-weight: $headingFontWeight; 
+}
