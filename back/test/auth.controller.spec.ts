@@ -135,7 +135,6 @@ describe('AuthController', () => {
     });
   });
 
-  // eslint-disable-next-line max-lines-per-function
   describe('resend-confirmation', () => {
     it('should not resend email if user does not exist', async () => {
       jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(null);

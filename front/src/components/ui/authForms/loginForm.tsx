@@ -4,7 +4,7 @@ import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import Input from '../../../components/ui/Input';
 import { shemaLogin, catchErrors } from '../../../utils/yup';
-import { authLogin } from '../../../api/auth';
+import { authLogin, resendEmailConfirmation } from '../../../api/auth';
 
 const useLoginForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -87,6 +87,11 @@ export default function LoginForm() {
           <button className="nextButton">Connection</button>
           {formErrors.apiError && (
             <span style={{ color: 'red' }}>{formErrors.apiError}</span>
+          )}
+          {formErrors.apiError === 'Email not verified' && (
+            <button onClick={() => resendEmailConfirmation(formData.email)}>
+              Send another email
+            </button>
           )}
           <button className="forgotPasswordButton">Forgot password?</button>
         </div>
