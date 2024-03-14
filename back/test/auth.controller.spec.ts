@@ -11,6 +11,7 @@ import { NotFoundException } from '@nestjs/common';
 describe('AuthController', () => {
   let authController: AuthController;
   let authService: AuthService;
+  let emailService: EmailService;
   let userService: UserService;
 
   beforeEach(async () => {
@@ -49,6 +50,7 @@ describe('AuthController', () => {
     authController = module.get<AuthController>(AuthController);
     authService = module.get<AuthService>(AuthService);
     userService = module.get<UserService>(UserService);
+    emailService = module.get<EmailService>(EmailService);
   });
 
   it('should be defined', () => {
@@ -131,5 +133,47 @@ describe('AuthController', () => {
         authService.login('test@example.com', 'password'),
       ).rejects.toThrow('Invalid password.');
     });
+  });
+
+  // eslint-disable-next-line max-lines-per-function
+  describe('resend-confirmation', () => {
+    it('should not resend email if user does not exist', async () => {
+      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(null);
+
+      await authController.resendEmailConfirmation('nonexistent@example.com');
+
+      expect(emailService.sendConfirmationEmail).not.toHaveBeenCalled();
+    });
+  });
+
+  it('should resend email of confirmation', async () => {
+    const mockUser: User = {
+      id: 1,
+      email: 'test@example.com',
+      password: 'password',
+      username: 'test',
+      phoneNumber: 'test',
+      profilePicture: 'test',
+      bio: 'test',
+      uniqueLink: 'test',
+      visibility: true,
+      language: 'test',
+      twoFactorEnabled: true,
+      twoFactorSecret: 'test',
+      searchByEmailOrPhoneEnabled: true,
+      lastLogin: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      isVerified: true,
+      isAdmin: false,
+    };
+
+    jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
+
+    jest.spyOn(emailService, 'sendConfirmationEmail').mockReturnValueOnce();
+
+    await authController.resendEmailConfirmation('test@example.com');
+
+    expect(emailService.sendConfirmationEmail).toHaveBeenCalledWith(mockUser);
   });
 });
