@@ -1,0 +1,50 @@
+@import '../../../main.scss';
+
+.authForm {
+    text-align: center;
+    input {
+        border: none;
+        border-bottom: 1px solid black;
+    }
+
+    .titleForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h2 {
+            font-size: $headingFontSize;
+            color: $colorAccent1;
+            padding: $defaultPadding;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        margin: auto;
+        .buttonsForm {
+            margin-top: $U4;
+            display: flex;
+            flex-direction: column;
+            button {
+                background-color: $colorAccent1;
+                border-color: $colorAccent4;
+                color: $colorAccent4;
+                padding: $defaultPadding;
+                margin: $defaultMargin;
+            }
+        }
+    }
+
+    p {
+        font-size: $bodyFontSize;
+        font-weight: $bodyFontWeight;
+        color: $colorNeutralDark;
+    }
+    span {
+        color: $colorAccent1;
+    }
+}
+
