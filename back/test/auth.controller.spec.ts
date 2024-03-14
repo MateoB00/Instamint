@@ -3,7 +3,6 @@ import { AuthController } from '../src/controllers/auth.controller';
 import { AuthService } from '../src/services/auth.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmailService } from '../src/services/email.service';
-import { UserService } from '../src/services/user.service';
 import { User } from '../src/entities/user.entity';
 
 // eslint-disable-next-line max-lines-per-function
@@ -33,14 +32,6 @@ describe('AuthController', () => {
           provide: EmailService,
           useValue: {
             sendConfirmationEmail: jest.fn(),
-          },
-        },
-        {
-          provide: UserService,
-          useValue: {
-            create: jest.fn(),
-            findOneByEmail: jest.fn(),
-            update: jest.fn(),
           },
         },
       ],

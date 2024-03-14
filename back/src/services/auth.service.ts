@@ -23,13 +23,13 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/v;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
     if (!emailRegex.test(user.email)) {
       throw new BadRequestException('Email needs to be valid.');
     }
 
     const password =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{0,}$/v;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{0,}$/u;
     if (!password.test(user.password)) {
       throw new BadRequestException('Password needs to be valid.');
     }
