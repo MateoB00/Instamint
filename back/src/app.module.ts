@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
+import { User } from 'src/entities/user.entity';
+import { UserModule } from 'src/modules/user.module';
+import { AuthModule } from 'src/modules/auth.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -16,6 +19,13 @@ import { User } from './entities/user.entity';
         synchronize: true,
       }),
     }),
+    MailerModule.forRootAsync({
+      useFactory: () => ({
+        transport: process.env.SMTP_MAILER,
+      }),
+    }),
+    UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
