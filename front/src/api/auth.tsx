@@ -16,3 +16,13 @@ export const authLogin = async (email: string, password: string) => {
 
   return response.status;
 };
+
+export const authLogout = async () => {
+  await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+};

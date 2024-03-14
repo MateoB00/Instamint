@@ -57,4 +57,13 @@ export class AuthController {
     const loggedInUser = req.user;
     await this.emailService.sendConfirmationEmail(loggedInUser);
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  @Get('logout')
+  logout(@Res({ passthrough: true }) res: ResponseType) {
+    res.cookie('SESSION', null, {
+      httpOnly: true,
+      domain: process.env.DOMAIN,
+    });
+  }
 }
