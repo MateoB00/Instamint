@@ -1,0 +1,135 @@
+import { JwtService } from '@nestjs/jwt';
+import { AuthController } from '../src/controllers/auth.controller';
+import { AuthService } from '../src/services/auth.service';
+import { Test, TestingModule } from '@nestjs/testing';
+import { EmailService } from '../src/services/email.service';
+import { UserService } from '../src/services/user.service';
+import { User } from 'src/entities/user.entity';
+import { NotFoundException } from '@nestjs/common';
+
+// eslint-disable-next-line max-lines-per-function
+describe('AuthController', () => {
+  let authController: AuthController;
+  let authService: AuthService;
+  let userService: UserService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [AuthController],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: {
+            login: jest.fn(),
+          },
+        },
+        {
+          provide: JwtService,
+          useValue: {
+            sign: jest.fn(),
+            verify: jest.fn(),
+          },
+        },
+        {
+          provide: EmailService,
+          useValue: {
+            sendConfirmationEmail: jest.fn(),
+          },
+        },
+        {
+          provide: UserService,
+          useValue: {
+            findOneByEmail: jest.fn(),
+            update: jest.fn(),
+          },
+        },
+      ],
+    }).compile();
+
+    authController = module.get<AuthController>(AuthController);
+    authService = module.get<AuthService>(AuthService);
+    userService = module.get<UserService>(UserService);
+  });
+
+  it('should be defined', () => {
+    expect(authController).toBeDefined();
+  });
+
+  // eslint-disable-next-line max-lines-per-function
+  describe('login', () => {
+    it('should log in user and return access token', async () => {
+      const mockUser: User = {
+        id: 1,
+        email: 'test@example.com',
+        password: 'password',
+        username: 'test',
+        phoneNumber: 'test',
+        profilePicture: 'test',
+        bio: 'test',
+        uniqueLink: 'test',
+        visibility: true,
+        language: 'test',
+        twoFactorEnabled: true,
+        twoFactorSecret: 'test',
+        searchByEmailOrPhoneEnabled: true,
+        lastLogin: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        isVerified: true,
+        isAdmin: false,
+      };
+
+      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
+      jest
+        .spyOn(authService, 'login')
+        .mockResolvedValueOnce({ accessToken: 'mockAccessToken' });
+
+      const result = await authService.login('test@example.com', 'password');
+
+      expect(result.accessToken).toEqual('mockAccessToken');
+    });
+
+    it('should throw error User not found', async () => {
+      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(null);
+      jest
+        .spyOn(authService, 'login')
+        .mockRejectedValue(new NotFoundException('User not found.'));
+
+      await expect(
+        authService.login('test@example.com', 'password'),
+      ).rejects.toThrow('User not found.');
+    });
+
+    it('should throw error Invalid password', async () => {
+      const mockUser: User = {
+        id: 1,
+        email: 'test@example.com',
+        password: 'InvalidPassword',
+        username: 'test',
+        phoneNumber: 'test',
+        profilePicture: 'test',
+        bio: 'test',
+        uniqueLink: 'test',
+        visibility: true,
+        language: 'test',
+        twoFactorEnabled: true,
+        twoFactorSecret: 'test',
+        searchByEmailOrPhoneEnabled: true,
+        lastLogin: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        isVerified: true,
+        isAdmin: false,
+      };
+
+      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
+      jest
+        .spyOn(authService, 'login')
+        .mockRejectedValue(new NotFoundException('Invalid password.'));
+
+      await expect(
+        authService.login('test@example.com', 'password'),
+      ).rejects.toThrow('Invalid password.');
+    });
+  });
+});
