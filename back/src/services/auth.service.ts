@@ -33,6 +33,11 @@ export class AuthService {
     if (!passwordMatch) {
       throw new UnauthorizedException('Invalid password');
     }
+
+    if (!userByEmail.isVerified) {
+      throw new UnauthorizedException('Email not verified');
+    }
+
     const payload = {
       username: email,
       sub: {

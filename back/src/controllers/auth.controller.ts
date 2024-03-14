@@ -7,21 +7,20 @@ import {
   Header,
   Res,
   Get,
-  Request,
-  UseGuards,
   Redirect,
   Param,
 } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { EmailService } from '../services/email.service';
 import { Response as ResponseType } from 'express';
-import { AuthGuard } from '@nestjs/passport';
+import { UserService } from '../services/user.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
     private emailService: EmailService,
+    private userService: UserService,
   ) {
     // Do nothing.
   }
@@ -51,11 +50,13 @@ export class AuthController {
     return { url: process.env.FRONT_END_URL };
   }
 
-  @Get('resend-confirmation')
-  @UseGuards(AuthGuard('jwt'))
-  async findById(@Request() req) {
-    const loggedInUser = req.user;
-    await this.emailService.sendConfirmationEmail(loggedInUser);
+  @Post('resend-confirmation')
+  async resendEmailConfirmation(@Body('email') email: string) {
+    const user = await this.userService.findOneByEmail(email);
+
+    if (user) {
+      await this.emailService.sendConfirmationEmail(user);
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
