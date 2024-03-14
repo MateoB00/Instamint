@@ -1,0 +1,86 @@
+@import '../../main.scss';
+
+.authPage {
+    background-color: $colorAccent1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    .leftSide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        margin: $defaultMargin;
+        img {
+            width: 15 * $U4;
+            height: 15 * $U4;
+        }
+    }
+    .rightSide {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: $defaultMargin;
+
+        img {
+            display: none;
+        }
+        h1 {
+            padding: $defaultPadding;
+            margin: $defaultMargin;
+            font-size: $titleFontSize;
+            color: $colorAccent4;
+            font-weight: $titleFontWeight;
+            text-align: center;
+        }
+        h2 {
+            font-size: $headingFontSize;
+            color: $colorAccent4;
+            text-align: center;
+            font-weight: $headingFontWeight;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            margin: $defaultMargin;
+
+            button {
+                background-color: $colorAccent4;
+                border-color: $colorAccent4;
+                padding: $defaultPadding;
+                color: $colorNeutralDark;
+                margin: $defaultMargin;
+                font-size: $bodyFontSize;
+            }
+            span {
+                color: $colorAccent4;
+                text-align: center;
+                font-size: $bodyFontSize;
+            }
+        }
+    }
+
+
+    .popUp {
+        position: fixed;
+        z-index: 2;
+        width: 25%;
+        height: fit-content;
+        background-color: $colorAccent4;
+        padding: $defaultPadding;
+        img {
+            width: 10 * $U;
+            height: 10 * $U;
+        }
+
+        .cross {
+            border: none;
+            background-color: transparent;
+            font-size: $subHeadingFontSize;
+            cursor: pointer;
+        }
+    }
+}
