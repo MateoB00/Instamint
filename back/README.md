@@ -1,73 +1,32 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Instamint API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# NestJs Framework TypeScript
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Welcome to Instamint API, a robust project built on the NestJs framework using TypeScript. This project aims to provide a scalable and efficient back-end solution for your applications, leveraging the power of TypeScript for enhanced developer experience and maintainability. With NestJs, you can seamlessly handle HTTP requests, manage database interactions, and implement complex business logic with ease, making it an ideal choice for building modern web applications. Let's dive into the world of NestJs and unleash the full potential of your back-end development endeavors!
 
-## Description
+- src/controllers/: Controllers handle incoming requests, process them, and return responses to the client.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- src/entities/: Entities represent the data models or database tables in the application.
 
-## Installation
+- src/modules/: Modules encapsulate related functionality, such as authentication, user management, etc.
 
-```bash
-$ npm install
-```
+- src/services/: Services contain business logic and perform operations not directly tied to handling HTTP requests.
 
-## Running the app
+- main.ts: Entry point of the application, where the server is initialized and started.
 
-```bash
-# development
-$ npm run start
+- app.module.ts: Main module of the application, where other modules, controllers, and services are imported and configured.
 
-# watch mode
-$ npm run start:dev
+## Dependencies
 
-# production mode
-$ npm run start:prod
-```
+This project relies on several dependencies to enhance its functionality:
 
-## Test
+#### Nodemailer
+Nodemailer is a module for Node.js applications that allows you to send emails. It supports various transport methods, including SMTP, sendmail, and others, making it versatile for different email sending needs within your application.
 
-```bash
-# unit tests
-$ npm run test
+#### @nestjs-modules/mailer
+@nestjs-modules/mailer is a module for NestJS applications that provides integration with Nodemailer. It simplifies the process of sending emails from your NestJS application by providing decorators and utilities for email-related tasks.
 
-# e2e tests
-$ npm run test:e2e
+#### Passport-JWT
+Passport-JWT is a Passport strategy for authenticating with JSON Web Tokens (JWT). It allows you to authenticate requests using JWTs as the bearer token, enabling secure and stateless authentication in your application.
 
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+These dependencies are crucial for implementing authentication and email functionalities within your NestJS application, providing security and communication capabilities essential for many web applications.
