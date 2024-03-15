@@ -3,7 +3,8 @@ import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import Input from '../../../components/ui/Input';
-import { useRegisterForm } from '../../../hooks/useRegisterForm';
+import { resendEmailConfirmation } from '../../../api/auth';
+import { useLoginForm } from '../../../hooks/useLoginForm';
 
 const fieldsForm = [
   {
@@ -13,33 +14,20 @@ const fieldsForm = [
     placeholder: 'Enter your e-mail',
   },
   {
-    name: 'username',
-    type: 'text',
-    label: 'Username',
-    placeholder: 'Enter your username',
-  },
-  {
     name: 'password',
     type: 'password',
     label: 'Password',
     placeholder: 'Enter your password',
   },
-  {
-    name: 'confirmPassword',
-    type: 'password',
-    label: 'Confirm Password',
-    placeholder: 'Enter your confirm password',
-  },
 ];
 
-export default function RegisterForm() {
-  const { formData, formMessages, handleChange, handleSubmit } =
-    useRegisterForm();
+export default function LoginForm() {
+  const { formData, formMessages, handleChange, handleSubmit } = useLoginForm();
 
   return (
     <div className="authForm">
       <div className="titleForm">
-        <h2>Register</h2>
+        <h2>Log in</h2>
       </div>
       <form onSubmit={handleSubmit}>
         {fieldsForm.map((field) => (
@@ -59,18 +47,21 @@ export default function RegisterForm() {
             )}
           </Fragment>
         ))}
-        {formMessages.apiError && (
-          <span style={{ color: 'red' }}>{formMessages.apiError}</span>
-        )}
-        {formMessages.apiSuccess && (
-          <span style={{ color: '#16502d' }}>{formMessages.apiSuccess}</span>
-        )}
         <div className="buttonsForm">
-          <button className="nextButton">Next</button>
+          <button className="nextButton">Connection</button>
+          {formMessages.apiError && (
+            <span style={{ color: 'red' }}>{formMessages.apiError}</span>
+          )}
+          {formMessages.apiError === 'Email not verified' && (
+            <button onClick={() => resendEmailConfirmation(formData.email)}>
+              Send another email
+            </button>
+          )}
+          <button className="forgotPasswordButton">Forgot password?</button>
         </div>
       </form>
       <p>
-        Do you already have an account ? <span>Log in</span>
+        Don't have an account ? <span>Sign up</span>
       </p>
       <img src={logo} alt="logo" />
     </div>

@@ -48,6 +48,7 @@ front/
     scss/
     assets/
     components/
+    hooks/
     pages/
     utils/
       yup.tsx
