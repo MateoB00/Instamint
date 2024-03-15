@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
@@ -24,12 +24,12 @@ const useRegisterForm = () => {
     apiSuccess: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     const updatedErrors = {
       email: '',
       username: '',
@@ -106,11 +106,13 @@ export default function RegisterForm() {
               label={field.label}
               name={field.name}
               placeholder={field.placeholder}
-              value={formData[field.name]}
+              value={formData[field.name as keyof typeof formData]}
               onChange={handleChange}
             />
-            {formMessages[field.name] && (
-              <span style={{ color: 'red' }}>{formMessages[field.name]}</span>
+            {formMessages[field.name as keyof typeof formMessages] && (
+              <span style={{ color: 'red' }}>
+                {formMessages[field.name as keyof typeof formMessages]}
+              </span>
             )}
           </Fragment>
         ))}

@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
@@ -8,20 +8,20 @@ import { authLogin, resendEmailConfirmation } from '../../../api/auth';
 
 const useLoginForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [formErrors, setFormErrors] = useState({
+  const [formMessages, setFormMessages] = useState({
     email: '',
     password: '',
     apiError: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormErrors({ email: '', password: '', apiError: '' });
+    setFormMessages({ email: '', password: '', apiError: '' });
 
     shemaLogin
       .validate(formData, { abortEarly: false })
@@ -29,7 +29,7 @@ const useLoginForm = () => {
         const response = await authLogin(formData.email, formData.password);
 
         if (response.error) {
-          setFormErrors({
+          setFormMessages({
             email: '',
             password: '',
             apiError: response.message,
@@ -37,11 +37,11 @@ const useLoginForm = () => {
         }
       })
       .catch((errors) => {
-        setFormErrors(catchErrors(errors));
+        setFormMessages(catchErrors(errors));
       });
   };
 
-  return { formData, formErrors, handleChange, handleSubmit };
+  return { formData, formMessages, handleChange, handleSubmit };
 };
 
 const fieldsForm = [
@@ -60,7 +60,7 @@ const fieldsForm = [
 ];
 
 export default function LoginForm() {
-  const { formData, formErrors, handleChange, handleSubmit } = useLoginForm();
+  const { formData, formMessages, handleChange, handleSubmit } = useLoginForm();
 
   return (
     <div className="authForm">
@@ -75,20 +75,22 @@ export default function LoginForm() {
               label={field.label}
               name={field.name}
               placeholder={field.placeholder}
-              value={formData[field.name]}
+              value={formData[field.name as keyof typeof formData]}
               onChange={handleChange}
             />
-            {formErrors[field.name] && (
-              <span style={{ color: 'red' }}>{formErrors[field.name]}</span>
+            {formMessages[field.name as keyof typeof formMessages] && (
+              <span style={{ color: 'red' }}>
+                {formMessages[field.name as keyof typeof formMessages]}
+              </span>
             )}
           </Fragment>
         ))}
         <div className="buttonsForm">
           <button className="nextButton">Connection</button>
-          {formErrors.apiError && (
-            <span style={{ color: 'red' }}>{formErrors.apiError}</span>
+          {formMessages.apiError && (
+            <span style={{ color: 'red' }}>{formMessages.apiError}</span>
           )}
-          {formErrors.apiError === 'Email not verified' && (
+          {formMessages.apiError === 'Email not verified' && (
             <button onClick={() => resendEmailConfirmation(formData.email)}>
               Send another email
             </button>
