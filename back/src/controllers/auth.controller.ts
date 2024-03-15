@@ -14,6 +14,11 @@ import { AuthService } from '../services/auth.service';
 import { EmailService } from '../services/email.service';
 import { Response as ResponseType } from 'express';
 import { UserService } from '../services/user.service';
+=======
+import { Controller, Post, Body, Param, Get, Redirect } from '@nestjs/common';
+import { AuthService } from '../services/auth.service';
+import { EmailService } from '../services/email.service';
+import { User } from '../entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -21,6 +26,7 @@ export class AuthController {
     private authService: AuthService,
     private emailService: EmailService,
     private userService: UserService,
+=======
   ) {
     // Do nothing.
   }
@@ -40,6 +46,10 @@ export class AuthController {
     });
 
     return token;
+=======
+  @Post('register')
+  async register(@Body() user: User): Promise<User> {
+    return await this.authService.register(user);
   }
 
   @Get('confirmation/:token')
@@ -67,4 +77,5 @@ export class AuthController {
       domain: process.env.DOMAIN,
     });
   }
+=======
 }

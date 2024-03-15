@@ -157,7 +157,6 @@ module.exports = {
     "yoda": "error",
     "line-comment-position": ["error", { "position": "above" }],
     "indent": "off",
-    "linebreak-style": ["error", "unix"],
     "newline-before-return": "error",
     "no-undef": "error",
     "padded-blocks": ["error", "never"],

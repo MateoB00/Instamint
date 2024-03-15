@@ -6,6 +6,11 @@ import LoginForm from '../../components/ui/authForms/loginForm';
 
 export default function AuthPage() {
   const [showConnexion, setShowConnexion] = useState(false);
+=======
+import RegisterForm from '../../components/ui/authForms/registerForm';
+
+export default function AuthPage() {
+  const [showRegister, setShowRegister] = useState(false);
 
   return (
     <section className="authPage">
@@ -32,6 +37,22 @@ export default function AuthPage() {
             ✕
           </button>
           <LoginForm />
+=======
+            disabled={Boolean(showRegister)}
+            onClick={() => setShowRegister(true)}
+          >
+            Register
+          </button>
+          <span>or</span>
+        </div>
+      </div>
+
+      {showRegister && (
+        <div className="popUp">
+          <button onClick={() => setShowRegister(false)} className="cross">
+            ✕
+          </button>
+          <RegisterForm />
         </div>
       )}
     </section>

@@ -10,6 +10,14 @@ import { EmailService } from 'src/services/email.service';
 
 @Module({
   providers: [AuthService, JwtStrategy, UserService, EmailService],
+=======
+import { JwtModule } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from '../entities/user.entity';
+import { EmailService } from 'src/services/email.service';
+
+@Module({
+  providers: [AuthService, EmailService],
   controllers: [AuthController],
   imports: [
     TypeOrmModule.forFeature([User]),
@@ -19,5 +27,7 @@ import { EmailService } from 'src/services/email.service';
     }),
   ],
   exports: [AuthService, JwtStrategy],
+=======
+  exports: [AuthService],
 })
 export class AuthModule {}

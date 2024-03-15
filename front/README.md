@@ -32,15 +32,33 @@ src/
   |   ...                 
   | 
   |– components/ 
-  |   |– _buttons.scss     
-  |   |– _carousel.scss   
+  |   |– ui/
+  |   |–   |– authForms/
+  |   |–   |–   |– authForms.scss 
+  |   |–   |–   |– authFormsResponsive.scss 
+  |   |– input.scss   
   |   |– _navigation.scss   
   |   ...                 
   |
   |– pages/ 
+  |   |– auth/
+  |   |–   |– authPage.scss
+  |   |–   |– authPageResponsive.scss
   |   |– _home.scss        
   |   |– _profile.scss     
   |   ...                 
   | 
   `– main.scss             # primary Sass file
 ```
+
+## Dependencies
+
+This project relies on several dependencies to enhance its functionality:
+
+#### Yup
+Yup: A schema builder for value parsing and validation. Yup is particularly useful for form validation in React applications.
+
+#### React Router Dom
+React Router Dom: A popular routing library for React applications that enables declarative routing using components. It allows you to define dynamic routes and handle navigation within your React application.
+
+These dependencies are crucial for implementing authentication and email functionalities within your NestJS application, providing security and communication capabilities essential for many web applications.
