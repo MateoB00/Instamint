@@ -27,11 +27,10 @@ back/
   node_modules/
   test/
   src/
-    user/
-        user.controller.ts
-        user.service.ts
-        user.entity.ts
-        user.module.ts      
+    controllers/
+    entities/
+    modules/
+    services/    
     main.ts
     app.module.ts
 front/
@@ -45,10 +44,13 @@ front/
     index.html
     favicon.ico
   src/
+    api/
     scss/
     assets/
     components/
     pages/
+    utils/
+      yup.tsx
     main.tsx
     App.tsx
 ```

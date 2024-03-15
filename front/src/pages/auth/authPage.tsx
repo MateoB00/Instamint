@@ -3,9 +3,11 @@ import '../../scss/pages/auth/authPage.scss';
 import '../../scss/pages/auth/authPageResponsive.scss';
 import logo from '../../assets/Image/logo-instamint.svg';
 import LoginForm from '../../components/ui/authForms/loginForm';
+import RegisterForm from '../../components/ui/authForms/registerForm';
 
 export default function AuthPage() {
   const [showConnexion, setShowConnexion] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   return (
     <section className="authPage">
@@ -18,7 +20,14 @@ export default function AuthPage() {
         <h2>Sign up.</h2>
         <div className="buttons">
           <button
-            disabled={Boolean(showConnexion)}
+            disabled={Boolean(showRegister || showConnexion)}
+            onClick={() => setShowRegister(true)}
+          >
+            Register
+          </button>
+          <span>or</span>
+          <button
+            disabled={Boolean(showRegister || showConnexion)}
             onClick={() => setShowConnexion(true)}
           >
             Log in
@@ -32,6 +41,15 @@ export default function AuthPage() {
             ✕
           </button>
           <LoginForm />
+        </div>
+      )}
+
+      {showRegister && (
+        <div className="popUp">
+          <button onClick={() => setShowRegister(false)} className="cross">
+            ✕
+          </button>
+          <RegisterForm />
         </div>
       )}
     </section>

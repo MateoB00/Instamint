@@ -4,3 +4,4 @@ package-lock.json
 .eslintrc.js
 .prettierrc
 vercel.json
+README.md
