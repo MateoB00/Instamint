@@ -42,6 +42,7 @@ export class AuthController {
 
     return token;
   }
+
   @Post('register')
   async register(@Body() user: User): Promise<User> {
     return await this.authService.register(user);

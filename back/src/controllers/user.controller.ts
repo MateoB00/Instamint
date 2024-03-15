@@ -1,6 +1,7 @@
-import { Controller, Get, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Put, Body } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from '../entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -14,5 +15,15 @@ export class UserController {
     const loggedInUser = req.user;
 
     return this.userService.findOneById(loggedInUser.id);
+  }
+
+  @Put('me')
+  @UseGuards(AuthGuard('jwt'))
+  update(@Request() req, @Body() user: User) {
+    const loggedInUser = req.user;
+
+    const updatedUser = this.userService.update(loggedInUser, user);
+
+    return updatedUser;
   }
 }
