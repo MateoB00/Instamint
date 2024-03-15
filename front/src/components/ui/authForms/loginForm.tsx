@@ -1,48 +1,10 @@
-import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
+import { Fragment } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import Input from '../../../components/ui/Input';
-import { shemaLogin, catchErrors } from '../../../utils/yup';
-import { authLogin, resendEmailConfirmation } from '../../../api/auth';
-
-const useLoginForm = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [formMessages, setFormMessages] = useState({
-    email: '',
-    password: '',
-    apiError: '',
-  });
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormMessages({ email: '', password: '', apiError: '' });
-
-    shemaLogin
-      .validate(formData, { abortEarly: false })
-      .then(async () => {
-        const response = await authLogin(formData.email, formData.password);
-
-        if (response.error) {
-          setFormMessages({
-            email: '',
-            password: '',
-            apiError: response.message,
-          });
-        }
-      })
-      .catch((errors) => {
-        setFormMessages(catchErrors(errors));
-      });
-  };
-
-  return { formData, formMessages, handleChange, handleSubmit };
-};
+import { resendEmailConfirmation } from '../../../api/auth';
+import { useLoginForm } from '../../../hooks/useLoginForm';
 
 const fieldsForm = [
   {

@@ -1,66 +1,9 @@
-import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
+import { Fragment } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import Input from '../../../components/ui/Input';
-import { shemaRegister, catchErrors } from '../../../utils/yup';
-import { authRegister } from '../../../api/auth';
-
-const HTTP_OK = 201;
-
-const useRegisterForm = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const [formMessages, setFormMessages] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-    apiError: '',
-    apiSuccess: '',
-  });
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const updatedErrors = {
-      email: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-      apiError: '',
-      apiSuccess: '',
-    };
-    e.preventDefault();
-
-    shemaRegister
-      .validate(formData, { abortEarly: false })
-      .then(async () => {
-        const response = await authRegister(formData);
-
-        if (response === HTTP_OK) {
-          updatedErrors.apiSuccess = 'Confirmation email has been sent';
-          setFormMessages(updatedErrors);
-        }
-        if (response.error) {
-          updatedErrors.apiError = response.message;
-          setFormMessages(updatedErrors);
-        }
-      })
-      .catch((errors) => {
-        setFormMessages(catchErrors(errors));
-      });
-  };
-
-  return { formData, formMessages, handleChange, handleSubmit };
-};
+import { useRegisterForm } from '../../../hooks/useRegisterForm';
 
 const fieldsForm = [
   {
