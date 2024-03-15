@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { User } from '../src/entities/user.entity';
-import { AuthModule } from '../src/modules/auth.module';
+import { User } from 'src/entities/user.entity';
+import { UserModule } from 'src/modules/user.module';
+import { AuthModule } from 'src/modules/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
@@ -23,6 +24,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         transport: process.env.SMTP_MAILER,
       }),
     }),
+    UserModule,
     AuthModule,
   ],
   controllers: [],
