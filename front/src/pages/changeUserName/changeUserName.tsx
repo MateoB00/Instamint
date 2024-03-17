@@ -1,7 +1,7 @@
 import '../../scss/pages/auth/authPage.scss';
 import '../../scss/pages/auth/authPageResponsive.scss';
 import logo from '../../assets/Image/logo-instamint.svg';
-import ChangeUsernameForm from '../../components/ui/changeUserNameForms/changeUserNameForms'; 
+import ChangeUsernameForm from '../../components/ui/changeUserNameForms/changeUserNameForms';
 
 export default function ChangeUserNamePage() {
   return (

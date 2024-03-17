@@ -12,15 +12,16 @@ export const shemaChangeUsername = object().shape({
 
 export const shemaRegister = object().shape({
   email: string().email('Invalid email format').required('Email is required'),
-  username: string().min(3, 'Username must be at least 3 characters long').required('Username is required'),
-  password: string().min(6, 'Password must be at least 6 characters long').required('Password is required'),
+  username: string()
+    .min(3, 'Username must be at least 3 characters long')
+    .required('Username is required'),
+  password: string()
+    .min(6, 'Password must be at least 6 characters long')
+    .required('Password is required'),
   confirmPassword: string()
     .oneOf([ref('password'), null], 'Passwords must match')
     .required('Confirm password is required'),
-})
-
-
-
+});
 
 export const catchErrors = (errors) => {
   const newErrors = {};

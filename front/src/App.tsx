@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import AuthPage from './pages/auth/authPage'; 
+import AuthPage from './pages/auth/authPage';
 import ChangeUserNamePage from './pages/changeUserName/changeUserName';
 
 export default function App() {
