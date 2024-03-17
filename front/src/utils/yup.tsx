@@ -22,6 +22,13 @@ export const shemaRegister = object().shape({
     .oneOf([ref('password'), null], 'Passwords must match')
     .required('Confirm password is required'),
 });
+export const shemaChangeEmail = object().shape({
+  currentEmail: string().email('Invalid email format').required('Current email is required'),
+  newEmail: string().email('Invalid email format')
+    .notOneOf([ref('currentEmail'), null], 'New email must be different from the current email')
+    .required('New email is required'),
+});
+
 
 export const catchErrors = (errors) => {
   const newErrors = {};

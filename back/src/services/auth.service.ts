@@ -54,4 +54,28 @@ export class AuthService {
   async validateUser(userEmail) {
     return await this.userService.findOneByEmail(userEmail);
   }
+  async changeEmail(userId: number, newEmail: string) {
+    const user = await this.userService.findOneById(userId);
+  
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+  
+    const emailAlreadyExists = await this.userService.findOneByEmail(newEmail);
+  
+    if (emailAlreadyExists) {
+      throw new UnauthorizedException('Email is already in use');
+    }
+  
+    const emailVerificationToken = this.jwtService.sign(
+      {
+        email: newEmail,
+        userId: user.id,
+      },
+      { expiresIn: '1h' } 
+  
+    );
+    await this.emailService.sendChangeEmail(newEmail, emailVerificationToken);
+  }
+  
 }

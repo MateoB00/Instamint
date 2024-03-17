@@ -67,4 +67,22 @@ export class AuthController {
       domain: process.env.DOMAIN,
     });
   }
+  @Post('change-email')
+async requestChangeEmail(
+  @Res({ passthrough: true }) res: ResponseType,
+  @Body('userId') userId: number,
+  @Body('newEmail') newEmail: string,
+) {
+  const existingUser = await this.userService.findOneByEmail(newEmail);
+  if (existingUser) {
+    throw new Error('Email is already in use.');
+  }
+
+  const token = await this.emailService.generateChangeEmailToken(newEmail, userId);
+
+  await this.emailService.sendChangeEmail(newEmail, token);
+
+  res.status(HttpStatus.OK).json({ message: 'Verification email sent to new email address.' });
+}
+
 }
