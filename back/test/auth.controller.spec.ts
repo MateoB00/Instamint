@@ -4,7 +4,7 @@ import { AuthService } from '../src/services/auth.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmailService } from '../src/services/email.service';
 import { UserService } from '../src/services/user.service';
-import { User } from '../src/entities/user.entity';
+import { User } from 'src/entities/user.entity';
 import { NotFoundException } from '@nestjs/common';
 
 // eslint-disable-next-line max-lines-per-function
@@ -22,7 +22,6 @@ describe('AuthController', () => {
           provide: AuthService,
           useValue: {
             login: jest.fn(),
-            register: jest.fn(),
           },
         },
         {
@@ -56,128 +55,6 @@ describe('AuthController', () => {
 
   it('should be defined', () => {
     expect(authController).toBeDefined();
-  });
-
-  // eslint-disable-next-line max-lines-per-function
-  describe('register', () => {
-    it('should return user', async () => {
-      const mockUser: User = {
-        id: 1,
-        email: 'Test@test.com',
-        password: 'test',
-        username: 'test',
-        phoneNumber: 'test',
-        profilePicture: 'test',
-        bio: 'test',
-        uniqueLink: 'test',
-        visibility: true,
-        language: 'test',
-        twoFactorEnabled: true,
-        twoFactorSecret: 'test',
-        searchByEmailOrPhoneEnabled: true,
-        lastLogin: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        isVerified: true,
-        isAdmin: false,
-      };
-
-      jest.spyOn(authService, 'register').mockResolvedValue(mockUser);
-
-      const result = await authController.register(mockUser);
-
-      expect(result).toEqual(mockUser);
-    });
-
-    it('should throw error user already exists', async () => {
-      const mockUser: User = {
-        id: 1,
-        email: 'Test@test.com',
-        password: 'test',
-        username: 'test',
-        phoneNumber: 'test',
-        profilePicture: 'test',
-        bio: 'test',
-        uniqueLink: 'test',
-        visibility: true,
-        language: 'test',
-        twoFactorEnabled: true,
-        twoFactorSecret: 'test',
-        searchByEmailOrPhoneEnabled: true,
-        lastLogin: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        isVerified: true,
-        isAdmin: false,
-      };
-      jest
-        .spyOn(authService, 'register')
-        .mockRejectedValue(new Error('User already exists'));
-
-      await expect(authController.register(mockUser)).rejects.toThrow(
-        'User already exists',
-      );
-    });
-
-    it('should throw error email needs to be valid', async () => {
-      const mockUser: User = {
-        id: 1,
-        email: 'Test',
-        password: 'test',
-        username: 'test',
-        phoneNumber: 'test',
-        profilePicture: 'test',
-        bio: 'test',
-        uniqueLink: 'test',
-        visibility: true,
-        language: 'test',
-        twoFactorEnabled: true,
-        twoFactorSecret: 'test',
-        searchByEmailOrPhoneEnabled: true,
-        lastLogin: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        isVerified: true,
-        isAdmin: false,
-      };
-      jest
-        .spyOn(authService, 'register')
-        .mockRejectedValue(new Error('Email needs to be valid.'));
-
-      await expect(authController.register(mockUser)).rejects.toThrow(
-        'Email needs to be valid.',
-      );
-    });
-
-    it('should throw error password needs to be valid', async () => {
-      const mockUser: User = {
-        id: 1,
-        email: 'Test',
-        password: 'test',
-        username: 'test',
-        phoneNumber: 'test',
-        profilePicture: 'test',
-        bio: 'test',
-        uniqueLink: 'test',
-        visibility: true,
-        language: 'test',
-        twoFactorEnabled: true,
-        twoFactorSecret: 'test',
-        searchByEmailOrPhoneEnabled: true,
-        lastLogin: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        isVerified: true,
-        isAdmin: false,
-      };
-      jest
-        .spyOn(authService, 'register')
-        .mockRejectedValue(new Error('Password needs to be valid.'));
-
-      await expect(authController.register(mockUser)).rejects.toThrow(
-        'Password needs to be valid.',
-      );
-    });
   });
 
   // eslint-disable-next-line max-lines-per-function
