@@ -9,6 +9,7 @@ import {
   Get,
   Redirect,
   Param,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { EmailService } from '../services/email.service';
@@ -68,21 +69,25 @@ export class AuthController {
     });
   }
   @Post('change-email')
-async requestChangeEmail(
-  @Res({ passthrough: true }) res: ResponseType,
-  @Body('userId') userId: number,
-  @Body('newEmail') newEmail: string,
-) {
-  const existingUser = await this.userService.findOneByEmail(newEmail);
-  if (existingUser) {
-    throw new Error('Email is already in use.');
+  async requestChangeEmail(
+    @Res({ passthrough: true }) res: ResponseType,
+    @Body('userId') userId: number,
+    @Body('newEmail') newEmail: string,
+  ) {
+    const existingUser = await this.userService.findOneByEmail(newEmail);
+    if (existingUser) {
+      throw new Error('Email is already in use.');
+    }
+
+    const token = await this.emailService.generateChangeEmailToken(
+      newEmail,
+      userId,
+    );
+
+    await this.emailService.sendChangeEmail(newEmail, token);
+
+    res
+      .status(HttpStatus.OK)
+      .json({ message: 'Verification email sent to new email address.' });
   }
-
-  const token = await this.emailService.generateChangeEmailToken(newEmail, userId);
-
-  await this.emailService.sendChangeEmail(newEmail, token);
-
-  res.status(HttpStatus.OK).json({ message: 'Verification email sent to new email address.' });
-}
-
 }

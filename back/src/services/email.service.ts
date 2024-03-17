@@ -55,4 +55,23 @@ export class EmailService {
       throw new Error('Invalid token');
     }
   }
+
+  generateChangeEmailToken(newEmail: string, userId: number): Promise<string> {
+    const emailChangeToken = this.jwtService.sign(
+      { userId, newEmail },
+      { expiresIn: '15m' },
+    );
+  
+    return Promise.resolve(emailChangeToken);
+  }
+  
+
+  async sendChangeEmail(newEmail: string, token: string): Promise<void> {
+    const confirmationUrl = `${process.env.FRONTEND_URL}/confirm-email-change?token=${token}`;
+    await this.mailerService.sendMail({
+      to: newEmail,
+      subject: 'Confirm your new email',
+      html: `Please click this link to confirm your new email: <a href="${confirmationUrl}">Confirm Email</a>`,
+    });
+  }
 }
