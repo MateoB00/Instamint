@@ -32,8 +32,14 @@ export class EmailService {
         text: 'Instamint - Please confirm your email',
         html: `<a href="${confirmationUrl}">Please confirm your email</a>`,
       })
+      .then(() => {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      })
       .catch((error) => {
-        throw new Error(`Failed to send confirmation email ${error}`);
+        // eslint-disable-next-line no-console
+        console.log(`Failed to send confirmation email ${error}`);
+        throw new Error('Failed to send confirmation email');
       });
   }
 

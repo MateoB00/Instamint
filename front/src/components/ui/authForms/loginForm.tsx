@@ -1,10 +1,48 @@
-import { Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import Input from '../../../components/ui/Input';
-import { resendEmailConfirmation } from '../../../api/auth';
-import { useLoginForm } from '../../../hooks/useLoginForm';
+import { shemaLogin, catchErrors } from '../../../utils/yup';
+import { authLogin, resendEmailConfirmation } from '../../../api/auth';
+
+const useLoginForm = () => {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formErrors, setFormErrors] = useState({
+    email: '',
+    password: '',
+    apiError: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormErrors({ email: '', password: '', apiError: '' });
+
+    shemaLogin
+      .validate(formData, { abortEarly: false })
+      .then(async () => {
+        const response = await authLogin(formData.email, formData.password);
+
+        if (response.error) {
+          setFormErrors({
+            email: '',
+            password: '',
+            apiError: response.message,
+          });
+        }
+      })
+      .catch((errors) => {
+        setFormErrors(catchErrors(errors));
+      });
+  };
+
+  return { formData, formErrors, handleChange, handleSubmit };
+};
 
 const fieldsForm = [
   {
@@ -22,7 +60,7 @@ const fieldsForm = [
 ];
 
 export default function LoginForm() {
-  const { formData, formMessages, handleChange, handleSubmit } = useLoginForm();
+  const { formData, formErrors, handleChange, handleSubmit } = useLoginForm();
 
   return (
     <div className="authForm">
@@ -37,22 +75,20 @@ export default function LoginForm() {
               label={field.label}
               name={field.name}
               placeholder={field.placeholder}
-              value={formData[field.name as keyof typeof formData]}
+              value={formData[field.name]}
               onChange={handleChange}
             />
-            {formMessages[field.name as keyof typeof formMessages] && (
-              <span style={{ color: 'red' }}>
-                {formMessages[field.name as keyof typeof formMessages]}
-              </span>
+            {formErrors[field.name] && (
+              <span style={{ color: 'red' }}>{formErrors[field.name]}</span>
             )}
           </Fragment>
         ))}
         <div className="buttonsForm">
           <button className="nextButton">Connection</button>
-          {formMessages.apiError && (
-            <span style={{ color: 'red' }}>{formMessages.apiError}</span>
+          {formErrors.apiError && (
+            <span style={{ color: 'red' }}>{formErrors.apiError}</span>
           )}
-          {formMessages.apiError === 'Email not verified' && (
+          {formErrors.apiError === 'Email not verified' && (
             <button onClick={() => resendEmailConfirmation(formData.email)}>
               Send another email
             </button>

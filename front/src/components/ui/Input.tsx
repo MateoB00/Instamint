@@ -1,14 +1,14 @@
-import { ChangeEventHandler, FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import '../../scss/components/ui/input.scss';
 
 interface InputProps {
-  type: string;
+  type: 'text' | 'number' | 'email' | 'password';
   label: string;
   value: string | number;
   name: string;
   placeholder: string;
   disabled?: boolean;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEvent<HTMLInputElement>;
 }
 
 const Input: FC<InputProps> = ({
