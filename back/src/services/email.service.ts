@@ -61,10 +61,9 @@ export class EmailService {
       { userId, newEmail },
       { expiresIn: '15m' },
     );
-  
+
     return Promise.resolve(emailChangeToken);
   }
-  
 
   async sendChangeEmail(newEmail: string, token: string): Promise<void> {
     const confirmationUrl = `${process.env.FRONTEND_URL}/confirm-email-change?token=${token}`;
