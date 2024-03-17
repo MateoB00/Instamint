@@ -8,7 +8,7 @@ export default function App() {
     <Routes>
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/changeusername" element={<ChangeUserNamePage />} />
-      <Route path="/changeemail" element={< AuthChangeEmail />} />
+      <Route path="/changeemail" element={<AuthChangeEmail />} />
     </Routes>
   );
 }

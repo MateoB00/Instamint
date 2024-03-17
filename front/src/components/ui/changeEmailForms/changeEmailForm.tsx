@@ -1,40 +1,9 @@
-import { useState } from 'react';
 import Input from '../../../components/ui/Input';
-import { authChangeEmail } from '../../../api/authChangeMail'; 
-import { shemaChangeEmail, catchErrors } from '../../../utils/yup'; 
+import { useChangeEmailForm } from '../../../hooks/chagneMail';
 
 export default function AuthChangeEmail() {
-  const [emailData, setEmailData] = useState({
-    email: '',
-    newEmail: ''
-  });
-  const [formErrors, setFormErrors] = useState('');
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEmailData({ ...emailData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors('');
-
-    shemaChangeEmail
-      .validate(emailData, { abortEarly: false })
-      .then(async () => {
-        const response = await authChangeEmail(emailData.email, emailData.newEmail);
-
-        if (response.success) {
-          alert('Email successfully changed. Please check your new email to verify.');
-        } else {
-          setFormErrors(response.message);
-        }
-      })
-      .catch((errors) => {
-        const formattedErrors = catchErrors(errors);
-        setFormErrors(formattedErrors.newEmail || formattedErrors.email);
-      });
-  };
+  const { emailData, formErrors, handleChange, handleSubmit } =
+    useChangeEmailForm();
 
   return (
     <div className="authForm">
