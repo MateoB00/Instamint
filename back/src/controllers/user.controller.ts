@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Delete, UseGuards, Request } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -14,5 +14,13 @@ export class UserController {
     const loggedInUser = req.user;
 
     return this.userService.findOneById(loggedInUser.id);
+  }
+
+  @Delete('delete')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteUser(@Request() req) {
+    const { userId } = req.user;
+
+    return await this.userService.deleteUser(userId);
   }
 }
