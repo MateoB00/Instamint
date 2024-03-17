@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { useState } from 'react';
 import '../../scss/pages/auth/authPage.scss';
 import '../../scss/pages/auth/authPageResponsive.scss';
