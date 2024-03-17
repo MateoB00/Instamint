@@ -5,19 +5,20 @@ import logo from '../../../assets/Image/logo-instamint.svg';
 import Input from '../../../components/ui/Input';
 import { resendEmailConfirmation } from '../../../api/auth';
 import { useLoginForm } from '../../../hooks/useLoginForm';
+import { t } from 'i18next';
 
 const fieldsForm = [
   {
     name: 'email',
     type: 'email',
-    label: 'E-mail',
-    placeholder: 'Enter your e-mail',
+    label: t('label.email'),
+    placeholder: t('placeholder.email'),
   },
   {
     name: 'password',
     type: 'password',
-    label: 'Password',
-    placeholder: 'Enter your password',
+    label: t('label.password'),
+    placeholder: t('placeholder.password'),
   },
 ];
 
@@ -27,7 +28,7 @@ export default function LoginForm() {
   return (
     <div className="authForm">
       <div className="titleForm">
-        <h2>Log in</h2>
+        <h2>{t('button.login')}</h2>
       </div>
       <form onSubmit={handleSubmit}>
         {fieldsForm.map((field) => (
@@ -48,20 +49,22 @@ export default function LoginForm() {
           </Fragment>
         ))}
         <div className="buttonsForm">
-          <button className="nextButton">Connection</button>
+          <button className="nextButton">{t('button.login')}</button>
           {formMessages.apiError && (
             <span style={{ color: 'red' }}>{formMessages.apiError}</span>
           )}
           {formMessages.apiError === 'Email not verified' && (
             <button onClick={() => resendEmailConfirmation(formData.email)}>
-              Send another email
+              {t('sendEmailAgain')}
             </button>
           )}
-          <button className="forgotPasswordButton">Forgot password?</button>
+          <button className="forgotPasswordButton">
+            {t('forgotPassword')}
+          </button>
         </div>
       </form>
       <p>
-        Don't have an account ? <span>Sign up</span>
+        {t('noAccount')} <span>{t('button.signup')}</span>
       </p>
       <img src={logo} alt="logo" />
     </div>

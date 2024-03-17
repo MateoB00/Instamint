@@ -1,5 +1,6 @@
 import React from 'react';
 import ButtonComponent from './ui/ButtonComponent.tsx';
+import { useTranslation } from 'react-i18next';
 interface Item {
   name: string;
   details: string;
@@ -12,6 +13,7 @@ interface ComponentHomePageProps {
 }
 
 function ComponentHomePage({ title, subtitle, items }: ComponentHomePageProps) {
+  const { t } = useTranslation();
   const handleButtonClick = (itemName: string) => {
     // eslint-disable-next-line no-console
     console.log(`Button clicked for ${itemName}`);
@@ -27,20 +29,20 @@ function ComponentHomePage({ title, subtitle, items }: ComponentHomePageProps) {
             <div className="componenthomepage-box"></div>
             <h3>{item.name}</h3>
             <p>{item.details}</p>
-            {title === 'Featured Collections' && (
+            {title === t('featured.collections') && (
               <ButtonComponent
                 onClick={() => handleButtonClick(item.name)}
                 buttonType="viewCollection"
               >
-                View Collection
+                {t('button.viewCollection')}
               </ButtonComponent>
             )}
-            {title === 'Popular Creators' && (
+            {title === t('popular.creators') && (
               <ButtonComponent
                 onClick={() => handleButtonClick(item.name)}
                 buttonType="follow"
               >
-                Follow
+                {t('button.follow')}
               </ButtonComponent>
             )}
           </div>

@@ -6,6 +6,7 @@ import Footer from '../components/Footer/Footer.tsx';
 import '../scss/pages/HomePage.scss';
 import '../scss/components/ui/ButtonHomePage.scss';
 import '../scss/components/ComponentHomePage.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Collection {
   name: string;
@@ -13,16 +14,17 @@ interface Collection {
 }
 
 const HomePage: React.FC = () => {
+  const { t } = useTranslation();
   const collections: Collection[] = [
-    { name: 'Collection 1', details: 'Creator: John Doe' },
-    { name: 'Collection 2', details: 'Creator: Jane Smith' },
-    { name: 'Collection 3', details: 'Creator: Bob Johnson' },
+    { name: t('featured.name.1'), details: t('featured.details.1') },
+    { name: t('featured.name.2'), details: t('featured.details.2') },
+    { name: t('featured.name.3'), details: t('featured.details.3') },
   ];
 
   const creators: { name: string; details: string }[] = [
-    { name: 'John Doe', details: '1 000 Followers' },
-    { name: 'Jane Smith', details: '1 000 Followers' },
-    { name: 'Bob Johnson', details: '10 000 Followers' },
+    { name: t('popular.name.1'), details: t('popular.details.1') },
+    { name: t('popular.name.2'), details: t('popular.details.2') },
+    { name: t('popular.name.3'), details: t('popular.details.3') },
   ];
 
   const handleButtonClick = () => {
@@ -33,18 +35,18 @@ const HomePage: React.FC = () => {
     <div className="app-container">
       <Header />
       <div className="title">
-        <h1>Welcome to Instamint</h1>
-        <p>The platform for minting, buying, and selling NFTs.</p>
+        <h1>{t('WelcomeMessage')}</h1>
+        <p>{t('p')}</p>
         <ButtonHomePage onClick={handleButtonClick} />
       </div>
       <ComponentHomePage
-        title="Featured Collections"
-        subtitle="Discover the latest collections from our featured creators."
+        title={t('featured.collections')}
+        subtitle={t('featured.p')}
         items={collections}
       />
       <ComponentHomePage
-        title="Popular Creators"
-        subtitle="Discover the best creators on Instamint."
+        title={t('popular.creators')}
+        subtitle={t('popular.p')}
         items={creators}
       />
       <Footer />

@@ -4,31 +4,32 @@ import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import Input from '../../../components/ui/Input';
 import { useRegisterForm } from '../../../hooks/useRegisterForm';
+import { t } from 'i18next';
 
 const fieldsForm = [
   {
     name: 'email',
     type: 'email',
-    label: 'E-mail',
-    placeholder: 'Enter your e-mail',
+    label: t('label.email'),
+    placeholder: t('placeholder.email'),
   },
   {
     name: 'username',
     type: 'text',
-    label: 'Username',
-    placeholder: 'Enter your username',
+    label: t('label.username'),
+    placeholder: t('placeholder.username'),
   },
   {
     name: 'password',
     type: 'password',
-    label: 'Password',
-    placeholder: 'Enter your password',
+    label: t('label.password'),
+    placeholder: t('placeholder.password'),
   },
   {
     name: 'confirmPassword',
     type: 'password',
-    label: 'Confirm Password',
-    placeholder: 'Enter your confirm password',
+    label: t('label.confirm.password'),
+    placeholder: t('placeholder.confirm.password'),
   },
 ];
 
@@ -39,7 +40,7 @@ export default function RegisterForm() {
   return (
     <div className="authForm">
       <div className="titleForm">
-        <h2>Register</h2>
+        <h2>{t('button.signup')}</h2>
       </div>
       <form onSubmit={handleSubmit}>
         {fieldsForm.map((field) => (
@@ -66,11 +67,11 @@ export default function RegisterForm() {
           <span style={{ color: '#16502d' }}>{formMessages.apiSuccess}</span>
         )}
         <div className="buttonsForm">
-          <button className="nextButton">Next</button>
+          <button className="nextButton">{t('button.next')}</button>
         </div>
       </form>
       <p>
-        Do you already have an account ? <span>Log in</span>
+        {t('account')} <span>{t('button.login')}</span>
       </p>
       <img src={logo} alt="logo" />
     </div>
