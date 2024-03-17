@@ -13,8 +13,10 @@ interface ComponentHomePageProps {
 
 function ComponentHomePage({ title, subtitle, items }: ComponentHomePageProps) {
   const handleButtonClick = (itemName: string) => {
+    // eslint-disable-next-line no-console
     console.log(`Button clicked for ${itemName}`);
   };
+
   return (
     <div className="componenthomepage">
       <h1>{title}</h1>
@@ -25,13 +27,19 @@ function ComponentHomePage({ title, subtitle, items }: ComponentHomePageProps) {
             <div className="componenthomepage-box"></div>
             <h3>{item.name}</h3>
             <p>{item.details}</p>
-            {title === "Featured Collections" && (
-              <ButtonComponent onClick={() => handleButtonClick(item.name)} buttonType="viewCollection">
+            {title === 'Featured Collections' && (
+              <ButtonComponent
+                onClick={() => handleButtonClick(item.name)}
+                buttonType="viewCollection"
+              >
                 View Collection
               </ButtonComponent>
             )}
-            {title === "Popular Creators" && (
-              <ButtonComponent onClick={() => handleButtonClick(item.name)} buttonType="follow">
+            {title === 'Popular Creators' && (
+              <ButtonComponent
+                onClick={() => handleButtonClick(item.name)}
+                buttonType="follow"
+              >
                 Follow
               </ButtonComponent>
             )}

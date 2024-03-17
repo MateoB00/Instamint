@@ -1,0 +1,21 @@
+@import '../main.scss';
+
+.footer {
+    background-color: $colorAccent3;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+    button {
+        padding: 10px 20px; 
+        background-color: $colorAccent1; 
+        color: #fff;
+        border: none;
+        border-radius: 3px; 
+        cursor: pointer;
+    }

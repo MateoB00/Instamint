@@ -55,5 +55,8 @@ export class User {
   updatedAt: Date;
 
   @Column({ default: false })
+  isVerified: boolean;
+
+  @Column({ default: false })
   isAdmin: boolean;
 }

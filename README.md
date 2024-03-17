@@ -27,11 +27,10 @@ back/
   node_modules/
   test/
   src/
-    user/
-        user.controller.ts
-        user.service.ts
-        user.entity.ts
-        user.module.ts      
+    controllers/
+    entities/
+    modules/
+    services/    
     main.ts
     app.module.ts
 front/
@@ -45,10 +44,14 @@ front/
     index.html
     favicon.ico
   src/
+    api/
     scss/
     assets/
     components/
+    hooks/
     pages/
+    utils/
+      yup.tsx
     main.tsx
     App.tsx
 ```
@@ -121,21 +124,36 @@ Start front-end application
 npm run dev
 ```
 
-## Project Deployment
-Both the frontend and backend of our project are deployed using Vercel, ensuring seamless and efficient deployment workflows.
+## Project Deployment with Vercel
+
+This project consists of both front-end and back-end applications that can be deployed to three different domains via three distinct branches: develop, staging, and main (production).
+
+The deployment of the front-end or back-end application is executed only if there are modifications within the corresponding front or back directories with two scripts ```back/deploy_vercel.sh``` and ```front/deploys_vercel.sh```, which are read directly by Vercel.
 
 ### Frontend Deployment
 
-The frontend of our project is deployed automatically on every push to the repository. This ensures that the latest changes to the frontend are immediately reflected in the production environment providing real-time updates to users.
+The front-end can be deployed to the following domains:
 
-### Backend Deployment
+* Develop: develop-instamint-iota.vercel.app
 
-The backend of our project follows a controlled deployment strategy to maintain stability and consistency across different environments.
+* Staging: staging-instamint-iota.vercel.app
 
-- Deployment on Dev, Staging, and Main Branches:  
-The backend is deployed to Vercel only when changes are pushed to the dev, staging, or main branches. This ensures that backend changes undergo thorough testing and validation before being deployed to production.  
+* Production: instamint-iota.vercel.app
 
-- Forced Production Deployment:   
- A script named ```deploy_vercel.sh``` is located at the root of the backend project. This script, when executed, forces the backend to be deployed to the main, dev, and staging branches. By enforcing backend deployment first, we maintain consistency and prevent any discrepancies between frontend and backend versions in production.  
+### Back-end Deployment
 
-This deployment strategy ensures a robust and synchronized deployment process, allowing us to deliver high-quality software with confidence and reliability.
+The back-end can be deployed to the following domains:
+
+* Develop: develop-instamint-lxjh.vercel.app
+
+* Staging: staging-instamint-lxjh.vercel.app
+
+* Production: instamint-lxjh.vercel.app
+
+### _This solution offers a number of advantages :_
+
+* Isolation of Changes: Each branch corresponds to a specific stage of development or production, enabling changes to be made independently without affecting other environments.
+
+* Easier Testing: Separate staging environments facilitate easy validation of changes by developers and testers before promotion to production, thereby reducing the risk of * introducing bugs or issues.
+
+* Improved Stability: The segregation of development, staging, and production environments helps uphold stability in the production environment by minimizing the introduction of untested or unstable code.

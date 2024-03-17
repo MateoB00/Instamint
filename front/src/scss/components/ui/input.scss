@@ -1,0 +1,13 @@
+@import '../../main.scss';
+
+.labelForm {
+    padding: $defaultPadding;
+    margin: $defaultMargin;
+    font-size: $bodyFontSize;
+    color: $colorNeutralDark;
+}
+.inputForm {
+    padding: 2 * $U;
+    background-color: transparent;
+    border: 1px solid $colorNeutralDark;
+}

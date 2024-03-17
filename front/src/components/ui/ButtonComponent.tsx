@@ -6,7 +6,11 @@ interface ButtonComponentProps {
   buttonType: 'viewCollection' | 'follow';
 }
 
-function ButtonComponent({ onClick, children, buttonType }: ButtonComponentProps) {
+function ButtonComponent({
+  onClick,
+  children,
+  buttonType,
+}: ButtonComponentProps) {
   return (
     <div className="button-container">
       <button className="button" onClick={onClick}>
