@@ -1,6 +1,8 @@
 import React from 'react';
 import ButtonHomePage from '../components/ui/ButtonHomePage.tsx';
 import ComponentHomePage from '../components/ComponentHomePage.tsx';
+import Header from '../components/Header/Header.tsx';
+import Footer from '../components/Footer/Footer.tsx';
 import '../scss/pages/HomePage.scss';
 import '../scss/components/ui/ButtonHomePage.scss';
 import '../scss/components/ComponentHomePage.scss';
@@ -29,6 +31,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="app-container">
+      <Header />
       <div className="title">
         <h1>Welcome to Instamint</h1>
         <p>The platform for minting, buying, and selling NFTs.</p>
@@ -44,6 +47,7 @@ const HomePage: React.FC = () => {
         subtitle="Discover the best creators on Instamint."
         items={creators}
       />
+      <Footer />
     </div>
   );
 };

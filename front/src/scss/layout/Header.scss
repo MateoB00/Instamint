@@ -5,6 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 10 * $U;
 }
 
 .logo {
@@ -32,19 +33,23 @@
     list-style-type: none; 
     padding: 0;
     margin: 0;
-}
-
-.nav ul li {
-    margin-left: $defaultMargin;
+    li {
+        margin-left: $defaultMargin;
+        a {
+            color: $colorAccent1; 
+            text-decoration: none; 
+            font-weight: $headingFontWeight; 
+            img {
+                width: 5*$U;
+                height: auto;
+                margin-right: $defaultMargin;
+                margin-left: $defaultMargin
+            }
+        }
+    }
+    
 }
 
 .nav ul li:first-child {
     margin-left: 0;
 }
-
-.nav ul li a {
-    color: $colorAccent1; 
-    text-decoration: none; 
-    font-weight: $headingFontWeight; 
-}
-
