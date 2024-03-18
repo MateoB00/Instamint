@@ -15,6 +15,7 @@ export class UserController {
 
     return this.userService.findOneById(loggedInUser.id);
   }
+
   @Put('/change-username')
   async changeUsername(@Request() req, @Body() body) {
     const userId = req.user.id;

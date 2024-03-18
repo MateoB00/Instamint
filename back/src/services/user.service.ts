@@ -34,6 +34,7 @@ export class UserService {
 
     return fetchUserById;
   }
+
   async changeUsername(userId: number, newUsername: string): Promise<boolean> {
     const userExists = await this.userRepository.findOneBy({
       username: newUsername,
