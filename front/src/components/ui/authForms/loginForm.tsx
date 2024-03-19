@@ -1,11 +1,11 @@
-import { Fragment, useState } from 'react';
+import { useState, Fragment } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import Input from '../../../components/ui/Input';
-import { authLogin, resendEmailConfirmation } from '../../../api/auth';
 import { t } from 'i18next';
 import { shemaLogin, catchErrors } from '../../../utils/yup';
+import { authLogin, resendEmailConfirmation } from '../../../api/auth';
 
 const useLoginForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -15,13 +15,12 @@ const useLoginForm = () => {
     apiError: '',
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleChange = (e: { target: { name: any; value: any } }) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors({ email: '', password: '', apiError: '' });
 
@@ -77,13 +76,11 @@ export default function LoginForm() {
               label={field.label}
               name={field.name}
               placeholder={field.placeholder}
-              value={formData[field.name as keyof typeof formData]}
+              value={formData[field.name]}
               onChange={handleChange}
             />
-            {formErrors[field.name as keyof typeof formErrors] && (
-              <span style={{ color: 'red' }}>
-                {formErrors[field.name as keyof typeof formErrors]}
-              </span>
+            {formErrors[field.name] && (
+              <span style={{ color: 'red' }}>{formErrors[field.name]}</span>
             )}
           </Fragment>
         ))}
