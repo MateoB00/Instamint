@@ -86,7 +86,6 @@ export class AuthService {
       profilePicture: 'default picture',
       bio: 'default bio',
       uniqueLink: `${user.username}-${Math.floor(Math.random() * 1000)}`,
-      visibility: false,
     };
 
     const createdUser = await this.userRepository.save(newUser);

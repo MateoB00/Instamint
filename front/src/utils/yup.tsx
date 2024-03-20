@@ -6,6 +6,11 @@ export const shemaLogin = object().shape({
   password: string().required('Password is required'),
 });
 
+export const shemaChangeUsername = object().shape({
+  username: string().required('Username is required'),
+  apiError: string(),
+});
+
 export const shemaRegister = object().shape({
   email: string().email().required('Email is required'),
   username: string()
