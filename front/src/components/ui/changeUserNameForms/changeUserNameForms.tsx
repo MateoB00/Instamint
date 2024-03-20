@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Input from '../../../components/ui/Input';
 import { authChangeUsername } from '../../../api/authChangeUsername';
 import { shemaChangeUsername, catchErrors } from '../../../utils/yup';
@@ -7,7 +7,7 @@ export default function AuthChangeUsername() {
   const [username, setUsername] = useState('');
   const [formErrors, setFormErrors] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormErrors('');
 

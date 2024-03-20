@@ -3,7 +3,7 @@ import '../../scss/components/ui/input.scss';
 
 interface InputProps {
   type: string;
-  label: string;
+  label?: string;
   value: string | number;
   name: string;
   placeholder: string;
