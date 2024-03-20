@@ -14,7 +14,7 @@
     "start:prod": "node dist/main",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\" --fix",
     "lint": "eslint . --ext ts,tsx --ignore-path .eslintignore --report-unused-disable-directives --max-warnings 0",
-    "prettier:fix": "prettier --write \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
+    "prettier:fix": "npx prettier . --check --write \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
     "prettier": "npx prettier . --check",
     "test": "jest --config=./jest.config.ts",
     "test:watch": "jest --watch",
