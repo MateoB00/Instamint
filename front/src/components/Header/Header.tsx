@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PopupSetting from '../ui/popup/PopupSetting.tsx';
 import '../../scss/layout/Header.scss';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -9,20 +10,16 @@ const Header: React.FC = () => {
 
   const OpenGearIcon = () => {
     setPopupSettingOpen(true);
-    // eslint-disable-next-line no-console
-    console.log('Gear icon clicked!');
   };
 
   const closePopupSetting = () => {
     setPopupSettingOpen(false);
-    // eslint-disable-next-line no-console
-    console.log('Popup setting closed!');
   };
 
   return (
     <header className="header">
       <div className="logo">
-        <img src="./src/assets/image/logo-instamint.ico" />
+        <img src="./src/assets/Image/logo-instamint.ico" />
         <span className="logo">
           <h1>{t('appName')}</h1>
         </span>
@@ -39,11 +36,11 @@ const Header: React.FC = () => {
             <a href="#">{t('menu.my.nfts')}</a>
           </li>
           <li>
-            <a href="#">{t('menu.profile')}</a>
+            <Link to="/profile">{t('menu.profile')}</Link>
           </li>
           <li>
             <a href="#" onClick={OpenGearIcon}>
-              <img src="./src/assets/image/gear.png" alt="Gear Icon" />
+              <img src="./src/assets/Image/gear.png" alt="Gear Icon" />
             </a>
             {isPopupSettingOpen && <PopupSetting onClose={closePopupSetting} />}
           </li>

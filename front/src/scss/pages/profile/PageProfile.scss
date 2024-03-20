@@ -1,0 +1,24 @@
+@import '../../main.scss';
+
+.popup-content {
+  background: $colorNeutralLight;
+  border-radius: $U;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+
+  h1 {
+    font-size: $headingFontSize;
+    margin: 0;
+  }
+  .save {
+    background-color: $colorAccent1;
+    border-radius: $U;
+    width: $U4*6;
+    height: $U4*2;
+
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+}
