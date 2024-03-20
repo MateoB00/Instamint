@@ -18,11 +18,7 @@ const PopupSetting: React.FC<PopupSettingProps> = ({ onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log('Current language before change:', i18n.language);
     await i18n.changeLanguage(language);
-    // eslint-disable-next-line no-console
-    console.log('New language after change:', i18n.language);
     onClose();
   };
 

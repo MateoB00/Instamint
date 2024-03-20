@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { useState } from 'react';
 import '../../scss/pages/auth/authPage.scss';
 import '../../scss/pages/auth/authPageResponsive.scss';
@@ -21,9 +20,6 @@ export default function AuthPage() {
         </Link>
       </div>
       <div className="rightSide">
-        <Link to="/">
-          <img src={logo} alt="logo" />
-        </Link>
         <h1>{t('auth.title')}</h1>
         <h2>{t('button.signup')}</h2>
         <div className="buttons">

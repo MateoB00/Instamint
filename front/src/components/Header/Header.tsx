@@ -9,14 +9,10 @@ const Header: React.FC = () => {
 
   const OpenGearIcon = () => {
     setPopupSettingOpen(true);
-    // eslint-disable-next-line no-console
-    console.log('Gear icon clicked!');
   };
 
   const closePopupSetting = () => {
     setPopupSettingOpen(false);
-    // eslint-disable-next-line no-console
-    console.log('Popup setting closed!');
   };
 
   return (
