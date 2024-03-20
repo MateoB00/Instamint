@@ -87,7 +87,6 @@ const PageProfile: React.FC = () => {
           {t('popup.profile.save')}
         </button>
       </div>
-
       <Link to="/">return to home</Link>
     </div>
   );

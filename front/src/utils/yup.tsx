@@ -1,4 +1,4 @@
-import { object, string, ref, ValidationError } from 'yup';
+import { object, string, ref, ValidationError, boolean } from 'yup';
 import { FormAuthMessages } from '../interfaces/formMessages';
 
 export const shemaLogin = object().shape({
@@ -25,6 +25,10 @@ export const shemaRegister = object().shape({
       'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     ),
   confirmPassword: string().oneOf([ref('password')], 'Passwords must match'),
+});
+
+export const shemaUpdateUser = object().shape({
+  searchByEmailOrPhoneEnabled: boolean(),
 });
 
 export const catchErrors = (errors: ValidationError) => {
