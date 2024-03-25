@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Input from '../../../components/ui/Input';
+import Input from '../InputForm';
 import { authChangeUsername } from '../../../api/authChangeUsername';
 import { shemaChangeUsername, catchErrors } from '../../../utils/yup';
 
