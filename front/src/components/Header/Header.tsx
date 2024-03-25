@@ -12,7 +12,9 @@ export default function Header() {
   const navigate = useNavigate();
   const { userData, fetchUserData } = useUserProfile();
 
-  const handleClick = (optionsProfiles: 'NFTs' | 'Informations') => {
+  const handleClickToNavigateOnProfilePage = (
+    optionsProfiles: 'NFTs' | 'Informations',
+  ) => {
     if (userData) {
       navigate('/me', {
         state: {
@@ -37,7 +39,9 @@ export default function Header() {
         </Button>
         <HeaderRightSection
           userData={userData}
-          handleClick={handleClick}
+          handleClickToNavigateOnProfilePage={
+            handleClickToNavigateOnProfilePage
+          }
           authLogout={authLogout}
           navigate={navigate}
         />

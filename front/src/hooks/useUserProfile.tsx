@@ -32,7 +32,7 @@ export const useUserProfile = () => {
     setOptionsProfiles('Informations');
   };
 
-  const navigateUserPage = (location: LocationState) => {
+  const navigateProfilePage = (location: LocationState) => {
     const initialState = location.state || {};
     if (initialState.setOptionsProfiles) {
       setOptionsProfiles(initialState.setOptionsProfiles);
@@ -45,6 +45,6 @@ export const useUserProfile = () => {
     fetchUserData,
     handleShowMainProfile,
     handleShowUpdateProfile,
-    navigateUserPage,
+    navigateProfilePage,
   };
 };

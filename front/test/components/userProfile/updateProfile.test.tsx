@@ -6,8 +6,8 @@ describe('UpdateProfile component', () => {
   test('renders correctly', () => {
     const { getByRole } = render(<UpdateProfile />);
 
-    const personalInfoHeading = getByRole('heading', { level: 1 }); // Pour <h1>
-    const confidentialInfoHeading = getByRole('heading', { level: 2 }); // Pour <h2>
+    const personalInfoHeading = getByRole('heading', { level: 1 });
+    const confidentialInfoHeading = getByRole('heading', { level: 2 });
 
     expect(personalInfoHeading).toHaveTextContent('Personal Informations');
     expect(confidentialInfoHeading).toHaveTextContent(

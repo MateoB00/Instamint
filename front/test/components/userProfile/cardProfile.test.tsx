@@ -3,7 +3,6 @@ import { render } from '@testing-library/react';
 import CardProfile from '../../../src/components/userProfile/cardProfile';
 import { UserInterface } from '../../../src/interfaces/userData';
 
-// Mock de Granim
 jest.mock('granim', () => ({
   default: jest.fn(),
 }));

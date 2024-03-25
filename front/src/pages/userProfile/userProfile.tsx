@@ -18,12 +18,13 @@ export default function UserProfile() {
     fetchUserData,
     handleShowMainProfile,
     handleShowUpdateProfile,
-    navigateUserPage,
+    navigateProfilePage,
   } = useUserProfile();
 
   useEffect(() => {
     fetchUserData();
-    navigateUserPage(location);
+    navigateProfilePage(location);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   if (userData === null) {

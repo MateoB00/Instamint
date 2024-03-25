@@ -8,35 +8,39 @@ import { NavigateFunction } from 'react-router-dom';
 
 interface HeaderRightSectionProps {
   userData: UserInterface | null | undefined;
-  handleClick: (optionsProfiles: 'NFTs' | 'Informations') => void;
+  handleClickToNavigateOnProfilePage: (
+    _optionsProfiles: 'NFTs' | 'Informations',
+  ) => void;
   authLogout: () => void;
   navigate: NavigateFunction;
 }
 
-const HeaderRightSection: React.FC<HeaderRightSectionProps> = ({
+export default function HeaderRightSection({
   userData,
-  handleClick,
   authLogout,
+  handleClickToNavigateOnProfilePage,
   navigate,
-}) => (
-  <div className="right">
-    <Button onClick={() => handleClick('NFTs')}>
-      <img className="icon" src={profileIcon} alt="profileIcon" />
-    </Button>
-    <Button onClick={() => handleClick('Informations')}>
-      <img className="icon" src={settingsIcon} alt="settingsIcon" />
-    </Button>
-    {userData && (
-      <Button
-        onClick={() => {
-          authLogout();
-          navigate('/');
-        }}
-      >
-        <img className="icon" src={signOutIcon} alt="signOutIcon" />
+}: HeaderRightSectionProps) {
+  return (
+    <div className="right">
+      <Button onClick={() => handleClickToNavigateOnProfilePage('NFTs')}>
+        <img className="icon" src={profileIcon} alt="profileIcon" />
       </Button>
-    )}
-  </div>
-);
-
-export default HeaderRightSection;
+      <Button
+        onClick={() => handleClickToNavigateOnProfilePage('Informations')}
+      >
+        <img className="icon" src={settingsIcon} alt="settingsIcon" />
+      </Button>
+      {userData && (
+        <Button
+          onClick={() => {
+            authLogout();
+            navigate('/');
+          }}
+        >
+          <img className="icon" src={signOutIcon} alt="signOutIcon" />
+        </Button>
+      )}
+    </div>
+  );
+}
