@@ -13,8 +13,14 @@ export const authLogin = async (email: string, password: string) => {
   if (response.status === 401) {
     return await response.json();
   }
-
-  window.location.href = '/';
+  if (response.status === HTTP_OK) {
+    localStorage.setItem('email', email);
+    localStorage.setItem('password', password);
+    window.location.href = '/2faVerification';
+  }
+  if (response.status === 202) {
+    window.location.href = '/';
+  }
 
   return response.status;
 };
@@ -62,3 +68,42 @@ export const authRegister = async (formData: {
 
   return response.json();
 };
+
+export const getUserData = async () =>
+  await fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+
+export async function verifyTwoFactor(otp: string) {
+  const email = localStorage.getItem('email');
+  const password = localStorage.getItem('password');
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/2fa`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ otp, email, password }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to verify 2FA code');
+    }
+
+    if (response.ok) {
+      localStorage.removeItem('email');
+      localStorage.removeItem('password');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error('Failed to verify 2FA code. Please try again later.');
+  }
+}

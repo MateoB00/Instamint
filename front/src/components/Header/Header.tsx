@@ -21,7 +21,7 @@ const Header: React.FC = () => (
           <a href="#">My NFTs</a>
         </li>
         <li>
-          <a href="#">Profile</a>
+          <a href="/profile">Profile</a>
         </li>
         <li>
           <a href="#">
