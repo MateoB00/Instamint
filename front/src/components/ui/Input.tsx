@@ -3,7 +3,7 @@ import '../../scss/components/ui/input.scss';
 
 interface InputProps {
   type: string;
-  label: string;
+  label?: string;
   value: string | number;
   name: string;
   placeholder: string;
@@ -21,11 +21,8 @@ const Input: FC<InputProps> = ({
   onChange,
 }) => (
   <>
-    <label htmlFor={label} className="labelForm">
-      {label}
-    </label>
     <input
-      className="inputForm"
+      className="input"
       type={type}
       id={label}
       value={value}

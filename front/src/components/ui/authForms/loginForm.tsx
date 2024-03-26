@@ -2,9 +2,10 @@ import { Fragment } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
-import Input from '../../../components/ui/Input';
-import { resendEmailConfirmation } from '../../../api/auth';
+import InputForm from '../InputForm';
 import { useLoginForm } from '../../../hooks/useLoginForm';
+import { resendEmailConfirmation } from '../../../api/auth';
+import Button from '../Button';
 
 const fieldsForm = [
   {
@@ -32,7 +33,7 @@ export default function LoginForm() {
       <form onSubmit={handleSubmit}>
         {fieldsForm.map((field) => (
           <Fragment key={field.name}>
-            <Input
+            <InputForm
               type={field.type}
               label={field.label}
               name={field.name}
@@ -48,16 +49,16 @@ export default function LoginForm() {
           </Fragment>
         ))}
         <div className="buttonsForm">
-          <button className="nextButton">Connection</button>
+          <Button className="nextButton">Connection</Button>
           {formMessages.apiError && (
             <span style={{ color: 'red' }}>{formMessages.apiError}</span>
           )}
           {formMessages.apiError === 'Email not verified' && (
-            <button onClick={() => resendEmailConfirmation(formData.email)}>
+            <Button onClick={() => resendEmailConfirmation(formData.email)}>
               Send another email
-            </button>
+            </Button>
           )}
-          <button className="forgotPasswordButton">Forgot password?</button>
+          <Button className="forgotPasswordButton">Forgot password?</Button>
         </div>
       </form>
       <p>

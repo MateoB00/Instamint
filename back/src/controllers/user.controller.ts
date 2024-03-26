@@ -26,4 +26,13 @@ export class UserController {
 
     return updatedUser;
   }
+
+  @Put('/change-username')
+  async changeUsername(@Request() req, @Body() body) {
+    const userId = req.user.id;
+    const { newUsername } = body;
+    await this.userService.changeUsername(userId, newUsername);
+
+    return { success: true, message: 'Username changed successfully' };
+  }
 }

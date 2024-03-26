@@ -1,0 +1,11 @@
+@import '../../../main.scss';
+
+.updateProfile {
+    .personalInformations, .confidentialInformations {
+        h1,h2 {
+            @media(max-width: 430px) {
+                font-size: $bodyFontSize;
+            }
+        }
+    }
+}

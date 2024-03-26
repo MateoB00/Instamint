@@ -55,4 +55,18 @@ export class UserService {
 
     return updatedUser;
   }
+
+  async changeUsername(userId: number, newUsername: string): Promise<boolean> {
+    const userExists = await this.userRepository.findOneBy({
+      username: newUsername,
+    });
+
+    if (userExists) {
+      throw new Error('Username is already taken');
+    }
+
+    await this.userRepository.update(userId, { username: newUsername });
+
+    return true;
+  }
 }
