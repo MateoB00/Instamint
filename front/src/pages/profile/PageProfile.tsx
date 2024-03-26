@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../../scss/pages/profile/PageProfile.scss';
 import EditPicture from '../../components/ui/profile/EditPicture';
+import EditBio from '../../components/ui/profile/EditBio';
 import { useTranslation } from 'react-i18next';
 import { getUserData } from '../../api/auth';
 import { Link } from 'react-router-dom';
@@ -13,6 +14,14 @@ export default function PageProfile() {
     setFormErrors,
     handleRestoreOriginal,
     handleSaveClick,
+    setBio,
+    bio,
+    editedBio,
+    isEditingBio,
+    handleEditBio,
+    handleCancelEditBio,
+    handleBioChange,
+    handleSaveEditedBio,
   } = usePageProfile();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [userData, setUserData] = useState<any>(null);
@@ -22,27 +31,35 @@ export default function PageProfile() {
       try {
         const response = await getUserData();
         setUserData(response);
+        setBio(response.bio)
       } catch (error) {
         setFormErrors('An error occurred while fetching user data.');
       }
     };
 
     fetchUserData();
-  }, [setFormErrors]);
+  }, [setFormErrors, setBio, userData]);
 
   const { t } = useTranslation();
 
   return (
     <div className="popup-content">
-      <h1>{t('popup.profile.title')}</h1>
+      {/* <h1>{t('popup.profile.title')}</h1> */}
       {userData && (
         <>
           <EditPicture
             handleProfilePictureChange={handleProfilePictureChange}
             handleRestoreOriginal={handleRestoreOriginal}
-            profilePicture={userData.profilePicture}
-          />
-        </>
+            profilePicture={userData.profilePicture} />
+          <EditBio
+            isEditingBio={isEditingBio}
+            bio={bio}
+            editedBio={editedBio}
+            handleEditBio={handleEditBio}
+            handleCancelEditBio={handleCancelEditBio}
+            handleBioChange={handleBioChange}
+            handleSaveEditedBio={handleSaveEditedBio} />
+          </>
       )}
       <div>
         {formErrors && <span style={{ color: 'red' }}>{formErrors}</span>}

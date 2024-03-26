@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authChangePicture } from '../api/auth';
+import { authChangePicture, authChangeBio } from '../api/auth';
 
 export const usePageProfile = () => {
   const initialProfilePicture = '../src/assets/Image/user.jpg';
@@ -8,6 +8,9 @@ export const usePageProfile = () => {
     initialProfilePicture,
   );
   const [formErrors, setFormErrors] = useState('');
+  const [bio, setBio] = useState('');
+  const [editedBio, setEditedBio] = useState('');
+  const [isEditingBio, setIsEditingBio] = useState(false);
   const handleProfilePictureChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -26,6 +29,34 @@ export const usePageProfile = () => {
     setProfilePicture(originalProfilePicture);
   };
 
+  const handleEditBio = () => {
+    setEditedBio(bio);
+    setIsEditingBio(true);
+  };
+
+  const handleCancelEditBio = () => {
+    setIsEditingBio(false);
+  };
+
+  const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setEditedBio(event.target.value);
+  };
+
+  const handleSaveEditedBio = async () => {
+    try {
+      const response = await authChangeBio(editedBio);
+
+      if (response.success) {
+        setBio(editedBio);
+        setIsEditingBio(false);
+      } else {
+        setFormErrors(response.message);
+      }
+    } catch (error) {
+      setFormErrors('An error occurred while updating the bio.');
+    }
+  };
+
   const handleSaveClick = async () => {
     const formData = new FormData();
     formData.append('profilePicture', profilePicture);
@@ -35,6 +66,8 @@ export const usePageProfile = () => {
 
       if (response.success) {
         setOriginalProfilePicture(profilePicture);
+        console.log('Edited Bio:', editedBio);
+        setBio(editedBio);
       } else {
         setFormErrors(response.message);
       }
@@ -43,11 +76,21 @@ export const usePageProfile = () => {
     }
   };
 
+
+
   return {
     handleProfilePictureChange,
     formErrors,
     setFormErrors,
     handleRestoreOriginal,
     handleSaveClick,
+    setBio,
+    bio,
+    editedBio,
+    isEditingBio,
+    handleEditBio,
+    handleCancelEditBio,
+    handleBioChange,
+    handleSaveEditedBio,
   };
 };

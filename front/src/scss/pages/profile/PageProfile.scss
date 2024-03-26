@@ -1,7 +1,9 @@
 @import '../../main.scss';
 
-.popup-content {
+body{
   background: $colorNeutralLight;
+}
+.popup-content {
   border-radius: $U;
   text-align: center;
   width: 100%;

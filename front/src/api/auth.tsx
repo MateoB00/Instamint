@@ -96,3 +96,21 @@ export const getUserData = async () => {
   }
   throw new Error('Failed to fetch profile picture');
 };
+
+export const authChangeBio = async (bio: string) => {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json, utf-8',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ bio }),
+  });
+
+  if (response.status === HTTP_OK) {
+    return { success: true };
+  }
+  const errorData = await response.json();
+
+  return { success: false, message: errorData.message };
+};
