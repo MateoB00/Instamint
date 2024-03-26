@@ -2,10 +2,7 @@ import React from 'react';
 import '../../../scss/components/ui/profile/EditPicture.scss';
 
 interface EditPictureProps {
-  handleProfilePictureChange: (
-    // eslint-disable-next-line no-unused-vars
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => void;
+  handleProfilePictureChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRestoreOriginal: () => void;
   profilePicture: string;
 }
