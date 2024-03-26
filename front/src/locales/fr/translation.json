@@ -40,7 +40,8 @@
   "popup.profile.dateofbirth": "Date de naissance :",
   "popup.profile.biography": "Biographie :",
   "popup.profile.save": "Sauvegarder",
-  "popup.profile.cancel": "Annuler",
+  "button.confirm": "Confirmer",
+  "button.cancel": "Annuler",
   "popup.profile.close": "Fermer",
   "label.email": "Email",
   "label.password": "Mot de passe",
@@ -56,5 +57,6 @@
   "placeholder.confirm.password": "Confirmez votre mot de passe",
   "account": "Vous avez deja un compte ?",
   "button.next": "Suivant",
-  "auth.title": "Vendez vos NFTs, maintenant !"
+  "auth.title": "Vendez vos NFTs, maintenant !",
+  "title.bio": "Biographie"
 }
