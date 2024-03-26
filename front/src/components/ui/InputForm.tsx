@@ -1,7 +1,7 @@
 import { ChangeEventHandler, FC } from 'react';
 import '../../scss/components/ui/input.scss';
 
-interface InputProps {
+interface InputFormProps {
   type: string;
   label?: string;
   value: string | number;
@@ -11,7 +11,7 @@ interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Input: FC<InputProps> = ({
+const InputForm: FC<InputFormProps> = ({
   type,
   label,
   value,
@@ -21,8 +21,11 @@ const Input: FC<InputProps> = ({
   onChange,
 }) => (
   <>
+    <label htmlFor={label} className="labelForm">
+      {label}
+    </label>
     <input
-      className="input"
+      className="inputForm"
       type={type}
       id={label}
       value={value}
@@ -34,4 +37,4 @@ const Input: FC<InputProps> = ({
   </>
 );
 
-export default Input;
+export default InputForm;

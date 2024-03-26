@@ -1,20 +1,18 @@
 import React from 'react';
 import '../../../scss/components/ui/profile/EditPicture.scss';
+import { t } from 'i18next';
 
 interface EditPictureProps {
   handleProfilePictureChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRestoreOriginal: () => void;
-  profilePicture: string;
+  handleSaveClick: () => void;
 }
 const EditPicture: React.FC<EditPictureProps> = ({
   handleProfilePictureChange,
   handleRestoreOriginal,
-  profilePicture,
+  handleSaveClick,
 }) => (
   <div className="edit-picture">
-    <div className="profile-picture">
-      <img src={profilePicture} alt="Profile" />
-    </div>
     <div className="button-container">
       <label
         htmlFor="file-input"
@@ -45,6 +43,13 @@ const EditPicture: React.FC<EditPictureProps> = ({
           alt="Cancel"
         />
       </button>
+      <button className="save" onClick={handleSaveClick} title="Save">
+      <img
+          className="check-icon"
+          src="../src/assets/Image/check.png"
+          alt="Check"
+        />
+        </button>
     </div>
   </div>
 );

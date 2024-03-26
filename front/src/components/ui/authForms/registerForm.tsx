@@ -2,9 +2,10 @@ import { Fragment } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
-import Input from '../../../components/ui/Input';
+import InputForm from '../InputForm';
 import { useRegisterForm } from '../../../hooks/useRegisterForm';
 import { t } from 'i18next';
+import Button from '../Button';
 
 const fieldsForm = [
   {
@@ -45,7 +46,7 @@ export default function RegisterForm() {
       <form onSubmit={handleSubmit}>
         {fieldsForm.map((field) => (
           <Fragment key={field.name}>
-            <Input
+            <InputForm
               type={field.type}
               label={field.label}
               name={field.name}
@@ -67,7 +68,7 @@ export default function RegisterForm() {
           <span style={{ color: '#16502d' }}>{formMessages.apiSuccess}</span>
         )}
         <div className="buttonsForm">
-          <button className="nextButton">{t('button.next')}</button>
+          <Button className="nextButton">{t('button.next')}</Button>
         </div>
       </form>
       <p>

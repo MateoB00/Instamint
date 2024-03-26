@@ -1,51 +1,35 @@
 @import '../../../main.scss';
 
 .edit-picture {
-  margin-top: $defaultMargin * 3;
-    .profile-picture {
-      img {
-        width: $U4*9.4;
-        height: $U4*9.4;
-        margin-top: $defaultMargin;
-        border-radius: 50%;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        border: calc($U/2) solid $colorAccent1;
-      }
+  // margin-top: $defaultMargin;
+  .button-container {
+    position: relative;
+    left: $U4 * 13;
+    bottom: $U4;
+    margin: 0;
+    display: inline;
+    .save {
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      border: none;
+      cursor: pointer;
     }
-      
-      .edit-img {
-        position: relative;
-        bottom: $U4*9.9;
-        left: $U4*5.5;
-        .edit-icon {
-          width: $U*6;
-          height: $U*6;
-          background-color: $colorAccent1;
-          border-radius: $U;
-          box-shadow: 0 0 $U*2 rgba(0, 0, 0, 0.5);
-          border: none;
-          cursor: pointer;
-      }
+    .restore {
+      background: transparent;
+      padding: 0;
+      margin-left: $U * 2;
     }
-  
-      .restore {
-        height: 0;
-        border: none;
-        padding: 0;
-        margin: 0;
-        position: relative;
-        bottom: $U4*9.9;
-        left: $U4*6.3;
-  
-        .cancel-icon {
-          width: $U*6;
-          height: $U*6;
-          border: none;
-          border-radius: $U;
-          box-shadow: 0 0 $U*2 rgba(0, 0, 0, 0.5);
-          background-color: $colorAccent1;
-          cursor: pointer;
-        }
-      }
+    
+    .cancel-icon, 
+    .edit-icon,
+    .check-icon,
+    img {
+      width: $U * 6;
+      height: $U * 6;
+      border-radius: $U;
+      box-shadow: 0 0 $U * 2 rgba(0, 0, 0, 0.5);
+      border: none;
     }
-  
+  }
+}

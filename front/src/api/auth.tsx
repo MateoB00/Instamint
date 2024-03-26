@@ -14,7 +14,7 @@ export const authLogin = async (email: string, password: string) => {
     return await response.json();
   }
 
-  window.location.href = '/';
+  window.location.href = '/me';
 
   return response.status;
 };
@@ -64,23 +64,23 @@ export const authRegister = async (formData: {
   return response.json();
 };
 
-export const authChangePicture = async (profilePicture: string) => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify({ profilePicture }),
-  });
+// export const authChangePicture = async (profilePicture: string) => {
+//   const response = await fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     credentials: 'include',
+//     body: JSON.stringify({ profilePicture }),
+//   });
 
-  if (response.status === HTTP_OK) {
-    return { success: true };
-  }
-  const errorData = await response.json();
+//   if (response.status === HTTP_OK) {
+//     return { success: true };
+//   }
+//   const errorData = await response.json();
 
-  return { success: false, message: errorData.message };
-};
+//   return { success: false, message: errorData.message };
+// };
 
 export const getUserData = async () => {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/user/me`, {

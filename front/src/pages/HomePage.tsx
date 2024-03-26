@@ -32,25 +32,27 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="app-container">
+    <>
       <Header />
-      <div className="title">
-        <h1>{t('WelcomeMessage')}</h1>
-        <p>{t('p')}</p>
-        <ButtonHomePage onClick={handleButtonClick} />
+      <div className="app-container">
+        <div className="title">
+          <h1>{t('WelcomeMessage')}</h1>
+          <p>{t('p')}</p>
+          <ButtonHomePage onClick={handleButtonClick} />
+        </div>
+        <ComponentHomePage
+          title="Featured Collections"
+          subtitle="Discover the latest collections from our featured creators."
+          items={collections}
+        />
+        <ComponentHomePage
+          title="Popular Creators"
+          subtitle="Discover the best creators on Instamint."
+          items={creators}
+        />
+        <Footer />
       </div>
-      <ComponentHomePage
-        title={t('featured.collections')}
-        subtitle={t('featured.p')}
-        items={collections}
-      />
-      <ComponentHomePage
-        title={t('popular.creators')}
-        subtitle={t('popular.p')}
-        items={creators}
-      />
-      <Footer />
-    </div>
+    </>
   );
 };
 
