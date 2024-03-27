@@ -56,10 +56,12 @@ export default function LoginForm() {
           )}
           {formMessages.apiError === 'Email not verified' && (
             <Button onClick={() => resendEmailConfirmation(formData.email)}>
-            {t('sendEmailAgain')}
+              {t('sendEmailAgain')}
             </Button>
           )}
-          <Button className="forgotPasswordButton">{t('forgotPassword')}</Button>
+          <Button className="forgotPasswordButton">
+            {t('forgotPassword')}
+          </Button>
         </div>
       </form>
       <p>

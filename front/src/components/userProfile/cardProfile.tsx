@@ -11,11 +11,8 @@ interface Props {
 }
 
 export default function CardProfile({ userData }: Props) {
-  const {
-    handleProfilePictureChange,
-    handleRestoreOriginal, 
-    handleSaveClick,
-  } = useUserProfile();
+  const { handleProfilePictureChange, handleRestoreOriginal, handleSaveClick } =
+    useUserProfile();
   useEffect(() => {
     initializeBackgroundUserProfile();
   });
@@ -25,11 +22,11 @@ export default function CardProfile({ userData }: Props) {
       <canvas id="canvas-basic"></canvas>
       <div className="profilePicture">
         <img src={userData.profilePicture} alt="profilePicture" />
-        <EditPicture 
+        <EditPicture
           handleProfilePictureChange={handleProfilePictureChange}
           handleRestoreOriginal={handleRestoreOriginal}
           handleSaveClick={handleSaveClick}
-          />
+        />
       </div>
       <div className="userDatas">
         <div className="userInfos">

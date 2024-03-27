@@ -1,7 +1,6 @@
-import { getMe } from '../api/user';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { getMe, authChangePicture } from '../api/user';
 import { UserInterface } from '../interfaces/userData';
-import { authChangePicture } from '../api/user';
 
 interface LocationState {
   state: {
@@ -55,7 +54,6 @@ export const useUserProfile = () => {
     }
   };
 
-
   const [userData, setUserData] = useState<UserInterface | null>();
 
   const fetchUserData = async () => {
@@ -90,7 +88,7 @@ export const useUserProfile = () => {
     handleShowUpdateProfile,
     navigateProfilePage,
     handleProfilePictureChange,
-    handleRestoreOriginal, 
+    handleRestoreOriginal,
     handleSaveClick,
     formErrors,
   };
