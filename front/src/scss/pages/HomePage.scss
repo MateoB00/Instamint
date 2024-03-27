@@ -1,12 +1,13 @@
 @import '../main.scss';
 
 .title {
-    margin-top: calc($defaultMargin / 2); 
+    margin-top: calc($defaultMargin * 10); 
     padding: calc($defaultMargin / 2); 
     font-size: $titleFontSize; 
     font-weight: $titleFontWeight; 
     text-align: center;
     color: $colorAccent1; 
+
     h1 {
         margin: 0;
     }

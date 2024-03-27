@@ -1,0 +1,38 @@
+@import '../../../main.scss';
+
+.updateProfile {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+    .personalInformations, .confidentialInformations {
+        width: 40%;
+        h1,h2 {
+            text-align: center;
+            font-size: $headingFontSize;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            .form-group {
+                margin-top: $defaultMargin;
+                select{
+                    margin-left: $defaultMargin;
+                }
+            }
+            button{
+                margin-top: calc($defaultMargin * 2);
+                width: 50%;
+                align-self: center;
+                background-color: $colorAccent1;
+                color: $colorNeutralLight;
+                border: none;
+                border-radius: $U4;
+                padding: $defaultPadding;
+                cursor: pointer;
+            }
+        }
+  
+    }
+}
