@@ -1,14 +1,13 @@
 import React from 'react';
 import '../../../scss/components/ui/profile/EditPicture.scss';
-
-interface EditPictureProps {
+interface useEditPictureProps {
   handleProfilePictureChange: (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => void;
   handleRestoreOriginal: () => void;
   handleSaveClick: () => void;
 }
-const EditPicture: React.FC<EditPictureProps> = ({
+const useEditPicture: React.FC<useEditPictureProps> = ({
   handleProfilePictureChange,
   handleRestoreOriginal,
   handleSaveClick,
@@ -55,4 +54,4 @@ const EditPicture: React.FC<EditPictureProps> = ({
   </div>
 );
 
-export default EditPicture;
+export default useEditPicture;

@@ -14,9 +14,8 @@ interface ComponentHomePageProps {
 
 function ComponentHomePage({ title, subtitle, items }: ComponentHomePageProps) {
   const { t } = useTranslation();
-  const handleButtonClick = (itemName: string) => {
-    // eslint-disable-next-line no-console
-    console.log(`Button clicked for ${itemName}`);
+  const handleButtonClick = () => {
+    // Add your click handling logic here
   };
 
   return (
@@ -31,7 +30,7 @@ function ComponentHomePage({ title, subtitle, items }: ComponentHomePageProps) {
             <p>{item.details}</p>
             {title === t('featured.collections') && (
               <ButtonComponent
-                onClick={() => handleButtonClick(item.name)}
+                onClick={() => handleButtonClick()}
                 buttonType="viewCollection"
               >
                 {t('button.viewCollection')}
@@ -39,7 +38,7 @@ function ComponentHomePage({ title, subtitle, items }: ComponentHomePageProps) {
             )}
             {title === t('popular.creators') && (
               <ButtonComponent
-                onClick={() => handleButtonClick(item.name)}
+                onClick={() => handleButtonClick()}
                 buttonType="follow"
               >
                 {t('button.follow')}

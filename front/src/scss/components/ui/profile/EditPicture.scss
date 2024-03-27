@@ -1,7 +1,6 @@
 @import '../../../main.scss';
 
 .edit-picture {
-  // margin-top: $defaultMargin;
   .button-container {
     position: relative;
     left: $U4 * 13;
@@ -25,6 +24,8 @@
     .edit-icon,
     .check-icon,
     img {
+      position: relative;
+      top: $U;
       width: $U * 6;
       height: $U * 6;
       border-radius: $U;
