@@ -22,11 +22,12 @@ export default function AuthChangeEmail() {
     shemaChangeEmail
       .validate(emailData, { abortEarly: false })
       .then(async () => {
-        const response = await authChangeEmail(emailData.currentEmail, emailData.newEmail);  
+        const response = await authChangeEmail(emailData.currentEmail, emailData.newEmail, '');  
 
         if (response.success) {
           alert('Email successfully changed. Please check your inbox to verify the new email.');
-        } else {
+        } 
+        else {
           setFormErrors(response.message);
         }
       })
