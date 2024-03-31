@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -38,8 +37,11 @@ export class UserService {
 
   async update(loggedUser: User, changesUser) {
     const { id } = loggedUser;
-
     const existingUser = await this.userRepository.findOne({ where: { id } });
+
+    if (!existingUser) {
+      throw new NotFoundException('User not found.');
+    }
 
     const dataUpdatedUser = { ...existingUser };
 
@@ -49,24 +51,13 @@ export class UserService {
       }
     }
 
-    const updatedUser = await this.userRepository.update(existingUser.id, {
+    await this.userRepository.update(existingUser.id, {
       ...dataUpdatedUser,
     });
 
-    return updatedUser;
-  }
-
-  async changeUsername(userId: number, newUsername: string): Promise<boolean> {
-    const userExists = await this.userRepository.findOneBy({
-      username: newUsername,
-    });
-
-    if (userExists) {
-      throw new Error('Username is already taken');
-    }
-
-    await this.userRepository.update(userId, { username: newUsername });
-
-    return true;
+    return {
+      success: true,
+      message: 'User updated successfully.',
+    };
   }
 }
