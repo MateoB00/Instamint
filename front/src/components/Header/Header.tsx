@@ -1,36 +1,51 @@
-import React from 'react';
+import { useEffect } from 'react';
 import '../../scss/layout/Header.scss';
+import instamintIcon from '../../assets/Image/logo-instamint.svg';
+import { useNavigate } from 'react-router-dom';
+import { useUserProfile } from '../../hooks/useUserProfile';
+import { authLogout } from '../../api/auth';
+import Button from '../ui/Button';
+import HeaderLeftSection from './HeaderLeftSection';
+import HeaderRightSection from './HeaderRightSection';
 
-const Header: React.FC = () => (
-  <header className="header">
-    <div className="logo">
-      <img src="./src/assets/image/logo-instamint.ico" />
-      <span className="logo">
-        <h1>Instamint</h1>
-      </span>
-    </div>
-    <nav className="nav">
-      <ul>
-        <li>
-          <a href="#">Home</a>
-        </li>
-        <li>
-          <a href="#">Explore</a>
-        </li>
-        <li>
-          <a href="#">My NFTs</a>
-        </li>
-        <li>
-          <a href="#">Profile</a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="./src/assets/image/gear.png" alt="Gear Icon" />
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-);
+export default function Header() {
+  const navigate = useNavigate();
+  const { userData, fetchUserData } = useUserProfile();
 
-export default Header;
+  const handleClickToNavigateOnProfilePage = (
+    optionsProfiles: 'NFTs' | 'Informations',
+  ) => {
+    if (userData) {
+      navigate('/me', {
+        state: {
+          setOptionsProfiles: optionsProfiles,
+        },
+      });
+    } else {
+      navigate('/auth');
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  });
+
+  return (
+    <header>
+      <div className="header">
+        <HeaderLeftSection />
+        <Button className="instamint">
+          <img src={instamintIcon} alt="instamintIcon" />
+        </Button>
+        <HeaderRightSection
+          userData={userData}
+          handleClickToNavigateOnProfilePage={
+            handleClickToNavigateOnProfilePage
+          }
+          authLogout={authLogout}
+          navigate={navigate}
+        />
+      </div>
+    </header>
+  );
+}

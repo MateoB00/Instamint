@@ -30,25 +30,27 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="app-container">
+    <>
       <Header />
-      <div className="title">
-        <h1>Welcome to Instamint</h1>
-        <p>The platform for minting, buying, and selling NFTs.</p>
-        <ButtonHomePage onClick={handleButtonClick} />
+      <div className="app-container">
+        <div className="title">
+          <h1>Welcome to Instamint</h1>
+          <p>The platform for minting, buying, and selling NFTs.</p>
+          <ButtonHomePage onClick={handleButtonClick} />
+        </div>
+        <ComponentHomePage
+          title="Featured Collections"
+          subtitle="Discover the latest collections from our featured creators."
+          items={collections}
+        />
+        <ComponentHomePage
+          title="Popular Creators"
+          subtitle="Discover the best creators on Instamint."
+          items={creators}
+        />
+        <Footer />
       </div>
-      <ComponentHomePage
-        title="Featured Collections"
-        subtitle="Discover the latest collections from our featured creators."
-        items={collections}
-      />
-      <ComponentHomePage
-        title="Popular Creators"
-        subtitle="Discover the best creators on Instamint."
-        items={creators}
-      />
-      <Footer />
-    </div>
+    </>
   );
 };
 

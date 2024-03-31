@@ -84,7 +84,7 @@ export class AuthService {
       username: user.username,
       phoneNumber: 'default number',
       profilePicture: 'default picture',
-      bio: 'default bio',
+      bio: './default_profile_icon.png',
       uniqueLink: `${user.username}-${Math.floor(Math.random() * 1000)}`,
     };
 

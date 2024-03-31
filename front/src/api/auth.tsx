@@ -14,7 +14,7 @@ export const authLogin = async (email: string, password: string) => {
     return await response.json();
   }
 
-  window.location.href = '/';
+  window.location.href = '/me';
 
   return response.status;
 };
