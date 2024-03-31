@@ -1,14 +1,9 @@
 import { object, string, ref, ValidationError, boolean } from 'yup';
-import { FormAuthMessages } from '../interfaces/formMessages';
+import { ErrorsYup } from '../../interfaces/yup';
 
 export const shemaLogin = object().shape({
   email: string().email().required('Email is required'),
   password: string().required('Password is required'),
-});
-
-export const shemaChangeUsername = object().shape({
-  username: string().required('Username is required'),
-  apiError: string(),
 });
 
 export const shemaRegister = object().shape({
@@ -29,18 +24,11 @@ export const shemaRegister = object().shape({
 
 export const shemaUpdateUser = object().shape({
   searchByEmailOrPhoneEnabled: boolean(),
+  username: string().min(4),
 });
 
 export const catchErrors = (errors: ValidationError) => {
-  const newErrors: FormAuthMessages = {
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-    apiError: '',
-    apiSuccess: '',
-  };
-
+  const newErrors: ErrorsYup = {};
   errors.inner.forEach((error: { message?: string; path?: string }) => {
     const { path } = error;
     if (path) {
