@@ -15,6 +15,7 @@ import { AuthService } from '../services/auth.service';
 import { EmailService } from '../services/email.service';
 import { Response as ResponseType } from 'express';
 import { UserService } from '../services/user.service';
+import { User } from '../entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -41,6 +42,11 @@ export class AuthController {
     });
 
     return token;
+  }
+
+  @Post('register')
+  async register(@Body() user: User): Promise<User> {
+    return await this.authService.register(user);
   }
 
   @Get('confirmation/:token')

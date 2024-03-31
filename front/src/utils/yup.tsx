@@ -1,4 +1,5 @@
-import { object, ref, string } from 'yup';
+import { object, string, ref, ValidationError } from 'yup';
+import { FormAuthMessages } from '../interfaces/formMessages';
 
 export const shemaLogin = object().shape({
   email: string().email().required('Email is required'),
@@ -11,16 +12,19 @@ export const shemaChangeUsername = object().shape({
 });
 
 export const shemaRegister = object().shape({
-  email: string().email('Invalid email format').required('Email is required'),
+  email: string().email().required('Email is required'),
   username: string()
-    .min(3, 'Username must be at least 3 characters long')
-    .required('Username is required'),
+    .required()
+    .min(3, 'Username must be at least 3 characters')
+    .max(20, 'Username must be less than 20 characters'),
   password: string()
-    .min(6, 'Password must be at least 6 characters long')
-    .required('Password is required'),
-  confirmPassword: string()
-    .oneOf([ref('password'), null], 'Passwords must match')
-    .required('Confirm password is required'),
+    .min(10, 'Password must be at least 10 characters long')
+    .required('Password is required')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{0,}$/u,
+      'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    ),
+  confirmPassword: string().oneOf([ref('password')], 'Passwords must match'),
 });
 export const shemaChangeEmail = object().shape({
   currentEmail: string()
@@ -35,12 +39,20 @@ export const shemaChangeEmail = object().shape({
     .required('New email is required'),
 });
 
-export const catchErrors = (errors) => {
-  const newErrors = {};
-  errors.inner.forEach((error) => {
+export const catchErrors = (errors: ValidationError) => {
+  const newErrors: FormAuthMessages = {
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    apiError: '',
+    apiSuccess: '',
+  };
+
+  errors.inner.forEach((error: { message?: string; path?: string }) => {
     const { path } = error;
     if (path) {
-      newErrors[path] = error.message;
+      newErrors[path] = error.message || `Error ${path}`;
     }
   });
 

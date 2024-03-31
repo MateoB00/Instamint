@@ -1,0 +1,49 @@
+@import '../main.scss';
+
+.componenthomepage {
+  margin-top: 36 * $defaultMargin;
+  font-size: $bodyFontSize; 
+  font-weight: $titleFontWeight;
+  text-align: center;
+  color: $colorAccent1; 
+  h1{
+    margin: 0;
+  }
+  h3{
+    margin: calc($defaultMargin / 4);
+    font-size: $titleFontSize; 
+    font-weight: $bodyFontWeight;
+  }
+  p{
+    margin: 0;
+    text-align: center;
+    font-size: $bodyFontSize; 
+    font-weight: $bodyFontWeight; 
+    color: $colorNeutralDark;
+  }
+}
+
+.componenthomepage-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: $defaultMargin; 
+}
+
+.componenthomepage-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.componenthomepage-box {
+  width: 21rem;
+  height: 13rem;
+  background-color: $colorNeutralLight; 
+  text-align: center;
+ h3{
+  margin-top: calc($defaultMargin / 4); 
+ }
+}
+

@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\" --fix",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "prettier:fix": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "prettier:fix": "npx prettier . --check --write \"src/**/*.{ts,tsx}\"",
     "prettier": "npx prettier . --check",
     "preview": "vite preview",
     "test": "jest --passWithNoTests"

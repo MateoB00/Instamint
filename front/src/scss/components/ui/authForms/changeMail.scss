@@ -1,0 +1,76 @@
+@import '../../../main.scss';
+
+.authPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: $colorNeutralLight;
+
+    .leftSide, .rightSide {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .leftSide img, .rightSide img {
+        max-width: 150px;
+        margin-bottom: $U2;
+    }
+
+    .rightSide {
+        text-align: center;
+
+        h1 {
+            font-size: $headingFontSizeLarge;
+            color: $colorAccent1;
+            margin-bottom: $U3;
+        }
+
+        .buttons {
+            display: flex;
+            gap: $U2;
+
+            button {
+                background-color: $colorAccent1;
+                color: rgb(41, 231, 31);
+                border: none;
+                padding: $U1 $U2;
+                border-radius: $borderRadius;
+                cursor: pointer;
+                &:disabled {
+                    background-color: $colorNeutralDark;
+                }
+            }
+
+            span {
+                margin: 0 $U1;
+                color: $colorNeutralDark;
+            }
+        }
+    }
+
+    .popUp {
+        background-color: white;
+        padding: $U4;
+        border-radius: $borderRadius;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 400px;
+
+        .cross {
+            position: absolute;
+            right: $U1;
+            top: $U1;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+    }
+}

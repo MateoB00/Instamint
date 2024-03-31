@@ -1,0 +1,20 @@
+@import '../main.scss';
+
+.title {
+    margin-top: calc($defaultMargin / 2); 
+    padding: calc($defaultMargin / 2); 
+    font-size: $titleFontSize; 
+    font-weight: $titleFontWeight; 
+    text-align: center;
+    color: $colorAccent1; 
+    h1 {
+        margin: 0;
+    }
+    p {
+        margin: 0;
+        text-align: center;
+        font-size: $bodyFontSize; 
+        font-weight: $bodyFontWeight; 
+        color: $colorNeutralDark; 
+    }
+}

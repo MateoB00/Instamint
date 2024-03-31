@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -53,6 +54,45 @@ export class AuthService {
 
   async validateUser(userEmail) {
     return await this.userService.findOneByEmail(userEmail);
+  }
+
+  async register(user: User) {
+    const existingUser = await this.userRepository.findOne({
+      where: { email: user.email },
+    });
+
+    if (existingUser) {
+      throw new BadRequestException('User already exists');
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
+    if (!emailRegex.test(user.email)) {
+      throw new BadRequestException('Email needs to be valid.');
+    }
+
+    const password =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{0,}$/u;
+    if (!password.test(user.password)) {
+      throw new BadRequestException('Password needs to be valid.');
+    }
+
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+
+    const newUser = {
+      email: user.email,
+      password: hashedPassword,
+      username: user.username,
+      phoneNumber: 'default number',
+      profilePicture: 'default picture',
+      bio: 'default bio',
+      uniqueLink: `${user.username}-${Math.floor(Math.random() * 1000)}`,
+    };
+
+    const createdUser = await this.userRepository.save(newUser);
+
+    await this.emailService.sendConfirmationEmail(createdUser);
+
+    return createdUser;
   }
   async changeEmail(userId: number, newEmail: string) {
     const user = await this.userService.findOneById(userId);

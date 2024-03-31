@@ -1,5 +1,5 @@
 import React from 'react';
-import '../scss/layout/Header.scss';
+import '../../scss/layout/Header.scss';
 
 const Header: React.FC = () => (
   <header className="header">
@@ -22,6 +22,11 @@ const Header: React.FC = () => (
         </li>
         <li>
           <a href="#">Profile</a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="./src/assets/image/gear.png" alt="Gear Icon" />
+          </a>
         </li>
       </ul>
     </nav>
