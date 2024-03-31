@@ -1,40 +1,45 @@
 import { useState } from 'react';
 import Input from '../../../components/ui/Input';
-import { authChangeEmail } from '../../../api/authChangeMail'; 
-import { shemaChangeEmail, catchErrors } from '../../../utils/yup'; 
+import { authChangeEmail } from '../../../api/authChangeMail';
+import { shemaChangeEmail, catchErrors } from '../../../utils/yup';
 
 export default function AuthChangeEmail() {
-  const [emailData, setEmailData] = useState({
-    currentEmail: '', 
-    newEmail: '',
-  });
+  const [emailData, setEmailData] = useState({ currentEmail: '', newEmail: '' });
   const [formErrors, setFormErrors] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmailData({ ...emailData, [name]: value });
   };
 
+  const validateEmailData = async () => {
+    try {
+      await shemaChangeEmail.validate(emailData, { abortEarly: false });
+    } catch (errors) {
+      const formattedErrors = catchErrors(errors);
+      setFormErrors(formattedErrors.newEmail || formattedErrors.currentEmail);
+      return false;
+    }
+    return true;
+  };
+
+  const changeEmail = async () => {
+    try {
+      const response = await authChangeEmail(emailData.currentEmail, emailData.newEmail, '');
+      setSuccessMessage('Email successfully changed. Please check your inbox to verify the new email.');
+    } catch (error) {
+      setFormErrors(error.message || 'An error occurred while attempting to change email.');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormErrors('');
-
-    shemaChangeEmail
-      .validate(emailData, { abortEarly: false })
-      .then(async () => {
-        const response = await authChangeEmail(emailData.currentEmail, emailData.newEmail, '');  
-
-        if (response.success) {
-          alert('Email successfully changed. Please check your inbox to verify the new email.');
-        } 
-        else {
-          setFormErrors(response.message);
-        }
-      })
-      .catch((errors) => {
-        const formattedErrors = catchErrors(errors);
-        setFormErrors(formattedErrors.newEmail || formattedErrors.currentEmail);
-      });
+    setSuccessMessage('');
+    const isValid = await validateEmailData();
+    if (!isValid) return;
+    await changeEmail();
   };
 
   return (
@@ -56,6 +61,7 @@ export default function AuthChangeEmail() {
           placeholder="New Email"
         />
         {formErrors && <span style={{ color: 'red' }}>{formErrors}</span>}
+        {successMessage && <span style={{ color: 'green' }}>{successMessage}</span>}
         <button type="submit">Change Email</button>
       </form>
     </div>
