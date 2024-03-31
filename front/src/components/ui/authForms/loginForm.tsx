@@ -3,9 +3,10 @@ import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import InputForm from '../InputForm';
-import { useLoginForm } from '../../../hooks/useLoginForm';
+import { useLoginForm } from '../../../hooks/auth/useLoginForm';
 import { resendEmailConfirmation } from '../../../api/auth';
 import Button from '../Button';
+import { renderMessages } from '../../ui/Message';
 
 const fieldsForm = [
   {
@@ -23,7 +24,13 @@ const fieldsForm = [
 ];
 
 export default function LoginForm() {
-  const { formData, formMessages, handleChange, handleSubmit } = useLoginForm();
+  const {
+    formData,
+    formYupMessages,
+    formApiMessages,
+    handleChange,
+    handleSubmit,
+  } = useLoginForm();
 
   return (
     <div className="authForm">
@@ -41,24 +48,22 @@ export default function LoginForm() {
               value={formData[field.name as keyof typeof formData]}
               onChange={handleChange}
             />
-            {formMessages[field.name as keyof typeof formMessages] && (
-              <span style={{ color: 'red' }}>
-                {formMessages[field.name as keyof typeof formMessages]}
-              </span>
-            )}
+            {renderMessages(formYupMessages, 'red')}
           </Fragment>
         ))}
         <div className="buttonsForm">
           <Button className="nextButton">Connection</Button>
-          {formMessages.apiError && (
-            <span style={{ color: 'red' }}>{formMessages.apiError}</span>
+          {formApiMessages.apiError && renderMessages(formApiMessages, 'red')}
+          {formApiMessages.apiError === 'Email not verified' && (
+            <Button
+              children={'Send another email'}
+              onClick={() => resendEmailConfirmation(formData.email)}
+            />
           )}
-          {formMessages.apiError === 'Email not verified' && (
-            <Button onClick={() => resendEmailConfirmation(formData.email)}>
-              Send another email
-            </Button>
-          )}
-          <Button className="forgotPasswordButton">Forgot password?</Button>
+          <Button
+            children={'Forgot password?'}
+            className="forgotPasswordButton"
+          />
         </div>
       </form>
       <p>

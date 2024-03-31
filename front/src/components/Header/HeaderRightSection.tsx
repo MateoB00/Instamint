@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '../ui/Button';
 import profileIcon from '../../assets/Icon/header/User_light.svg';
 import settingsIcon from '../../assets/Icon/header/Setting_line_light.svg';
