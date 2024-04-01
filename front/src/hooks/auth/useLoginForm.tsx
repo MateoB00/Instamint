@@ -6,8 +6,11 @@ import { FormApiMessages } from '../../interfaces/formMessages';
 
 export const useLoginForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [formYupMessages, setFormYupMessages] = useState<ErrorsYup>();
-  const [formApiMessages, setFormApiMessages] = useState<FormApiMessages>();
+  const [formYupMessages, setFormYupMessages] = useState<ErrorsYup>({});
+  const [formApiMessages, setFormApiMessages] = useState<FormApiMessages>({
+    apiError: '',
+    apiSuccess: '',
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

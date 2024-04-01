@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from '../src/controllers/user.controller';
 import { UserService } from '../src/services/user.service';
@@ -77,6 +76,7 @@ describe('UserController', () => {
     });
   });
 
+  // eslint-disable-next-line max-lines-per-function
   describe('Update User', () => {
     it('should update user successfully', async () => {
       const loggedInUser: User = {

@@ -40,7 +40,7 @@ export default function RegisterForm() {
     formApiMessages,
     handleChange,
     handleSubmit,
-  } = useRegis terForm();
+  } = useRegisterForm();
 
   return (
     <div className="authForm">

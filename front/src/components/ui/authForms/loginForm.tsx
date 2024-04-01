@@ -6,7 +6,8 @@ import InputForm from '../InputForm';
 import { useLoginForm } from '../../../hooks/auth/useLoginForm';
 import { resendEmailConfirmation } from '../../../api/auth';
 import Button from '../Button';
-import { renderMessages } from '../../ui/Message';
+import { renderMessages, Message } from '../../ui/Message';
+import { FormApiMessages } from '../../../interfaces/formMessages';
 
 const fieldsForm = [
   {
@@ -48,23 +49,17 @@ export default function LoginForm() {
               value={formData[field.name as keyof typeof formData]}
               onChange={handleChange}
             />
-            {renderMessages(formYupMessages, 'red')}
+            {formYupMessages[field.name as keyof typeof formYupMessages] && (
+              <Message
+                message={
+                  formYupMessages[field.name as keyof typeof formYupMessages]
+                }
+                color={'red'}
+              />
+            )}
           </Fragment>
         ))}
-        <div className="buttonsForm">
-          <Button className="nextButton">Connection</Button>
-          {formApiMessages.apiError && renderMessages(formApiMessages, 'red')}
-          {formApiMessages.apiError === 'Email not verified' && (
-            <Button
-              children={'Send another email'}
-              onClick={() => resendEmailConfirmation(formData.email)}
-            />
-          )}
-          <Button
-            children={'Forgot password?'}
-            className="forgotPasswordButton"
-          />
-        </div>
+        <RenderButtons formApiMessages={formApiMessages} formData={formData} />
       </form>
       <p>
         Don't have an account ? <span>Sign up</span>
@@ -73,3 +68,22 @@ export default function LoginForm() {
     </div>
   );
 }
+
+interface RenderButtonsProps {
+  formApiMessages: FormApiMessages;
+  formData: { email: string; password: string };
+}
+
+const RenderButtons = ({ formApiMessages, formData }: RenderButtonsProps) => (
+  <div className="buttonsForm">
+    <Button children={'Connection'} className="nextButton" />
+    {formApiMessages.apiError && renderMessages(formApiMessages, 'red')}
+    {formApiMessages.apiError === 'Email not verified' && (
+      <Button
+        children={'Send another email'}
+        onClick={() => resendEmailConfirmation(formData.email)}
+      />
+    )}
+    <Button children={'Forgot password?'} className="forgotPasswordButton" />
+  </div>
+);
