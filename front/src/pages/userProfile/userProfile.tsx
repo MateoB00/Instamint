@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import ItemsProfile from '../../components/userProfile/itemsProfile';
 import UpdateProfile from '../../components/userProfile/updateProfile';
 import CardProfile from '../../components/userProfile/cardProfile';
-import { useUserProfile } from '../../hooks/useUserProfile';
+import { useUserProfile } from '../../hooks/user/useUserProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button';
 
@@ -44,7 +44,9 @@ export default function UserProfile() {
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
             </div>
             {optionsProfiles === 'NFTs' && <ItemsProfile />}
-            {optionsProfiles === 'Informations' && <UpdateProfile />}
+            {optionsProfiles === 'Informations' && (
+              <UpdateProfile userData={userData} />
+            )}
           </div>
         </div>
       </section>

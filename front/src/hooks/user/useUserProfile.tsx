@@ -1,6 +1,6 @@
-import { getMe } from '../api/user';
+import { getMe } from '../../api/user';
 import { useState } from 'react';
-import { UserInterface } from '../interfaces/userData';
+import { UserInterface } from '../../interfaces/userData';
 
 interface LocationState {
   state: {

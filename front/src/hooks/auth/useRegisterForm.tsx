@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { shemaRegister, catchErrors } from '../utils/yup';
-import { authRegister } from '../api/auth';
+import { shemaRegister, catchErrors } from '../../utils/yup/yup';
+import { authRegister } from '../../api/auth';
+import { ErrorsYup } from '../../interfaces/yup';
+import { FormApiMessages } from '../../interfaces/formMessages';
 
 const HTTP_OK = 201;
 
@@ -11,11 +13,9 @@ export const useRegisterForm = () => {
     password: '',
     confirmPassword: '',
   });
-  const [formMessages, setFormMessages] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
+  const [formYupMessages, setFormYupMessages] = useState<ErrorsYup>({});
+
+  const [formApiMessages, setFormApiMessages] = useState<FormApiMessages>({
     apiError: '',
     apiSuccess: '',
   });
@@ -43,17 +43,22 @@ export const useRegisterForm = () => {
 
         if (response === HTTP_OK) {
           updatedErrors.apiSuccess = 'Confirmation email has been sent';
-          setFormMessages(updatedErrors);
         }
         if (response.error) {
           updatedErrors.apiError = response.message;
-          setFormMessages(updatedErrors);
         }
+        setFormApiMessages(updatedErrors);
       })
       .catch((errors) => {
-        setFormMessages(catchErrors(errors));
+        setFormYupMessages(catchErrors(errors));
       });
   };
 
-  return { formData, formMessages, handleChange, handleSubmit };
+  return {
+    formData,
+    formYupMessages,
+    formApiMessages,
+    handleChange,
+    handleSubmit,
+  };
 };
