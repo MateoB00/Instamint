@@ -74,6 +74,7 @@ describe('AuthController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),

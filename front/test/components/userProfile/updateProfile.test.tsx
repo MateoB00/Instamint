@@ -18,6 +18,7 @@ describe('UpdateProfile component', () => {
       language: 'English',
       twoFactorEnabled: true,
       twoFactorSecret: 'test',
+      otpPath: 'test',
       searchByEmailOrPhoneEnabled: true,
       lastLogin: new Date(),
       createdAt: new Date(),
