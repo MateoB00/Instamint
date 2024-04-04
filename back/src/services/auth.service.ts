@@ -88,7 +88,7 @@ export class AuthService {
       password: hashedPassword,
       username: user.username,
       phoneNumber: 'default number',
-      profilePicture: 'default picture',
+      profilePicture: './default_profile_icon.png',
       bio: 'default bio',
       uniqueLink: `${user.username}-${Math.floor(Math.random() * 1000)}`,
       twoFactorSecret: secret,
