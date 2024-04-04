@@ -53,7 +53,10 @@ export default function UserProfile() {
               <UpdateProfile userData={userData} />
             )}
             {optionsProfiles === '2FA' && (
-              <TwoFactorProfile userData={userData} />
+              <TwoFactorProfile
+                userData={userData}
+                fetchUserData={fetchUserData}
+              />
             )}
           </div>
         </div>

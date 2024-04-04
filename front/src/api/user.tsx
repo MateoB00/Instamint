@@ -26,3 +26,30 @@ export const userUpdate = async (formData: object) => {
 
   return response.json();
 };
+
+export const enableTwoAuth = async () => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/user/enable-two-auth`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    },
+  );
+
+  return response.json();
+};
+
+export const deleteUser = async () => {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+
+  return response.json();
+};

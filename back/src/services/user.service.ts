@@ -60,4 +60,25 @@ export class UserService {
       message: 'User updated successfully.',
     };
   }
+
+  async updateTwoAuth(
+    id: number,
+    twoAuthenticationEnabled: boolean,
+  ): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    user.twoFactorEnabled = twoAuthenticationEnabled;
+
+    return this.userRepository.save(user);
+  }
+
+  async deleteUser(id: number): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    await this.userRepository.remove(user);
+  }
 }
