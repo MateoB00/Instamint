@@ -5,13 +5,13 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   email: string;
 
   @Column()
   password: string;
 
-  @Column({ unique: true })
+  @Column()
   username: string;
 
   @Column()
@@ -41,6 +41,9 @@ export class User {
 
   @Column({ nullable: true })
   twoFactorSecret: string;
+
+  @Column({ nullable: true })
+  otpPath: string;
 
   @Column({ default: false })
   searchByEmailOrPhoneEnabled: boolean;

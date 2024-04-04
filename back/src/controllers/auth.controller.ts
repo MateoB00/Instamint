@@ -9,7 +9,11 @@ import {
   Get,
   Redirect,
   Param,
+  UseGuards,
+  Request,
+  BadRequestException,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../services/auth.service';
 import { EmailService } from '../services/email.service';
 import { Response as ResponseType } from 'express';
@@ -35,10 +39,16 @@ export class AuthController {
   ) {
     const token = await this.authService.login(email, password);
 
-    res.cookie('SESSION', token.accessToken, {
-      httpOnly: true,
-      domain: process.env.DOMAIN,
-    });
+    const user = await this.authService.validateUser(email);
+    const { twoFactorEnabled } = user;
+
+    if (!twoFactorEnabled) {
+      res.cookie('SESSION', token.accessToken, {
+        httpOnly: true,
+        domain: process.env.DOMAIN,
+      });
+      res.status(202);
+    }
 
     return token;
   }
@@ -72,5 +82,30 @@ export class AuthController {
       httpOnly: true,
       domain: process.env.DOMAIN,
     });
+  }
+
+  @Post('2fa')
+  @Header('Authorization', 'Bearer')
+  @UseGuards(AuthGuard('two-factor'))
+  async twoFactorAuth(
+    @Res({ passthrough: true }) res: ResponseType,
+    @Request() req,
+  ) {
+    try {
+      const { email, otp, password } = req.body;
+
+      await this.authService.validateTwoFactor(email, otp);
+
+      const token = await this.authService.login(email, password);
+
+      res.cookie('SESSION', token.accessToken, {
+        httpOnly: true,
+        domain: process.env.DOMAIN,
+      });
+
+      return token;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }

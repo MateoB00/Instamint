@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import { useEffect } from 'react';
 import ItemsProfile from '../../components/userProfile/itemsProfile';
 import UpdateProfile from '../../components/userProfile/updateProfile';
+import TwoFactorProfile from '../../components/userProfile/twoFactorProfile';
 import CardProfile from '../../components/userProfile/cardProfile';
 import { useUserProfile } from '../../hooks/user/useUserProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -19,6 +20,7 @@ export default function UserProfile() {
     handleShowMainProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
+    handleShow2FAProfile,
   } = useUserProfile();
 
   useEffect(() => {
@@ -42,10 +44,16 @@ export default function UserProfile() {
               <Button onClick={handleShowMainProfile}>NFTs</Button>
               <Button>Drafts</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
+              <Button onClick={handleShow2FAProfile}>
+                Double authentification
+              </Button>
             </div>
             {optionsProfiles === 'NFTs' && <ItemsProfile />}
             {optionsProfiles === 'Informations' && (
               <UpdateProfile userData={userData} />
+            )}
+            {optionsProfiles === '2FA' && (
+              <TwoFactorProfile userData={userData} />
             )}
           </div>
         </div>

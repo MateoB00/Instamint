@@ -11,6 +11,7 @@ import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
+import * as speakeasy from 'speakeasy';
 
 @Injectable()
 export class AuthService {
@@ -77,6 +78,10 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(user.password, 10);
+    const generatedSecret2FA = speakeasy.generateSecret({ length: 20 });
+
+    const secret = generatedSecret2FA.base32;
+    const { otpauthUrl } = generatedSecret2FA;
 
     const newUser = {
       email: user.email,
@@ -84,8 +89,10 @@ export class AuthService {
       username: user.username,
       phoneNumber: 'default number',
       profilePicture: 'default picture',
-      bio: './default_profile_icon.png',
+      bio: 'default bio',
       uniqueLink: `${user.username}-${Math.floor(Math.random() * 1000)}`,
+      twoFactorSecret: secret,
+      otpPath: otpauthUrl,
     };
 
     const createdUser = await this.userRepository.save(newUser);
@@ -93,5 +100,26 @@ export class AuthService {
     await this.emailService.sendConfirmationEmail(createdUser);
 
     return createdUser;
+  }
+
+  async validateTwoFactor(userEmail: string, otp: string): Promise<User> {
+    const user = await this.userService.findOneByEmail(userEmail);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const verified = speakeasy.totp.verify({
+      secret: user.twoFactorSecret,
+      encoding: 'base32',
+      token: otp,
+      window: 2,
+    });
+
+    if (!verified) {
+      throw new Error('Invalid OTP');
+    }
+
+    return user;
   }
 }

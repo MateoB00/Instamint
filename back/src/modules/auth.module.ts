@@ -7,9 +7,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { JwtStrategy } from '../middlewares/jwt.strategy';
 import { EmailService } from 'src/services/email.service';
+import { PassportModule } from '@nestjs/passport';
+import { TwoFactorAuthStrategy } from '../middlewares/2fa.strategy';
 
 @Module({
-  providers: [AuthService, JwtStrategy, UserService, EmailService],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    UserService,
+    EmailService,
+    TwoFactorAuthStrategy,
+  ],
   controllers: [AuthController],
   imports: [
     TypeOrmModule.forFeature([User]),
@@ -17,7 +25,8 @@ import { EmailService } from 'src/services/email.service';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '3600s' },
     }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
-  exports: [AuthService, JwtStrategy],
+  exports: [AuthService, JwtStrategy, PassportModule],
 })
 export class AuthModule {}
