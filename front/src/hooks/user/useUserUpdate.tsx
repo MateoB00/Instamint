@@ -12,6 +12,7 @@ interface Props {
 export const useUserUpdate = ({ userData }: Props) => {
   const [formData, setFormData] = useState({
     username: userData && userData.username,
+    uniqueLink: userData && userData.uniqueLink,
     searchByEmailOrPhoneEnabled:
       userData && userData.searchByEmailOrPhoneEnabled,
   });
