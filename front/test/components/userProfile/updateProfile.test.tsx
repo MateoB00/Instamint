@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import UpdateProfile from '../../../src/components/userProfile/updateProfile';
@@ -31,13 +32,19 @@ describe('UpdateProfile component', () => {
         name: 'username',
         type: 'text',
         label: 'Username',
-        placeholder: 'test',
+        placeholder: 'Enter your username',
+      },
+      {
+        name: 'uniqueLink',
+        type: 'text',
+        label: 'Unique Link',
+        placeholder: 'Enter your unique link',
       },
       {
         name: 'searchByEmailOrPhoneEnabled',
         type: 'checkbox',
         label: 'Search By Email Or Phone',
-        placeholder: 'test',
+        placeholder: 'Enter your e-mail',
       },
     ];
 
