@@ -1,5 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import {
+  getDownloadURL,
+  listAll,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
 import { storage } from '../config/firebase.config';
 import { User } from '../entities/user.entity';
 
@@ -22,22 +27,27 @@ export class ContentService {
     const MAX_FILE_SIZE_BYTES = 1073741824;
 
     if (!allowedTypes.includes(file.mimetype)) {
-      return new BadRequestException('File type not allowed');
+      throw new BadRequestException('File type not allowed');
     }
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      return new BadRequestException('File size exceeds the limit (1GB)');
+      throw new BadRequestException('File size exceeds the limit (1GB)');
     }
 
-    const date = new Date().getTime();
-    const storageRef = ref(
-      storage,
-      `drafts/${file.originalname}-${user.username}-${date}`,
-    );
+    const fileName = `${file.originalname}-${user.username}`;
+
+    const storageRef = ref(storage, `drafts`);
+    const draftsList = await listAll(storageRef);
+    const existingContents = draftsList.items.map((content) => content.name);
+
+    if (existingContents.includes(fileName)) {
+      throw new BadRequestException(
+        'A content with the same name already exists',
+      );
+    }
 
     const metadata = {
       author: user.username,
-      date,
       contentType: file.mimetype,
     };
 
@@ -50,7 +60,7 @@ export class ContentService {
     const downloadURL = await getDownloadURL(snapshot.ref);
 
     return {
-      message: 'file uploaded to firebase storage',
+      message: 'content uploaded to firebase storage',
       name: file.originalname,
       type: file.mimetype,
       downloadURL,

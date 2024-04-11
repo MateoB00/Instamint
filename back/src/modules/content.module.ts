@@ -8,4 +8,4 @@ import { ContentController } from '../controllers/content.controller';
   providers: [ContentService],
   exports: [ContentService],
 })
-export class FirebaseModule {}
+export class ContentModule {}
