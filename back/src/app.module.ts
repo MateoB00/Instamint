@@ -4,6 +4,7 @@ import { User } from 'src/entities/user.entity';
 import { UserModule } from 'src/modules/user.module';
 import { AuthModule } from 'src/modules/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { FirebaseModule } from './modules/content.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
     }),
     UserModule,
     AuthModule,
+    FirebaseModule,
   ],
   controllers: [],
   providers: [],
