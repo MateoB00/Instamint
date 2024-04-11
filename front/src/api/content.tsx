@@ -1,3 +1,5 @@
+const BAD_REQUEST = 400;
+
 export const uploadContent = async (formData: FormData) => {
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/firebase/upload`,
@@ -8,7 +10,7 @@ export const uploadContent = async (formData: FormData) => {
     },
   );
 
-  if (response.status === 401) {
+  if (response.status === BAD_REQUEST) {
     return response.status;
   }
 
