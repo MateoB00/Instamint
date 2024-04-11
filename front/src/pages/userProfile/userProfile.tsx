@@ -44,7 +44,9 @@ export default function UserProfile() {
               <Button onClick={handleShowDraftsProfile}>Drafts</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
             </div>
-            {(optionsProfiles === 'NFTs' || optionsProfiles === 'Drafts') && <ItemsProfile optionsProfiles={optionsProfiles} />}
+            {(optionsProfiles === 'NFTs' || optionsProfiles === 'Drafts') && (
+              <ItemsProfile optionsProfiles={optionsProfiles} />
+            )}
             {optionsProfiles === 'Informations' && (
               <UpdateProfile userData={userData} />
             )}

@@ -1,5 +1,6 @@
 /* eslint-disable max-lines-per-function */
-require('dotenv').config();
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: `.env.test` });
 import { Test, TestingModule } from '@nestjs/testing';
 import { ContentController } from '../src/controllers/content.controller';
 import { ContentService } from '../src/services/content.service';
