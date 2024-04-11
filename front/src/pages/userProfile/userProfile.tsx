@@ -16,7 +16,8 @@ export default function UserProfile() {
     optionsProfiles,
     userData,
     fetchUserData,
-    handleShowMainProfile,
+    handleShowNftsProfile,
+    handleShowDraftsProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
   } = useUserProfile();
@@ -39,11 +40,11 @@ export default function UserProfile() {
           {userData && <CardProfile userData={userData} />}
           <div className="itemsChoice">
             <div className="navigation">
-              <Button onClick={handleShowMainProfile}>NFTs</Button>
-              <Button>Drafts</Button>
+              <Button onClick={handleShowNftsProfile}>NFTs</Button>
+              <Button onClick={handleShowDraftsProfile}>Drafts</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
             </div>
-            {optionsProfiles === 'NFTs' && <ItemsProfile />}
+            {(optionsProfiles === 'NFTs' || optionsProfiles === 'Drafts') && <ItemsProfile optionsProfiles={optionsProfiles} />}
             {optionsProfiles === 'Informations' && (
               <UpdateProfile userData={userData} />
             )}

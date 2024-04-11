@@ -24,8 +24,12 @@ export const useUserProfile = () => {
     }
   };
 
-  const handleShowMainProfile = () => {
+  const handleShowNftsProfile = () => {
     setOptionsProfiles('NFTs');
+  };
+
+  const handleShowDraftsProfile = () => {
+    setOptionsProfiles('Drafts');
   };
 
   const handleShowUpdateProfile = () => {
@@ -43,7 +47,8 @@ export const useUserProfile = () => {
     optionsProfiles,
     userData,
     fetchUserData,
-    handleShowMainProfile,
+    handleShowNftsProfile,
+    handleShowDraftsProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
   };
