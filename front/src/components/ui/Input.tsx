@@ -21,11 +21,8 @@ const Input: FC<InputProps> = ({
   onChange,
 }) => (
   <>
-    <label htmlFor={label} className="labelForm">
-      {label}
-    </label>
     <input
-      className="inputForm"
+      className="input"
       type={type}
       id={label}
       value={value}

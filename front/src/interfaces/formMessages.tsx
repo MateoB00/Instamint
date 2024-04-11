@@ -7,3 +7,9 @@ export interface FormAuthMessages {
   apiSuccess: string;
   [key: string]: string;
 }
+
+export interface FormApiMessages {
+  apiSuccess: string;
+  apiError: string;
+  [key: string]: string;
+}

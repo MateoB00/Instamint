@@ -1,55 +1,61 @@
 @import '../main.scss';
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
 .header {
-    background-color: $colorAccent3;
+    background-color: transparent;
     padding: $U $defaultPadding; 
     display: flex;
-    justify-content: space-between;
+    flex-direction:row;
     align-items: center;
-    height: 10 * $U;
-}
-
-.logo {
-    display: flex;
-    align-items: center; 
-    img{
-        width: 1.875rem;
-        height: auto;
-    }
-    h1{
-        color: $colorNeutralDark;
-    }
-}
-
-
-.logo-text {
-    margin-left: $defaultMargin; 
-    font-size: $subHeadingFontSize; 
-    font-weight: $headingFontWeight;
-    color: $colorAccent1; 
-}
-
-.nav ul {
-    display: flex;
-    list-style-type: none; 
-    padding: 0;
-    margin: 0;
-    li {
-        margin-left: $defaultMargin;
-        a {
-            color: $colorAccent1; 
-            text-decoration: none; 
-            font-weight: $headingFontWeight; 
-            img {
-                width: 5*$U;
-                height: auto;
-                margin-right: $defaultMargin;
-                margin-left: $defaultMargin
-            }
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    .left, .right {
+        display: flex;
+    } 
+    button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin: $defaultMargin;
+        padding: $defaultPadding;
+        display: flex;
+        img {
+            width: 1.8 * $U4;
+            height: 1.8 * $U4;
+        }
+        .icon {
+            filter: invert(100%);
+        }
+        span {
+        padding-left: 10px;
         }
     }
-    
+    button:hover {
+        background-color: $colorNeutralMedium;
+        border-radius: 10px;
+    }
 }
 
-.nav ul li:first-child {
-    margin-left: 0;
+.header {
+    button {
+        @media (max-width: 360px) {
+            margin: 0 !important;
+        }
+        img {
+            @media (max-width: 450px) {
+                width: 1.5 * $U4 !important;
+                height: 1.5 * $U4 !important;
+            }
+            @media (max-width: 385px) {
+                width: 1.3 * $U4 !important;
+                height: 1.3 * $U4 !important;
+            }
+           
+        }
+    }
 }

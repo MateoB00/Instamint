@@ -2,8 +2,9 @@ import { Fragment } from 'react';
 import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
-import Input from '../../../components/ui/Input';
-import { useRegisterForm } from '../../../hooks/useRegisterForm';
+import InputForm from '../InputForm';
+import { useRegisterForm } from '../../../hooks/auth/useRegisterForm';
+import Button from '../Button';
 
 const fieldsForm = [
   {
@@ -33,8 +34,13 @@ const fieldsForm = [
 ];
 
 export default function RegisterForm() {
-  const { formData, formMessages, handleChange, handleSubmit } =
-    useRegisterForm();
+  const {
+    formData,
+    formYupMessages,
+    formApiMessages,
+    handleChange,
+    handleSubmit,
+  } = useRegisterForm();
 
   return (
     <div className="authForm">
@@ -44,7 +50,7 @@ export default function RegisterForm() {
       <form onSubmit={handleSubmit}>
         {fieldsForm.map((field) => (
           <Fragment key={field.name}>
-            <Input
+            <InputForm
               type={field.type}
               label={field.label}
               name={field.name}
@@ -52,21 +58,21 @@ export default function RegisterForm() {
               value={formData[field.name as keyof typeof formData]}
               onChange={handleChange}
             />
-            {formMessages[field.name as keyof typeof formMessages] && (
+            {formYupMessages[field.name as keyof typeof formYupMessages] && (
               <span style={{ color: 'red' }}>
-                {formMessages[field.name as keyof typeof formMessages]}
+                {formYupMessages[field.name as keyof typeof formYupMessages]}
               </span>
             )}
           </Fragment>
         ))}
-        {formMessages.apiError && (
-          <span style={{ color: 'red' }}>{formMessages.apiError}</span>
+        {formApiMessages.apiError && (
+          <span style={{ color: 'red' }}>{formApiMessages.apiError}</span>
         )}
-        {formMessages.apiSuccess && (
-          <span style={{ color: '#16502d' }}>{formMessages.apiSuccess}</span>
+        {formApiMessages.apiSuccess && (
+          <span style={{ color: '#16502d' }}>{formApiMessages.apiSuccess}</span>
         )}
         <div className="buttonsForm">
-          <button className="nextButton">Next</button>
+          <Button className="nextButton">Next</Button>
         </div>
       </form>
       <p>
