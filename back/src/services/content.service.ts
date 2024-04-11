@@ -51,8 +51,13 @@ export class ContentService {
       contentType: file.mimetype,
     };
 
+    const contentRef = ref(
+      storage,
+      `drafts/${file.originalname}-${user.username}`,
+    );
+
     const snapshot = await uploadBytesResumable(
-      storageRef,
+      contentRef,
       file.buffer,
       metadata,
     );
