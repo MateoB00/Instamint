@@ -94,5 +94,27 @@ describe('ContentController', () => {
         contentController.uploadOriginalContent(mockFile, { user: mockUser }),
       ).rejects.toThrow('File type not allowed');
     });
+
+    it('should throw error when file content exists', async () => {
+      const mockFile = {
+        originalname: 'test.jpeg',
+        mimetype: 'image/jpeg',
+        buffer: Buffer.alloc(999),
+        size: 999,
+      };
+      const mockUser = { username: 'testuser' };
+
+      jest
+        .spyOn(contentService, 'uploadOriginalContent')
+        .mockRejectedValue(
+          new BadRequestException(
+            'A content with the same name already exists',
+          ),
+        );
+
+      await expect(
+        contentController.uploadOriginalContent(mockFile, { user: mockUser }),
+      ).rejects.toThrow('A content with the same name already exists');
+    });
   });
 });
