@@ -20,6 +20,7 @@ const mockUserData: UserInterface = {
   visibility: false,
   twoFactorEnabled: false,
   twoFactorSecret: null,
+  otpPath: null,
   searchByEmailOrPhoneEnabled: false,
   lastLogin: null,
   createdAt: new Date(),

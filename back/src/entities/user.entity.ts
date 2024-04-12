@@ -42,6 +42,9 @@ export class User {
   @Column({ nullable: true })
   twoFactorSecret: string;
 
+  @Column({ nullable: true })
+  otpPath: string;
+
   @Column({ default: false })
   searchByEmailOrPhoneEnabled: boolean;
 
