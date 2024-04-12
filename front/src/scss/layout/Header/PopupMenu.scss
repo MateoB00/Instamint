@@ -1,0 +1,17 @@
+@import '../../main.scss';
+.popup-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(224, 240, 228, 0.23);
+    border-radius: $U4;
+    box-shadow: 0 $U 1.875rem rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(0.706rem);
+    -webkit-backdrop-filter: blur(0.706rem);    
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .popup-menu button {
+    margin-bottom: $U;
+  }

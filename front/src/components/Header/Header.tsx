@@ -7,6 +7,7 @@ import { authLogout } from '../../api/auth';
 import Button from '../ui/Button';
 import HeaderLeftSection from './HeaderLeftSection';
 import HeaderRightSection from './HeaderRightSection';
+import BurgerMenu from './BurgerMenu';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -33,8 +34,12 @@ export default function Header() {
   return (
     <header>
       <div className="header">
-        <HeaderLeftSection />
-        <Button className="instamint">
+      {window.innerWidth <= 450 ? (
+          <BurgerMenu />
+        ) : (
+          <HeaderLeftSection userData={userData} />
+        )}
+      <Button className="instamint">
           <img src={instamintIcon} alt="instamintIcon" />
         </Button>
         <HeaderRightSection
