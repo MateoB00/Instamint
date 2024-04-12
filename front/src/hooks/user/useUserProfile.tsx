@@ -10,7 +10,7 @@ interface LocationState {
 
 export const useUserProfile = () => {
   const [optionsProfiles, setOptionsProfiles] = useState<
-    'NFTs' | 'Drafts' | 'Informations' | '2FA'
+    'NFTs' | 'Drafts' | 'Informations' | '2FA' | 'Delete Account'
   >('NFTs');
 
   const [userData, setUserData] = useState<UserInterface | null>();
@@ -36,6 +36,10 @@ export const useUserProfile = () => {
     setOptionsProfiles('2FA');
   };
 
+  const handleSwhowDeleteProfile = () => {
+    setOptionsProfiles('Delete Account');
+  };
+
   const navigateProfilePage = (location: LocationState) => {
     const initialState = location.state || {};
     if (initialState.setOptionsProfiles) {
@@ -51,5 +55,6 @@ export const useUserProfile = () => {
     handleShowUpdateProfile,
     navigateProfilePage,
     handleShow2FAProfile,
+    handleSwhowDeleteProfile,
   };
 };

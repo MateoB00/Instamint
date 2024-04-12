@@ -8,11 +8,35 @@ import CardProfile from '../../components/userProfile/cardProfile';
 import { useUserProfile } from '../../hooks/user/useUserProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button';
+import DeleteAccountProfile from '../../components/userProfile/deleteAccountProfile';
+import { UserInterface } from '../../interfaces/userData';
+
+type FetchUserDataFunction = () => void;
+
+function renderProfileOption(
+  optionsProfiles: string,
+  userData: UserInterface | null | undefined,
+  fetchUserData: FetchUserDataFunction,
+) {
+  switch (optionsProfiles) {
+    case 'NFTs':
+      return <ItemsProfile />;
+    case 'Informations':
+      return <UpdateProfile userData={userData} />;
+    case '2FA':
+      return (
+        <TwoFactorProfile userData={userData} fetchUserData={fetchUserData} />
+      );
+    case 'Delete Account':
+      return <DeleteAccountProfile />;
+    default:
+      return null;
+  }
+}
 
 export default function UserProfile() {
   const location = useLocation();
   const navigateReact = useNavigate();
-
   const {
     optionsProfiles,
     userData,
@@ -21,14 +45,13 @@ export default function UserProfile() {
     handleShowUpdateProfile,
     navigateProfilePage,
     handleShow2FAProfile,
+    handleSwhowDeleteProfile,
   } = useUserProfile();
-
   useEffect(() => {
     fetchUserData();
     navigateProfilePage(location);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
-
   if (userData === null) {
     navigateReact('/auth');
   }
@@ -47,17 +70,9 @@ export default function UserProfile() {
               <Button onClick={handleShow2FAProfile}>
                 Double authentification
               </Button>
+              <Button onClick={handleSwhowDeleteProfile}>Delete Account</Button>
             </div>
-            {optionsProfiles === 'NFTs' && <ItemsProfile />}
-            {optionsProfiles === 'Informations' && (
-              <UpdateProfile userData={userData} />
-            )}
-            {optionsProfiles === '2FA' && (
-              <TwoFactorProfile
-                userData={userData}
-                fetchUserData={fetchUserData}
-              />
-            )}
+            {renderProfileOption(optionsProfiles, userData, fetchUserData)}
           </div>
         </div>
       </section>
