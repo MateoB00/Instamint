@@ -3,9 +3,11 @@ import '../../../scss/components/ui/authForms/authForms.scss';
 import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import InputForm from '../InputForm';
-import { useLoginForm } from '../../../hooks/useLoginForm';
+import { useLoginForm } from '../../../hooks/auth/useLoginForm';
 import { resendEmailConfirmation } from '../../../api/auth';
 import Button from '../Button';
+import { renderMessages, Message } from '../../ui/Message';
+import { FormApiMessages } from '../../../interfaces/formMessages';
 
 const fieldsForm = [
   {
@@ -23,7 +25,13 @@ const fieldsForm = [
 ];
 
 export default function LoginForm() {
-  const { formData, formMessages, handleChange, handleSubmit } = useLoginForm();
+  const {
+    formData,
+    formYupMessages,
+    formApiMessages,
+    handleChange,
+    handleSubmit,
+  } = useLoginForm();
 
   return (
     <div className="authForm">
@@ -41,25 +49,17 @@ export default function LoginForm() {
               value={formData[field.name as keyof typeof formData]}
               onChange={handleChange}
             />
-            {formMessages[field.name as keyof typeof formMessages] && (
-              <span style={{ color: 'red' }}>
-                {formMessages[field.name as keyof typeof formMessages]}
-              </span>
+            {formYupMessages[field.name as keyof typeof formYupMessages] && (
+              <Message
+                message={
+                  formYupMessages[field.name as keyof typeof formYupMessages]
+                }
+                color={'red'}
+              />
             )}
           </Fragment>
         ))}
-        <div className="buttonsForm">
-          <Button className="nextButton">Connection</Button>
-          {formMessages.apiError && (
-            <span style={{ color: 'red' }}>{formMessages.apiError}</span>
-          )}
-          {formMessages.apiError === 'Email not verified' && (
-            <Button onClick={() => resendEmailConfirmation(formData.email)}>
-              Send another email
-            </Button>
-          )}
-          <Button className="forgotPasswordButton">Forgot password?</Button>
-        </div>
+        <RenderButtons formApiMessages={formApiMessages} formData={formData} />
       </form>
       <p>
         Don't have an account ? <span>Sign up</span>
@@ -68,3 +68,22 @@ export default function LoginForm() {
     </div>
   );
 }
+
+interface RenderButtonsProps {
+  formApiMessages: FormApiMessages;
+  formData: { email: string; password: string };
+}
+
+const RenderButtons = ({ formApiMessages, formData }: RenderButtonsProps) => (
+  <div className="buttonsForm">
+    <Button children={'Connection'} className="nextButton" />
+    {formApiMessages.apiError && renderMessages(formApiMessages, 'red')}
+    {formApiMessages.apiError === 'Email not verified' && (
+      <Button
+        children={'Send another email'}
+        onClick={() => resendEmailConfirmation(formData.email)}
+      />
+    )}
+    <Button children={'Forgot password?'} className="forgotPasswordButton" />
+  </div>
+);

@@ -9,6 +9,7 @@ interface InputFormProps {
   placeholder: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  defaultChecked?: boolean | undefined;
 }
 
 const InputForm: FC<InputFormProps> = ({
@@ -19,6 +20,7 @@ const InputForm: FC<InputFormProps> = ({
   placeholder,
   disabled,
   onChange,
+  defaultChecked,
 }) => (
   <>
     <label htmlFor={label} className="labelForm">
@@ -33,6 +35,7 @@ const InputForm: FC<InputFormProps> = ({
       placeholder={placeholder}
       disabled={disabled}
       onChange={onChange}
+      defaultChecked={defaultChecked}
     />
   </>
 );

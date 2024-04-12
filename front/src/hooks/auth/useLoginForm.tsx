@@ -1,13 +1,15 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { shemaLogin, catchErrors } from '../utils/yup';
-import { authLogin } from '../api/auth';
+import { shemaLogin, catchErrors } from '../../utils/yup/yup';
+import { authLogin } from '../../api/auth';
+import { ErrorsYup } from '../../interfaces/yup';
+import { FormApiMessages } from '../../interfaces/formMessages';
 
 export const useLoginForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [formMessages, setFormMessages] = useState({
-    email: '',
-    password: '',
+  const [formYupMessages, setFormYupMessages] = useState<ErrorsYup>({});
+  const [formApiMessages, setFormApiMessages] = useState<FormApiMessages>({
     apiError: '',
+    apiSuccess: '',
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +19,7 @@ export const useLoginForm = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormMessages({ email: '', password: '', apiError: '' });
+    setFormYupMessages({ email: '', password: '' });
 
     shemaLogin
       .validate(formData, { abortEarly: false })
@@ -25,17 +27,22 @@ export const useLoginForm = () => {
         const response = await authLogin(formData.email, formData.password);
 
         if (response.error) {
-          setFormMessages({
-            email: '',
-            password: '',
+          setFormApiMessages({
+            apiSuccess: '',
             apiError: response.message,
           });
         }
       })
       .catch((errors) => {
-        setFormMessages(catchErrors(errors));
+        setFormYupMessages(catchErrors(errors));
       });
   };
 
-  return { formData, formMessages, handleChange, handleSubmit };
+  return {
+    formData,
+    formYupMessages,
+    formApiMessages,
+    handleChange,
+    handleSubmit,
+  };
 };
