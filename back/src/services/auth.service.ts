@@ -12,6 +12,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import * as speakeasy from 'speakeasy';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +21,7 @@ export class AuthService {
     private readonly userService: UserService,
     private jwtService: JwtService,
     private emailService: EmailService,
+    private readonly mailerService: MailerService,
   ) {
     // Do nothing.
   }
@@ -81,8 +83,6 @@ export class AuthService {
     const generatedSecret2FA = speakeasy.generateSecret({ length: 20 });
 
     const secret = generatedSecret2FA.base32;
-    const { otpauthUrl } = generatedSecret2FA;
-
     const newUser = {
       email: user.email,
       password: hashedPassword,
@@ -92,7 +92,7 @@ export class AuthService {
       bio: 'default bio',
       uniqueLink: `${user.username}-${Math.floor(Math.random() * 1000)}`,
       twoFactorSecret: secret,
-      otpPath: otpauthUrl,
+      otpPath: `otpauth://totp/SecretKey?secret=${secret}`,
     };
 
     const createdUser = await this.userRepository.save(newUser);
@@ -121,5 +121,51 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  async generatePasswordResetToken(userId: number): Promise<string> {
+    const user = await this.userService.findOneById(userId);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    const payload = { userId: user.id };
+
+    return this.jwtService.sign(payload, { expiresIn: '1h' });
+  }
+
+  async validatePasswordResetToken(token: string): Promise<number | null> {
+    try {
+      const decoded = await this.jwtService.verify(token);
+
+      return decoded.userId;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async sendPasswordResetEmail(user: User, token: string): Promise<void> {
+    const mailOptions = {
+      to: user.email,
+      from: process.env.USER_MAILER,
+      subject: 'Password Reset Request',
+      text: `Dear ${user.username},\n\nYou have requested to reset your password. Click the following link to reset your password:\n\n${process.env.FRONT_END_URL}/reset-password/${token}\n\nIf you did not request this, please ignore this email.\n\nBest regards,\nYour App Team`,
+    };
+
+    await this.mailerService.sendMail(mailOptions).catch((error) => {
+      throw new Error(`Failed to send password reset request email ${error}`);
+    });
+  }
+
+  async updatePassword(userId: number, newPassword: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+
+    await this.userRepository.save(user);
   }
 }

@@ -4,7 +4,10 @@ import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
 import logo from '../../../assets/Image/logo-instamint.svg';
 import InputForm from '../InputForm';
 import { useLoginForm } from '../../../hooks/auth/useLoginForm';
-import { resendEmailConfirmation } from '../../../api/auth';
+import {
+  passwordResetRequest,
+  resendEmailConfirmation,
+} from '../../../api/auth';
 import Button from '../Button';
 import { renderMessages, Message } from '../../ui/Message';
 import { FormApiMessages } from '../../../interfaces/formMessages';
@@ -84,6 +87,11 @@ const RenderButtons = ({ formApiMessages, formData }: RenderButtonsProps) => (
         onClick={() => resendEmailConfirmation(formData.email)}
       />
     )}
-    <Button children={'Forgot password?'} className="forgotPasswordButton" />
+    <Button
+      className="forgotPasswordButton"
+      onClick={() => passwordResetRequest(formData.email)}
+    >
+      Forgot password?
+    </Button>
   </div>
 );

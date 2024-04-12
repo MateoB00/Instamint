@@ -108,4 +108,32 @@ export class AuthController {
       throw new BadRequestException(error.message);
     }
   }
+
+  @Post('reset-password-request')
+  async requestPasswordReset(@Body('email') email: string) {
+    const user = await this.userService.findOneByEmail(email);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const token = await this.authService.generatePasswordResetToken(user.id);
+    await this.authService.sendPasswordResetEmail(user, token);
+
+    return { message: 'Password reset email sent successfully' };
+  }
+
+  @Post('reset-password/:token')
+  async resetPassword(
+    @Param('token') token: string,
+    @Body('password') password: string,
+  ) {
+    const userId = await this.authService.validatePasswordResetToken(token);
+
+    if (!userId) {
+      throw new BadRequestException('Invalid or expired token');
+    }
+    await this.authService.updatePassword(userId, password);
+
+    return { message: 'Password reset successfully' };
+  }
 }
