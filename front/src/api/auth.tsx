@@ -98,3 +98,44 @@ export async function verifyTwoFactor(otp: string) {
     throw new Error('Failed to verify 2FA code. Please try again later.');
   }
 }
+
+export const passwordResetRequest = async (email: string) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/auth/reset-password-request`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    },
+  );
+
+  if (response.status === HTTP_OK) {
+    return response.status;
+  }
+
+  return response.json();
+};
+
+export const passwordReset = async (
+  token: string | null | undefined,
+  password: string,
+) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/auth/reset-password/${token}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ password }),
+    },
+  );
+
+  if (response.status === HTTP_OK) {
+    return response.status;
+  }
+
+  return response.json();
+};

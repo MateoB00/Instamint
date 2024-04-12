@@ -1,47 +1,37 @@
-import { Fragment } from 'react';
-import '../../../scss/components/ui/authForms/authForms.scss';
-import '../../../scss/components/ui/authForms/authFormsResponsive.scss';
+import '../../../scss/components/ui/resetPasswordForm/resetPasswordForms.scss';
+import '../../../scss/components/ui/resetPasswordForm/resetPasswordResponsive.scss';
 import Input from '../../../components/ui/Input';
 import { useTwoFactorForm } from '../../../hooks/auth/useTwoFactorForm';
 
-const fieldsForm = [
-  {
-    name: 'code',
-    type: 'text',
-    label: 'Verification Code',
-    placeholder: 'Enter your verification code',
-  },
-];
+const fieldsForm = {
+  name: 'code',
+  type: 'text',
+  label: 'Verification Code',
+  placeholder: 'Enter your code',
+};
 
 export default function TwoFactorAuthForm() {
   const { formData, formMessages, handleChange, handleSubmit } =
     useTwoFactorForm();
 
   return (
-    <div className="authForm">
-      <div className="titleForm">
-        <h2>Two-Factor Authentication</h2>
-      </div>
-      <form onSubmit={handleSubmit}>
-        {fieldsForm.map((field) => (
-          <Fragment key={field.name}>
-            <Input
-              type={field.type}
-              label={field.label}
-              name={field.name}
-              placeholder={field.placeholder}
-              value={formData[field.name as keyof typeof formData]}
-              onChange={handleChange}
-            />
-            {formMessages[field.name as keyof typeof formMessages] && (
-              <span style={{ color: 'red' }}>
-                {formMessages[field.name as keyof typeof formMessages]}
-              </span>
-            )}
-          </Fragment>
-        ))}
+    <div className="resetForm">
+      <form onSubmit={handleSubmit} className="form">
+        <Input
+          type={fieldsForm.type}
+          label={fieldsForm.label}
+          name={fieldsForm.name}
+          placeholder={fieldsForm.placeholder}
+          value={formData[fieldsForm.name as keyof typeof formData]}
+          onChange={handleChange}
+        />
+        {formMessages[fieldsForm.name as keyof typeof formMessages] && (
+          <span style={{ color: 'red' }}>
+            {formMessages[fieldsForm.name as keyof typeof formMessages]}
+          </span>
+        )}
         <div className="buttonsForm">
-          <button className="nextButton">Verify</button>
+          <button>Verify</button>
           {formMessages.apiError && (
             <span style={{ color: 'red' }}>{formMessages.apiError}</span>
           )}
