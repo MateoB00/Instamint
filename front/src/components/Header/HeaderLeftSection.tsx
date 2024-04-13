@@ -8,9 +8,9 @@ import ButtonSearchHeader from '../ui/ButtonSearchHeader';
 interface HeaderLeftSectionProps {
   userData?: any;
 }
-const HeaderLeftSection: React.FC<HeaderLeftSectionProps> = ({ userData }) => (  
-<div className="left">
-{userData && (
+const HeaderLeftSection: React.FC<HeaderLeftSectionProps> = ({ userData }) => (
+  <div className="left">
+    {userData && (
       <>
         <Button>
           <img className="icon" src={groupIcon} alt="groupIcon" />

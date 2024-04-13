@@ -9,7 +9,6 @@ export const useSearchUser = ({ onSearch }: UseSearchUserProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
   const toggleSearch = () => {
     setSearchOpen(!isSearchOpen);
   };
@@ -25,23 +24,6 @@ export const useSearchUser = ({ onSearch }: UseSearchUserProps) => {
   const handleCancel = () => {
     setSearchOpen(false);
   };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      searchRef.current &&
-      !searchRef.current.contains(event.target as Node)
-    ) {
-      setSearchOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   useEffect(() => {
     if (isSearchOpen && inputRef.current) {

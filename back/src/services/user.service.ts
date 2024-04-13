@@ -51,8 +51,7 @@ export class UserService {
 
   async getAllUsernames(): Promise<string[]> {
     const users = await this.userRepository.find();
-    return users.map(user => user.username);
-  }
-  
-}
 
+    return users.map((user) => user.username);
+  }
+}

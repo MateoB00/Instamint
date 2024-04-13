@@ -34,12 +34,12 @@ export default function Header() {
   return (
     <header>
       <div className="header">
-      {window.innerWidth <= 450 ? (
+        {window.innerWidth <= 450 ? (
           <BurgerMenu />
         ) : (
           <HeaderLeftSection userData={userData} />
         )}
-      <Button className="instamint">
+        <Button className="instamint">
           <img src={instamintIcon} alt="instamintIcon" />
         </Button>
         <HeaderRightSection

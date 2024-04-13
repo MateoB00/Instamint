@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Button from '../ui/Button';
 import menuIcon from '../../assets/Icon/header/Menu.svg';
 import PopupMenu from './PopupMenu';
 import '../../scss/layout/Header/BurgerMenu.scss';
@@ -15,7 +14,8 @@ const BurgerMenu: React.FC = () => {
       <button onClick={togglePopup}>
         <img className="icon" src={menuIcon} alt="menuIcon" />
       </button>
-      {showPopup && <PopupMenu />} {/* Affichez la popup lorsque showPopup est true */}
+      {showPopup && <PopupMenu />}{' '}
+      {/* Affichez la popup lorsque showPopup est true */}
     </div>
   );
 };

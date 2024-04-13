@@ -28,6 +28,5 @@ export class UserController {
   @Get('allUsernames')
   async getAllUsernames() {
     return await this.userService.getAllUsernames();
-}
-
+  }
 }
