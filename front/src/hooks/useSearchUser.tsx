@@ -22,18 +22,16 @@ export const useSearchUser = ({ onSearch }: UseSearchUserProps) => {
     onSearch(searchQuery);
   };
 
+  const handleCancel = () => {
+    setSearchOpen(false);
+  };
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       searchRef.current &&
       !searchRef.current.contains(event.target as Node)
     ) {
       setSearchOpen(false);
-    }
-  };
-
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleSearchSubmit();
     }
   };
 
@@ -57,9 +55,9 @@ export const useSearchUser = ({ onSearch }: UseSearchUserProps) => {
     searchQuery,
     handleSearchChange,
     handleSearchSubmit,
+    handleCancel,
     searchRef,
     inputRef,
-    handleKeyPress,
   };
 };
 

@@ -24,4 +24,10 @@ export class UserController {
 
     return { success: true, message: 'Username changed successfully' };
   }
+
+  @Get('allUsernames')
+  async getAllUsernames() {
+    return await this.userService.getAllUsernames();
+}
+
 }
