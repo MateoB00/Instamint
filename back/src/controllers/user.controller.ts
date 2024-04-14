@@ -36,23 +36,6 @@ export class UserController {
     return reponse;
   }
 
-  @Put('enable-two-auth')
-  @UseGuards(AuthGuard('jwt'))
-  async updateTwoAuth(@Request() req) {
-    const loggedInUser = req.user;
-    const newTwoAuthStatus = !loggedInUser.twoFactorEnabled;
-
-    const updatedUser = await this.userService.updateTwoAuth(
-      loggedInUser.id,
-      newTwoAuthStatus,
-    );
-
-    return {
-      message: 'Two-factor authentication status updated successfully',
-      user: updatedUser,
-    };
-  }
-
   @Delete('me')
   @UseGuards(AuthGuard('jwt'))
   async deleteUser(@Request() req) {

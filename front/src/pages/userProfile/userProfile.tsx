@@ -3,7 +3,6 @@ import Header from '../../components/Header/Header';
 import { useEffect } from 'react';
 import ItemsProfile from '../../components/userProfile/itemsProfile';
 import UpdateProfile from '../../components/userProfile/updateProfile';
-import TwoFactorProfile from '../../components/userProfile/twoFactorProfile';
 import CardProfile from '../../components/userProfile/cardProfile';
 import { useUserProfile } from '../../hooks/user/useUserProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,22 +10,17 @@ import Button from '../../components/ui/Button';
 import DeleteAccountProfile from '../../components/userProfile/deleteAccountProfile';
 import { UserInterface } from '../../interfaces/userData';
 
-type FetchUserDataFunction = () => void;
-
 function renderProfileOption(
   optionsProfiles: string,
   userData: UserInterface | null | undefined,
-  fetchUserData: FetchUserDataFunction,
 ) {
   switch (optionsProfiles) {
     case 'NFTs':
-      return <ItemsProfile />;
+      return <ItemsProfile optionsProfiles={optionsProfiles} />;
+    case 'Drafts':
+      return <ItemsProfile optionsProfiles={optionsProfiles} />;
     case 'Informations':
       return <UpdateProfile userData={userData} />;
-    case '2FA':
-      return (
-        <TwoFactorProfile userData={userData} fetchUserData={fetchUserData} />
-      );
     case 'Delete Account':
       return <DeleteAccountProfile />;
     default:
@@ -41,10 +35,10 @@ export default function UserProfile() {
     optionsProfiles,
     userData,
     fetchUserData,
-    handleShowMainProfile,
+    handleShowNftsProfile,
+    handleShowDraftsProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
-    handleShow2FAProfile,
     handleSwhowDeleteProfile,
   } = useUserProfile();
   useEffect(() => {
@@ -64,15 +58,12 @@ export default function UserProfile() {
           {userData && <CardProfile userData={userData} />}
           <div className="itemsChoice">
             <div className="navigation">
-              <Button onClick={handleShowMainProfile}>NFTs</Button>
-              <Button>Drafts</Button>
+              <Button onClick={handleShowNftsProfile}>NFTs</Button>
+              <Button onClick={handleShowDraftsProfile}>Drafts</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
-              <Button onClick={handleShow2FAProfile}>
-                Double authentification
-              </Button>
               <Button onClick={handleSwhowDeleteProfile}>Delete Account</Button>
             </div>
-            {renderProfileOption(optionsProfiles, userData, fetchUserData)}
+            {renderProfileOption(optionsProfiles, userData)}
           </div>
         </div>
       </section>

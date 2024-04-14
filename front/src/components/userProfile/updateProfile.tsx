@@ -6,6 +6,7 @@ import InputForm from '../ui/InputForm';
 import Button from '../ui/Button';
 import { UserInterface } from '../../interfaces/userData';
 import { Message, renderMessages } from '../ui/Message';
+import QRCode from 'qrcode.react';
 
 interface Props {
   userData: UserInterface | null | undefined;
@@ -29,6 +30,13 @@ const fieldsFormPersonalInformations = [
     type: 'checkbox',
     label: 'Search By Email Or Phone',
     placeholder: 'Enter your e-mail',
+  },
+  {
+    name: 'twoFactorEnabled',
+    type: 'checkbox',
+    label: 'Two Factor Authentication',
+    placeholder: 'Enter your choice',
+    qrCode: true,
   },
 ];
 
@@ -56,11 +64,14 @@ export default function UpdateProfile({ userData }: Props) {
                   placeholder={field.placeholder}
                   value={`${formData[field.name as keyof typeof formData]}`}
                   defaultChecked={
-                    userData && userData.searchByEmailOrPhoneEnabled
+                    field.name === 'searchByEmailOrPhoneEnabled'
+                      ? userData.searchByEmailOrPhoneEnabled
+                      : userData.twoFactorEnabled
                   }
                   onChange={handleChange}
                 />
               )}
+              {field.qrCode && <QRCode value={`${userData?.otpPath}`} />}
               {formYupMessages[field.name as keyof typeof formYupMessages] && (
                 <Message
                   message={
