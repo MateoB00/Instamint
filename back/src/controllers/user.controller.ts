@@ -1,3 +1,4 @@
+
 import {
   Controller,
   Get,
@@ -36,6 +37,11 @@ export class UserController {
     const reponse = this.userService.update(loggedInUser, user);
 
     return reponse;
+  }
+  @Patch(':id/visibility')
+  changeVisibility(@Param('id') id: number, @Body('visibility') visibility: 'private' | 'public',
+  ) {
+      return this.userService.changeVisibility(id, visibility);
   }
 
   @Delete('me')
@@ -83,9 +89,4 @@ export class UserController {
     }
   }
 
-  @Patch(':id/visibility')
-  changeVisibility(@Param('id') id: number, @Body('visibility') visibility: 'private' | 'public',
-  ) {
-      return this.userService.changeVisibility(id, visibility);
-  }
 }

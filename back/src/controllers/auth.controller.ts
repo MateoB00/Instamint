@@ -84,7 +84,28 @@ export class AuthController {
       domain: process.env.DOMAIN,
     });
   }
+  @Post('change-email')
+  async requestChangeEmail(
+    @Res({ passthrough: true }) res: ResponseType,
+    @Body('userId') userId: number,
+    @Body('newEmail') newEmail: string,
+  ) {
+    const existingUser = await this.userService.findOneByEmail(newEmail);
+    if (existingUser) {
+      throw new Error('Email is already in use.');
+    }
 
+    const token = await this.emailService.generateChangeEmailToken(
+      newEmail,
+      userId,
+    );
+
+    await this.emailService.sendChangeEmail(newEmail, token);
+
+    res
+      .status(HttpStatus.OK)
+      .json({ message: 'Verification email sent to new email address.' });
+  }
   @Post('2fa')
   @Header('Authorization', 'Bearer')
   @UseGuards(AuthGuard('two-factor'))
@@ -136,27 +157,5 @@ export class AuthController {
     await this.authService.updatePassword(userId, password);
 
     return { message: 'Password reset successfully' };
-  }
-  @Post('change-email')
-  async requestChangeEmail(
-    @Res({ passthrough: true }) res: ResponseType,
-    @Body('userId') userId: number,
-    @Body('newEmail') newEmail: string,
-  ) {
-    const existingUser = await this.userService.findOneByEmail(newEmail);
-    if (existingUser) {
-      throw new Error('Email is already in use.');
-    }
-
-    const token = await this.emailService.generateChangeEmailToken(
-      newEmail,
-      userId,
-    );
-
-    await this.emailService.sendChangeEmail(newEmail, token);
-
-    res
-      .status(HttpStatus.OK)
-      .json({ message: 'Verification email sent to new email address.' });
   }
 }

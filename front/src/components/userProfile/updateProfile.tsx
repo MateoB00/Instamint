@@ -32,17 +32,17 @@ const fieldsFormPersonalInformations = [
     placeholder: 'Enter your e-mail',
   },
   {
+    name: 'visibility',
+    type: 'checkbox',
+    label: 'Profile Visibility',
+    placeholder: 'Set profile visibility',
+  },
+  {
     name: 'twoFactorEnabled',
     type: 'checkbox',
     label: 'Two Factor Authentication',
     placeholder: 'Enter your choice',
     qrCode: true,
-  },
-  {
-    name: 'visibility',
-    type: 'checkbox',
-    label: 'Profile Visibility',
-    placeholder: 'Set profile visibility',
   },
 ];
 
