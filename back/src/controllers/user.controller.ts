@@ -8,6 +8,7 @@ import {
   HttpStatus,
   Delete,
   Param,
+  Patch,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -81,6 +82,7 @@ export class UserController {
       };
     }
   }
+
   @Patch(':id/visibility')
   changeVisibility(@Param('id') id: number, @Body('visibility') visibility: 'private' | 'public',
   ) {
