@@ -46,6 +46,7 @@ describe('UserController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
@@ -94,6 +95,7 @@ describe('UserController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
@@ -107,6 +109,7 @@ describe('UserController', () => {
       const changesUser = { ...loggedInUser };
       changesUser.username = 'username changed';
       changesUser.searchByEmailOrPhoneEnabled = false;
+      changesUser.uniqueLink = 'unique link changed';
 
       const expectedResponse = {
         success: true,
@@ -137,6 +140,7 @@ describe('UserController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),

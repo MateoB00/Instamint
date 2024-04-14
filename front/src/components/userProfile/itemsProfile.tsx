@@ -2,8 +2,18 @@ import '../../scss/components/userProfile/itemsProfile/itemsProfile.scss';
 import '../../scss/components/userProfile/itemsProfile/itemsProfileResponsive.scss';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import { Message } from '../ui/Message';
+import { useItemsProfile } from '../../hooks/components/userProfile/useItemsProfile';
 
-export default function ItemsProfile() {
+interface OptionsProfilesProps {
+  optionsProfiles: 'NFTs' | 'Drafts';
+}
+
+export default function ItemsProfile({
+  optionsProfiles,
+}: OptionsProfilesProps) {
+  const { message, handleFileChange, handleUpload } = useItemsProfile();
+
   return (
     <>
       <div className="items">
@@ -23,8 +33,15 @@ export default function ItemsProfile() {
               <Input name="max" value={'Max'} type="text" placeholder="Max" />
             </div>
           </div>
+          <div>
+            <span>Upload a content</span>
+            <Input type="file" onChange={handleFileChange} />
+            <Button onClick={handleUpload}>Upload</Button>
+            <div>{message && <Message color="red" message={message} />}</div>
+          </div>
         </div>
-        <div className="nfts"></div>
+        {optionsProfiles === 'NFTs' && <div className="nfts"></div>}
+        {optionsProfiles === 'Drafts' && <div className="drafts"></div>}
       </div>
     </>
   );

@@ -4,7 +4,10 @@ import ItemsProfile from '../../../src/components/userProfile/itemsProfile';
 
 describe('ItemsProfile component', () => {
   test('renders Status buttons', () => {
-    const { getByText } = render(<ItemsProfile />);
+    const optionsProfiles = 'NFTs';
+    const { getByText } = render(
+      <ItemsProfile optionsProfiles={optionsProfiles} />,
+    );
 
     expect(getByText('Status')).toBeInTheDocument();
     expect(getByText('All')).toBeInTheDocument();
@@ -13,7 +16,10 @@ describe('ItemsProfile component', () => {
   });
 
   test('renders Price inputs', () => {
-    const { getByText, getByPlaceholderText } = render(<ItemsProfile />);
+    const optionsProfiles = 'NFTs';
+    const { getByText, getByPlaceholderText } = render(
+      <ItemsProfile optionsProfiles={optionsProfiles} />,
+    );
 
     expect(getByText('Price')).toBeInTheDocument();
     expect(getByPlaceholderText('Min')).toBeInTheDocument();
@@ -21,7 +27,10 @@ describe('ItemsProfile component', () => {
   });
 
   test('Price inputs are initially empty', () => {
-    const { getByPlaceholderText } = render(<ItemsProfile />);
+    const optionsProfiles = 'NFTs';
+    const { getByPlaceholderText } = render(
+      <ItemsProfile optionsProfiles={optionsProfiles} />,
+    );
 
     const minInput = getByPlaceholderText('Min');
     const maxInput = getByPlaceholderText('Max');

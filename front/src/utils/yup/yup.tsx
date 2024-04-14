@@ -37,6 +37,7 @@ export const shemaChangeEmail = object().shape({
 export const shemaUpdateUser = object().shape({
   searchByEmailOrPhoneEnabled: boolean(),
   username: string().min(4),
+  uniqueLink: string().min(6).matches(/^\S*$/u, 'Link cannot contain spaces'),
 });
 
 export const catchErrors = (errors: ValidationError) => {

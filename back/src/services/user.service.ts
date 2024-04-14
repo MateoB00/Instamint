@@ -71,4 +71,12 @@ export class UserService {
       message: 'User updated successfully.',
     };
   }
+
+  async deleteUser(id: number): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    await this.userRepository.remove(user);
+  }
 }
