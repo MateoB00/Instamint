@@ -19,6 +19,12 @@ const fieldsFormPersonalInformations = [
     placeholder: 'Enter your username',
   },
   {
+    name: 'uniqueLink',
+    type: 'text',
+    label: 'Unique Link',
+    placeholder: 'Enter your unique link',
+  },
+  {
     name: 'searchByEmailOrPhoneEnabled',
     type: 'checkbox',
     label: 'Search By Email Or Phone',
@@ -47,7 +53,7 @@ export default function UpdateProfile({ userData }: Props) {
                   type={field.type}
                   label={field.label}
                   name={field.name}
-                  placeholder={userData && userData.username}
+                  placeholder={field.placeholder}
                   value={`${formData[field.name as keyof typeof formData]}`}
                   defaultChecked={
                     userData && userData.searchByEmailOrPhoneEnabled

@@ -105,6 +105,7 @@ describe('UserController', () => {
       const changesUser = { ...loggedInUser };
       changesUser.username = 'username changed';
       changesUser.searchByEmailOrPhoneEnabled = false;
+      changesUser.uniqueLink = 'unique link changed';
 
       const expectedResponse = {
         success: true,

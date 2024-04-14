@@ -23,7 +23,7 @@ export class User {
   @Column()
   bio: string;
 
-  @Column()
+  @Column({ unique: true })
   uniqueLink: string;
 
   @Column({ default: true })
