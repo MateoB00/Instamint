@@ -34,6 +34,17 @@ export class UserService {
 
     return fetchUserById;
   }
+  async changeVisibility(userId: number, visibility: 'private' | 'public'): Promise<User> {
+    const user = await this.userRepository.findOneOrFail({ where: { id: userId } });
+    const oldVisibility = user.profileVisibility;
+    user.profileVisibility = visibility;
+    
+    if (oldVisibility === 'private' && visibility === 'public') {
+        user.pendingFollowRequests = []; 
+    }
+
+    return this.userRepository.save(user);
+}
 
   async update(loggedUser: User, changesUser) {
     const { id } = loggedUser;

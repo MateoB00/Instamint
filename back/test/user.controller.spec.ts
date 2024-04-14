@@ -52,6 +52,8 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
 
       const req = { user: { id: 1 } };
@@ -98,6 +100,8 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
 
       const changesUser = { ...loggedInUser };
@@ -139,6 +143,8 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
 
       const changesUser = { ...loggedInUser };

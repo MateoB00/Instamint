@@ -59,4 +59,11 @@ export class User {
 
   @Column({ default: false })
   isAdmin: boolean;
+
+  @Column({ default: 'private' })  
+  profileVisibility: 'private' | 'public';
+
+  @Column("simple-array")
+  pendingFollowRequests: number[]; 
+
 }

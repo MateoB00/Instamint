@@ -1,5 +1,4 @@
-import { Controller, Get, UseGuards, Request, Put, Body } from '@nestjs/common';
-import { Controller, Get, UseGuards, Request, Put, Body } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Put, Patch, Param, Body } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '../entities/user.entity';
@@ -26,5 +25,10 @@ export class UserController {
     const reponse = this.userService.update(loggedInUser, user);
 
     return reponse;
+  }
+  @Patch(':id/visibility')
+  changeVisibility(@Param('id') id: number, @Body('visibility') visibility: 'private' | 'public',
+  ) {
+      return this.userService.changeVisibility(id, visibility);
   }
 }
