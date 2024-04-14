@@ -28,10 +28,8 @@
                 min-height: 55vh;
                 height: fit-content;
                 padding: $U4;
-
+                
                 .navigation {
-                    display: flex;
-                    width: fit-content;
                     gap: 1.5 * $U4;
                     button {
                         padding: $defaultPadding;
@@ -43,7 +41,7 @@
                         cursor: pointer;
                     }
                 }
-
+                
             }            
         }
     }

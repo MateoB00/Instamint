@@ -7,6 +7,7 @@ import {
   Body,
   HttpStatus,
   Delete,
+  Param,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -69,6 +70,30 @@ export class UserController {
       return {
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: 'Failed to delete user',
+        error: error.message,
+      };
+    }
+  }
+
+  @Get(':link')
+  async findByLink(@Param('link') link: string) {
+    try {
+      const user = await this.userService.findByLink(link);
+      if (!user) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          message: 'User not found',
+        };
+      }
+
+      return {
+        statusCode: HttpStatus.OK,
+        user,
+      };
+    } catch (error) {
+      return {
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Failed to fetch user',
         error: error.message,
       };
     }
