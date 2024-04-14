@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AuthPage from './pages/auth/authPage';
 import UserProfile from './pages/userProfile/userProfile';
+import TwoFactorPage from './pages/auth/TwoFactorPage';
+import PasswordResetPage from './pages/auth/passwordReset';
 
 export default function App() {
   return (
@@ -9,6 +11,8 @@ export default function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/me" element={<UserProfile />} />
+      <Route path="/2faVerification" element={<TwoFactorPage />} />
+      <Route path="/reset-password/:token" element={<PasswordResetPage />} />
     </Routes>
   );
 }
