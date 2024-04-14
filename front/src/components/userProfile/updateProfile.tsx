@@ -60,7 +60,6 @@ export default function UpdateProfile({ userData }: Props) {
                   }
                   onChange={handleChange}
                 />
-                
               )}
               {formYupMessages[field.name as keyof typeof formYupMessages] && (
                 <Message
