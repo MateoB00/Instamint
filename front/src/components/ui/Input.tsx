@@ -4,9 +4,9 @@ import '../../scss/components/ui/input.scss';
 interface InputProps {
   type: string;
   label?: string;
-  value: string | number;
-  name: string;
-  placeholder: string;
+  value?: string | number;
+  name?: string;
+  placeholder?: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }

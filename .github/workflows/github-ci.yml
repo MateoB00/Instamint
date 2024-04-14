@@ -4,9 +4,37 @@ on:
   pull_request:
     branches: ['*']
   push:
-    branches: ['main']
+    branches: ['main', 'staging', 'develop']
 
 jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install Dependencies & Run Build (Front-end)
+        run: |
+          cd front
+          npm install 
+          npm run build
+
+  build_back: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install Dependencies & Run Build (Back-end)
+        run: |
+          cd back
+          npm install 
+          npm run build
+          
   lint:
     runs-on: ubuntu-latest
     steps:

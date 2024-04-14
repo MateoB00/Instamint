@@ -1,4 +1,14 @@
-import { Controller, Get, UseGuards, Request, Put, Patch, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Request,
+  Put,
+  Body,
+  HttpStatus,
+  Delete,
+  Param,
+} from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '../entities/user.entity';
@@ -25,6 +35,51 @@ export class UserController {
     const reponse = this.userService.update(loggedInUser, user);
 
     return reponse;
+  }
+
+  @Delete('me')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteUser(@Request() req) {
+    try {
+      const loggedInUser = req.user;
+
+      await this.userService.deleteUser(loggedInUser.id);
+
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'User deleted successfully',
+      };
+    } catch (error) {
+      return {
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Failed to delete user',
+        error: error.message,
+      };
+    }
+  }
+
+  @Get(':link')
+  async findByLink(@Param('link') link: string) {
+    try {
+      const user = await this.userService.findByLink(link);
+      if (!user) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          message: 'User not found',
+        };
+      }
+
+      return {
+        statusCode: HttpStatus.OK,
+        user,
+      };
+    } catch (error) {
+      return {
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Failed to fetch user',
+        error: error.message,
+      };
+    }
   }
   @Patch(':id/visibility')
   changeVisibility(@Param('id') id: number, @Body('visibility') visibility: 'private' | 'public',
