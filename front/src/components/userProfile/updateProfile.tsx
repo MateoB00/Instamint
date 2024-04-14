@@ -24,6 +24,12 @@ const fieldsFormPersonalInformations = [
     label: 'Search By Email Or Phone',
     placeholder: 'Enter your e-mail',
   },
+  {
+    name: 'visibility',
+    type: 'checkbox',
+    label: 'Profile Visibility',
+    placeholder: 'Set profile visibility',
+  },
 ];
 
 export default function UpdateProfile({ userData }: Props) {
@@ -54,6 +60,7 @@ export default function UpdateProfile({ userData }: Props) {
                   }
                   onChange={handleChange}
                 />
+                
               )}
               {formYupMessages[field.name as keyof typeof formYupMessages] && (
                 <Message
@@ -72,5 +79,6 @@ export default function UpdateProfile({ userData }: Props) {
         </div>
       </form>
     </div>
+    
   );
 }
