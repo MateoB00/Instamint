@@ -32,6 +32,12 @@ const fieldsFormPersonalInformations = [
     placeholder: 'Enter your e-mail',
   },
   {
+    name: 'visibility',
+    type: 'checkbox',
+    label: 'Profile Visibility',
+    placeholder: 'Set profile visibility',
+  },
+  {
     name: 'twoFactorEnabled',
     type: 'checkbox',
     label: 'Two Factor Authentication',
@@ -89,5 +95,6 @@ export default function UpdateProfile({ userData }: Props) {
         </div>
       </form>
     </div>
+    
   );
 }
