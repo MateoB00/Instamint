@@ -54,7 +54,6 @@ describe('UserController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
-        pendingFollowRequests: [],
       };
 
       const req = { user: { id: 1 } };
@@ -103,7 +102,6 @@ describe('UserController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
-        pendingFollowRequests: [],
       };
 
       const changesUser = { ...loggedInUser };
@@ -148,7 +146,6 @@ describe('UserController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
-        pendingFollowRequests: [],
       };
 
       const changesUser = { ...loggedInUser };

@@ -33,8 +33,6 @@ const ListNFTs = () => {
           <li key={nft.id}>
             <img src={nft.nftImageUrl} alt="NFT" />
             <div>{nft.createdAt}</div>
-            <div>Likes: 17</div>
-            <div>Dislikes: 0</div>
           </li>
         ))}
       </ul>

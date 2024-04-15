@@ -1,7 +1,6 @@
 export const authChangeEmail = async (
   currentEmail: string,
   newEmail: string,
-  authToken: string,
 ) => {
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/auth/change-email`,
@@ -9,8 +8,8 @@ export const authChangeEmail = async (
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
       },
+      credentials: 'include',
       body: JSON.stringify({ currentEmail, newEmail }),
     },
   );

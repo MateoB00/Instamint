@@ -13,8 +13,8 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ContentService } from '../services/content.service';
-import { NFT } from 'src/entities/nft.entity';
-import { UserService } from 'src/services/user.service';
+import { NFT } from '../entities/nft.entity';
+import { UserService } from '../services/user.service';
 
 @Controller('content')
 export class ContentController {
@@ -76,5 +76,43 @@ export class ContentController {
     const dislikesCount = await this.contentService.getDislikesCount(nftId);
 
     return { likes: likesCount, dislikes: dislikesCount };
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post(':nftId/like')
+  async likeNFT(@Request() req, @Param('nftId') nftId: number) {
+    const loggedInUser = req.user;
+
+    const nft = await this.contentService.findNFTById(nftId);
+    if (!nft) {
+      throw new NotFoundException('NFT not found');
+    }
+
+    const newLike = await this.contentService.createLikeOrDislike(
+      loggedInUser,
+      nft,
+      true,
+    );
+
+    return { message: 'NFT liked successfully', like: newLike };
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post(':nftId/dislike')
+  async dislikeNFT(@Request() req, @Param('nftId') nftId: number) {
+    const loggedInUser = req.user;
+
+    const nft = await this.contentService.findNFTById(nftId);
+    if (!nft) {
+      throw new NotFoundException('NFT not found');
+    }
+
+    const newLike = await this.contentService.createLikeOrDislike(
+      loggedInUser,
+      nft,
+      false,
+    );
+
+    return { message: 'NFT liked successfully', like: newLike };
   }
 }

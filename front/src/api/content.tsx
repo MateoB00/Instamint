@@ -61,3 +61,35 @@ export const getLikesAndDislikes = async (nftId: number | undefined) => {
 
   return response.json();
 };
+
+export const likeNFT = async (nftId: number | undefined) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/content/${nftId}/like`,
+    {
+      method: 'POST',
+      credentials: 'include',
+    },
+  );
+
+  if (response.status === BAD_REQUEST) {
+    return response.status;
+  }
+
+  return response.json();
+};
+
+export const dislikeNFT = async (nftId: number | undefined) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/content/${nftId}/dislike`,
+    {
+      method: 'POST',
+      credentials: 'include',
+    },
+  );
+
+  if (response.status === BAD_REQUEST) {
+    return response.status;
+  }
+
+  return response.json();
+};

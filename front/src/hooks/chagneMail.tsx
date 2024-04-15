@@ -1,25 +1,34 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { authChangeEmail } from '../api/authChangeMail';
 import { shemaChangeEmail, catchErrors } from '../utils/yup';
+
+interface Formattedresponse {
+  success: string;
+  message: string;
+}
+
+interface FormattedErrors {
+  newEmail: string;
+  email: string;
+}
 
 export function useChangeEmailForm() {
   const [emailData, setEmailData] = useState({ email: '', newEmail: '' });
   const [formErrors, setFormErrors] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEmailData({ ...emailData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setFormErrors('');
     try {
       await shemaChangeEmail.validate(emailData, { abortEarly: false });
-      const response = await authChangeEmail(
+      const response: Formattedresponse = (await authChangeEmail(
         emailData.email,
         emailData.newEmail,
-      );
+      )) as Formattedresponse;
       if (!response.success) {
         setFormErrors(response.message);
       } else {
@@ -29,7 +38,9 @@ export function useChangeEmailForm() {
         );
       }
     } catch (errors) {
-      const formattedErrors = catchErrors(errors);
+      const formattedErrors: FormattedErrors = catchErrors(
+        errors,
+      ) as FormattedErrors;
       setFormErrors(formattedErrors.newEmail || formattedErrors.email);
     }
   };
