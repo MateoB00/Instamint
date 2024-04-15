@@ -2,6 +2,10 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import UpdateProfile from '../../../src/components/userProfile/updateProfile';
 
+jest.mock('i18n', () => ({
+  default: jest.fn(),
+}));
+
 describe('UpdateProfile component', () => {
   test('renders correctly', () => {
     const { getByRole } = render(<UpdateProfile />);

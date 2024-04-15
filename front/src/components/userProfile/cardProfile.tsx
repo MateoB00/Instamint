@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import '../../scss/components/userProfile/cardProfile/cardProfile.scss';
 import '../../scss/components/userProfile/cardProfile/cardProfileResponsive.scss';
 import { UserInterface } from '../../interfaces/userData';
-import { t } from 'i18next';
 import { initializeBackgroundUserProfile } from '../../utils/granim';
 
 interface Props {
@@ -30,11 +29,11 @@ export default function CardProfile({ userData }: Props) {
         <div className="userStats">
           <div className="followersDatas">
             <span className="data">0</span>
-            <span>{t('userProfile.followers')}</span>
+            <span>Followers</span>
           </div>
           <div className="followingsDatas">
             <span className="data">0</span>
-            <span>{t('userProfile.following')}</span>
+            <span>Followings</span>
           </div>
           <div className="nftsDatas">
             <span className="data">0</span>
