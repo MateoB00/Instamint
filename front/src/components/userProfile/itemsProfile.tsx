@@ -4,6 +4,8 @@ import Button from '../ui/Button';
 import Input from '../ui/Input';
 import { Message } from '../ui/Message';
 import { useItemsProfile } from '../../hooks/components/userProfile/useItemsProfile';
+import { useEffect } from 'react';
+import { getMyNFTS } from '../../api/content';
 
 interface OptionsProfilesProps {
   optionsProfiles: 'NFTs' | 'Drafts';
@@ -13,6 +15,10 @@ export default function ItemsProfile({
   optionsProfiles,
 }: OptionsProfilesProps) {
   const { message, handleFileChange, handleUpload } = useItemsProfile();
+
+  useEffect(() => {
+    getMyNFTS();
+  }, []);
 
   return (
     <>
