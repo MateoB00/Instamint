@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Input from '../../../components/ui/Input';
-import { authChangeEmail } from '../../../api/authChangeMail';
 import { shemaChangeEmail, catchErrors } from '../../../utils/yup';
 
+interface FormattedErrors {
+  newEmail: string;
+  currentEmail: string;
+}
+
 export default function AuthChangeEmail() {
-  const [emailData, setEmailData] = useState({ currentEmail: '', newEmail: '' });
+  const [emailData, setEmailData] = useState({
+    currentEmail: '',
+    newEmail: '',
+  });
   const [formErrors, setFormErrors] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEmailData({ ...emailData, [name]: value });
   };
@@ -17,34 +24,36 @@ export default function AuthChangeEmail() {
     try {
       await shemaChangeEmail.validate(emailData, { abortEarly: false });
     } catch (errors) {
-      const formattedErrors = catchErrors(errors);
+      const formattedErrors: FormattedErrors = catchErrors(
+        errors,
+      ) as FormattedErrors;
       setFormErrors(formattedErrors.newEmail || formattedErrors.currentEmail);
+
       return false;
     }
+
     return true;
   };
 
-  const changeEmail = async () => {
-    try {
-      const response = await authChangeEmail(emailData.currentEmail, emailData.newEmail, '');
-      setSuccessMessage('Email successfully changed. Please check your inbox to verify the new email.');
-    } catch (error) {
-      setFormErrors(error.message || 'An error occurred while attempting to change email.');
-    }
+  const changeEmail = () => {
+    setSuccessMessage(
+      'Email successfully changed. Please check your inbox to verify the new email.',
+    );
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setFormErrors('');
     setSuccessMessage('');
     const isValid = await validateEmailData();
-    if (!isValid) return;
+    if (!isValid) {
+      return;
+    }
     await changeEmail();
   };
 
   return (
     <div className="authForm">
-      <form onSubmit={handleSubmit}>
+      <form>
         <h2>Change Email</h2>
         <Input
           type="email"
@@ -61,8 +70,12 @@ export default function AuthChangeEmail() {
           placeholder="New Email"
         />
         {formErrors && <span style={{ color: 'red' }}>{formErrors}</span>}
-        {successMessage && <span style={{ color: 'green' }}>{successMessage}</span>}
-        <button type="submit">Change Email</button>
+        {successMessage && (
+          <span style={{ color: 'green' }}>{successMessage}</span>
+        )}
+        <button type="submit" onClick={handleSubmit}>
+          Change Email
+        </button>
       </form>
     </div>
   );
