@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import {
   getDownloadURL,
   listAll,
@@ -7,10 +11,17 @@ import {
 } from 'firebase/storage';
 import { storage } from '../config/firebase.config';
 import { User } from '../entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { NFT } from '../entities/nft.entity';
+import { Like } from '../entities/like.entity';
 
 @Injectable()
 export class ContentService {
-  constructor() {
+  constructor(
+    @InjectRepository(NFT) private nftRepository: Repository<NFT>,
+    @InjectRepository(Like) private likeRepository: Repository<Like>,
+  ) {
     // Do nothing.
   }
 
@@ -69,6 +80,44 @@ export class ContentService {
       name: file.originalname,
       type: file.mimetype,
       downloadURL,
+      code: 200,
     };
+  }
+
+  async saveNFT(nft: NFT): Promise<NFT> {
+    try {
+      return await this.nftRepository.save(nft);
+    } catch (error) {
+      throw new Error(`Failed to save NFT to database: ${error.message}`);
+    }
+  }
+
+  async getAllNFTsByUser(user: User): Promise<NFT[]> {
+    return await this.nftRepository.find({ where: { user: user.id } });
+  }
+
+  async findNFTById(id: number): Promise<NFT | null> {
+    const nft = await this.nftRepository.findOne({ where: { id } });
+    if (!nft) {
+      throw new NotFoundException('NFT not found');
+    }
+
+    return nft;
+  }
+
+  async getLikesCount(nftId: number): Promise<number> {
+    const likesCount = await this.likeRepository.count({
+      where: { nftId, isLike: true },
+    });
+
+    return likesCount;
+  }
+
+  async getDislikesCount(nftId: number): Promise<number> {
+    const dislikesCount = await this.likeRepository.count({
+      where: { nftId, isLike: false },
+    });
+
+    return dislikesCount;
   }
 }

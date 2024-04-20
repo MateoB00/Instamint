@@ -4,7 +4,12 @@ require('dotenv').config({ path: `.env.test` });
 import { Test, TestingModule } from '@nestjs/testing';
 import { ContentController } from '../src/controllers/content.controller';
 import { ContentService } from '../src/services/content.service';
+import { UserService } from '../src/services/user.service';
 import { BadRequestException } from '@nestjs/common';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { User } from '../src/entities/user.entity';
+import { Repository } from 'typeorm';
+import { NFT } from '../src/entities/nft.entity';
 
 describe('ContentController', () => {
   let contentController: ContentController;
@@ -14,6 +19,12 @@ describe('ContentController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ContentController],
       providers: [
+        ContentService,
+        UserService,
+        {
+          provide: getRepositoryToken(User),
+          useClass: Repository,
+        },
         {
           provide: ContentService,
           useValue: {
@@ -25,6 +36,7 @@ describe('ContentController', () => {
 
     contentController = module.get<ContentController>(ContentController);
     contentService = module.get<ContentService>(ContentService);
+    contentService.saveNFT = jest.fn();
   });
 
   it('should be defined', () => {
@@ -45,6 +57,7 @@ describe('ContentController', () => {
         name: 'test.jpg',
         type: 'image/jpeg',
         downloadURL: 'https://example.com/download-url',
+        code: 200,
       };
 
       jest
@@ -56,6 +69,7 @@ describe('ContentController', () => {
       });
 
       expect(result).toEqual(expectedResponse);
+      expect(contentService.saveNFT).toHaveBeenCalledWith(expect.any(NFT));
     });
 
     it('should throw error for file exceeding maximum size', async () => {
