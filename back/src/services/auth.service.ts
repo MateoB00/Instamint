@@ -102,6 +102,7 @@ export class AuthService {
     return createdUser;
   }
 
+
   async validateTwoFactor(userEmail: string, otp: string): Promise<User> {
     const user = await this.userService.findOneByEmail(userEmail);
 
@@ -109,9 +110,7 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
 
-    const emailAlreadyExists = await this.userService.findOneByEmail(
-      user.email,
-    );
+    const emailAlreadyExists = await this.userService.findOneByEmail(user.email);
 
     if (emailAlreadyExists) {
       throw new UnauthorizedException('Email is already in use');
@@ -124,7 +123,7 @@ export class AuthService {
       },
       { expiresIn: '1h' },
     );
-    await this.emailService.sendChangeEmail(user.email, emailVerificationToken);
+    await this.emailService.sendChangeEmail(  user.email, emailVerificationToken);
 
     const verified = speakeasy.totp.verify({
       secret: user.twoFactorSecret,

@@ -82,6 +82,7 @@ describe('AuthController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
 
       jest.spyOn(authService, 'register').mockResolvedValue(mockUser);
@@ -113,6 +114,7 @@ describe('AuthController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -145,6 +147,7 @@ describe('AuthController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -177,6 +180,7 @@ describe('AuthController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -212,6 +216,7 @@ describe('AuthController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
 
       jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
@@ -257,6 +262,7 @@ describe('AuthController', () => {
         isVerified: true,
         isAdmin: false,
         profileVisibility: 'private',
+        pendingFollowRequests: [],
       };
 
       jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
@@ -302,6 +308,7 @@ describe('AuthController', () => {
       isVerified: true,
       isAdmin: false,
       profileVisibility: 'private',
+      pendingFollowRequests: [],
     };
 
     jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);

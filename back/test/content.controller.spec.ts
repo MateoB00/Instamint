@@ -45,7 +45,6 @@ describe('ContentController', () => {
         name: 'test.jpg',
         type: 'image/jpeg',
         downloadURL: 'https://example.com/download-url',
-        code: 200,
       };
 
       jest

@@ -95,5 +95,6 @@ export default function UpdateProfile({ userData }: Props) {
         </div>
       </form>
     </div>
+    
   );
 }

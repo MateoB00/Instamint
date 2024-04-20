@@ -13,8 +13,8 @@ import { storage } from '../config/firebase.config';
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { NFT } from '../entities/nft.entity';
-import { Like } from '../entities/like.entity';
+import { NFT } from 'src/entities/nft.entity';
+import { Like } from 'src/entities/like.entity';
 
 @Injectable()
 export class ContentService {
@@ -97,7 +97,7 @@ export class ContentService {
   }
 
   async findNFTById(id: number): Promise<NFT | null> {
-    const nft = await this.nftRepository.findOne({ where: { id } });
+    const nft = await this.nftRepository.findOne({ where: { id: id } });
     if (!nft) {
       throw new NotFoundException('NFT not found');
     }
@@ -107,7 +107,7 @@ export class ContentService {
 
   async getLikesCount(nftId: number): Promise<number> {
     const likesCount = await this.likeRepository.count({
-      where: { nftId, isLike: true },
+      where: { nftId: nftId, isLike: true },
     });
 
     return likesCount;
@@ -115,22 +115,9 @@ export class ContentService {
 
   async getDislikesCount(nftId: number): Promise<number> {
     const dislikesCount = await this.likeRepository.count({
-      where: { nftId, isLike: false },
+      where: { nftId: nftId, isLike: false },
     });
 
     return dislikesCount;
-  }
-
-  async createLikeOrDislike(
-    user: User,
-    nft: NFT,
-    isLike: boolean,
-  ): Promise<Like> {
-    const newLike = new Like();
-    newLike.user = user.id;
-    newLike.nftId = nft.id;
-    newLike.isLike = isLike;
-
-    return await this.likeRepository.save(newLike);
   }
 }

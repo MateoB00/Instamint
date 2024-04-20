@@ -67,7 +67,7 @@ module.exports = {
     "max-depth": ["error", 3],
     "max-lines-per-function": [
       "warn",
-      { "max": 100, "skipBlankLines": true, "skipComments": true }
+      { "max": 50, "skipBlankLines": true, "skipComments": true }
     ],
     "max-nested-callbacks": ["error", 3],
     "multiline-comment-style": ["error", "separate-lines"],
