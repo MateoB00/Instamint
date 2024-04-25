@@ -53,15 +53,3 @@ export const deleteUser = async () => {
 
   return response.json();
 };
-
-export const getMinterByLink = async (link: string | undefined) => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/user/${link}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-  });
-
-  return response.json();
-};

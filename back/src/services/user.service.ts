@@ -68,11 +68,4 @@ export class UserService {
     }
     await this.userRepository.remove(user);
   }
-
-  async findByLink(uniqueLink: string): Promise<User | undefined> {
-    return await this.userRepository.findOne({
-      where: { uniqueLink },
-      select: ['username', 'bio', 'uniqueLink', 'profilePicture', 'language'],
-    });
-  }
 }
