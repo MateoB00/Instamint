@@ -5,9 +5,6 @@ import { UserModule } from 'src/modules/user.module';
 import { AuthModule } from 'src/modules/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ContentModule } from './modules/content.module';
-import { NFT } from './entities/nft.entity';
-import { Like } from './entities/like.entity';
-import { Comment } from './entities/comment.entity';
 
 @Module({
   imports: [
@@ -19,7 +16,7 @@ import { Comment } from './entities/comment.entity';
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        entities: [User, NFT, Like, Comment],
+        entities: [User],
         synchronize: true,
       }),
     }),

@@ -9,7 +9,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button';
 import DeleteAccountProfile from '../../components/userProfile/deleteAccountProfile';
 import { UserInterface } from '../../interfaces/userData';
-import ListNFTs from '../../components/userProfile/listNFTs';
 
 function renderProfileOption(
   optionsProfiles: string,
@@ -17,7 +16,7 @@ function renderProfileOption(
 ) {
   switch (optionsProfiles) {
     case 'NFTs':
-      return <ListNFTs />;
+      return <ItemsProfile optionsProfiles={optionsProfiles} />;
     case 'Drafts':
       return <ItemsProfile optionsProfiles={optionsProfiles} />;
     case 'Informations':
