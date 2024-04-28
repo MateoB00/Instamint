@@ -1,47 +1,23 @@
 import '../../scss/components/userProfile/itemsProfile/itemsProfile.scss';
 import '../../scss/components/userProfile/itemsProfile/itemsProfileResponsive.scss';
-import Button from '../ui/Button';
-import Input from '../ui/Input';
-import { Message } from '../ui/Message';
-import { useItemsProfile } from '../../hooks/components/userProfile/useItemsProfile';
+import SideBar from '../ui/userProfile/SideBar';
+import Drafts from '../ui/cards/drafts';
+import OriginalContents from '../ui/cards/originalContents';
 
 interface OptionsProfilesProps {
-  optionsProfiles: 'NFTs' | 'Drafts';
+  optionsProfiles: 'NFTs' | 'Drafts' | 'Content';
 }
 
 export default function ItemsProfile({
   optionsProfiles,
 }: OptionsProfilesProps) {
-  const { message, handleFileChange, handleUpload } = useItemsProfile();
-
   return (
     <>
       <div className="items">
-        <div className="sideBar">
-          <div className="status">
-            <span>Status</span>
-            <div className="choice">
-              <Button>All</Button>
-              <Button>New</Button>
-              <Button>Most likes</Button>
-            </div>
-          </div>
-          <div className="price">
-            <span>Price</span>
-            <div className="choice">
-              <Input name="min" value={'Min'} type="text" placeholder="Min" />
-              <Input name="max" value={'Max'} type="text" placeholder="Max" />
-            </div>
-          </div>
-          <div>
-            <span>Upload a content</span>
-            <Input type="file" onChange={handleFileChange} />
-            <Button onClick={handleUpload}>Upload</Button>
-            <div>{message && <Message color="red" message={message} />}</div>
-          </div>
-        </div>
+        <SideBar />
         {optionsProfiles === 'NFTs' && <div className="nfts"></div>}
-        {optionsProfiles === 'Drafts' && <div className="drafts"></div>}
+        {optionsProfiles === 'Drafts' && <Drafts />}
+        {optionsProfiles === 'Content' && <OriginalContents />}
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import '../../scss/components/ui/input.scss';
 interface InputFormProps {
   type: string;
   label?: string;
-  value: string | number;
+  value: string | number | string[];
   name: string;
   placeholder: string;
   disabled?: boolean;
@@ -23,9 +23,11 @@ const InputForm: FC<InputFormProps> = ({
   defaultChecked,
 }) => (
   <>
-    <label htmlFor={label} className="labelForm">
-      {label}
-    </label>
+    {label && (
+      <label htmlFor={label} className="labelForm">
+        {label}
+      </label>
+    )}
     <input
       className="inputForm"
       type={type}
