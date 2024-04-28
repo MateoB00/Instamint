@@ -2,8 +2,8 @@ import { useState } from 'react';
 import '../../scss/pages/auth/authPage.scss';
 import '../../scss/pages/auth/authPageResponsive.scss';
 import logo from '../../assets/Image/logo-instamint.svg';
-import LoginForm from '../../components/ui/authForms/loginForm';
-import RegisterForm from '../../components/ui/authForms/registerForm';
+import LoginForm from '../../components/ui/forms/loginForm';
+import RegisterForm from '../../components/ui/forms/registerForm';
 
 export default function AuthPage() {
   const [showConnexion, setShowConnexion] = useState(false);
