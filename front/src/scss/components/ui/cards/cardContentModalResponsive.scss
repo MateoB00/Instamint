@@ -1,0 +1,25 @@
+@import '../../../main.scss';
+
+.cardContentModal {
+    @media (max-width: 1420px) {
+        width: 60%;
+    }
+    @media (max-width: 1180px) {
+        width: 70%;
+    }
+    @media (max-width: 1000px) {
+        width: 90%;
+        height: 90%;
+    }
+    .card {
+        @media (max-width: 800px) {
+            flex-direction: column;
+            .imgContent {
+                width: 100%;
+            }
+            form {
+                width: 60%;
+            }
+        }
+    }
+}
