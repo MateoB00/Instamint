@@ -2,29 +2,34 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config({ path: `.env.test` });
 import { Test, TestingModule } from '@nestjs/testing';
-import { ContentController } from '../src/controllers/content.controller';
-import { ContentService } from '../src/services/content.service';
+import { OriginalContentController } from '../src/controllers/original-content.controller';
+import { OriginalContentService } from '../src/services/original-content.service';
 import { BadRequestException } from '@nestjs/common';
 
-describe('ContentController', () => {
-  let contentController: ContentController;
-  let contentService: ContentService;
+describe('OriginalContentController', () => {
+  let contentController: OriginalContentController;
+  let originalContentService: OriginalContentService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ContentController],
+      controllers: [OriginalContentController],
       providers: [
         {
-          provide: ContentService,
+          provide: OriginalContentService,
           useValue: {
             uploadOriginalContent: jest.fn(),
+            getAllByUser: jest.fn(),
           },
         },
       ],
     }).compile();
 
-    contentController = module.get<ContentController>(ContentController);
-    contentService = module.get<ContentService>(ContentService);
+    contentController = module.get<OriginalContentController>(
+      OriginalContentController,
+    );
+    originalContentService = module.get<OriginalContentService>(
+      OriginalContentService,
+    );
   });
 
   it('should be defined', () => {
@@ -48,7 +53,7 @@ describe('ContentController', () => {
       };
 
       jest
-        .spyOn(contentService, 'uploadOriginalContent')
+        .spyOn(originalContentService, 'uploadOriginalContent')
         .mockResolvedValue(expectedResponse);
 
       const result = await contentController.uploadOriginalContent(mockFile, {
@@ -68,7 +73,7 @@ describe('ContentController', () => {
       const mockUser = { username: 'testuser' };
 
       jest
-        .spyOn(contentService, 'uploadOriginalContent')
+        .spyOn(originalContentService, 'uploadOriginalContent')
         .mockRejectedValue(
           new BadRequestException('File size exceeds the limit (1GB)'),
         );
@@ -88,7 +93,7 @@ describe('ContentController', () => {
       const mockUser = { username: 'testuser' };
 
       jest
-        .spyOn(contentService, 'uploadOriginalContent')
+        .spyOn(originalContentService, 'uploadOriginalContent')
         .mockRejectedValue(new BadRequestException('File type not allowed'));
 
       await expect(
@@ -106,7 +111,7 @@ describe('ContentController', () => {
       const mockUser = { username: 'testuser' };
 
       jest
-        .spyOn(contentService, 'uploadOriginalContent')
+        .spyOn(originalContentService, 'uploadOriginalContent')
         .mockRejectedValue(
           new BadRequestException(
             'A content with the same name already exists',
@@ -116,6 +121,68 @@ describe('ContentController', () => {
       await expect(
         contentController.uploadOriginalContent(mockFile, { user: mockUser }),
       ).rejects.toThrow('A content with the same name already exists');
+    });
+  });
+
+  describe('getAllByUser', () => {
+    it('should retrieve all user content successfully', async () => {
+      const mockUserId = 1;
+      const mockOriginalContents = [
+        {
+          name: 'file1.jpg',
+          path: 'original-content/1/file1.jpg',
+          url: 'https://example.com/file1.jpg',
+        },
+        {
+          name: 'file2.jpg',
+          path: 'original-content/1/file2.jpg',
+          url: 'https://example.com/file2.jpg',
+        },
+      ];
+
+      jest
+        .spyOn(originalContentService, 'getAllByUser')
+        .mockResolvedValue(mockOriginalContents);
+
+      const req = { user: { id: mockUserId } };
+      const result = await contentController.getAllByUser(req);
+
+      expect(result).toEqual(mockOriginalContents);
+      expect(originalContentService.getAllByUser).toHaveBeenCalledWith(
+        mockUserId,
+      );
+    });
+
+    it('should handle no content found for the user', async () => {
+      const mockUserId = 2;
+      const mockOriginalContents = [];
+
+      jest
+        .spyOn(originalContentService, 'getAllByUser')
+        .mockResolvedValue(mockOriginalContents);
+
+      const req = { user: { id: mockUserId } };
+      const result = await contentController.getAllByUser(req);
+
+      expect(result).toEqual(mockOriginalContents);
+      expect(originalContentService.getAllByUser).toHaveBeenCalledWith(
+        mockUserId,
+      );
+    });
+
+    it('should handle errors when service fails', async () => {
+      const mockUserId = 3;
+      const errorMessage = 'Error fetching user content';
+
+      jest
+        .spyOn(originalContentService, 'getAllByUser')
+        .mockRejectedValue(new Error(errorMessage));
+
+      const req = { user: { id: mockUserId } };
+
+      await expect(contentController.getAllByUser(req)).rejects.toThrow(
+        errorMessage,
+      );
     });
   });
 });

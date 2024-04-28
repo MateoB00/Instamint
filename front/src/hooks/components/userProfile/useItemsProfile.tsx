@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { uploadContent } from '../../../api/content';
+import { uploadOriginalContent } from '../../../api/originalContent';
 
 const MAX_FILE_SIZE_BYTES = 1073741824;
 
@@ -35,12 +35,12 @@ export const useItemsProfile = () => {
     }
   };
 
-  const handleUpload = async () => {
+  const handleUploadFile = async () => {
     try {
       const formData = new FormData();
       if (file) {
         formData.append('file', file);
-        await uploadContent(formData);
+        await uploadOriginalContent(formData);
         setMessage('File uploaded successfully');
       }
     } catch (error) {
@@ -52,6 +52,6 @@ export const useItemsProfile = () => {
     file,
     message,
     handleFileChange,
-    handleUpload,
+    handleUploadFile,
   };
 };
