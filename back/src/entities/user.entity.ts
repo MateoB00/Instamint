@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Notification } from './notifications.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -65,4 +65,9 @@ export class User {
 
   @Column({ default: 'private' })
   profileVisibility: 'private' | 'public';
+
+  @OneToMany(() => Notification, (notification) => notification.user)
+  notifications: Notification[];
 }
+
+export { Notification };

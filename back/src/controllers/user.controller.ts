@@ -37,6 +37,7 @@ export class UserController {
 
     return reponse;
   }
+
   @Patch(':id/visibility')
   changeVisibility(
     @Param('id') id: number,

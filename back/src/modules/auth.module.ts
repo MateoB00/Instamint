@@ -9,6 +9,7 @@ import { JwtStrategy } from '../middlewares/jwt.strategy';
 import { EmailService } from 'src/services/email.service';
 import { PassportModule } from '@nestjs/passport';
 import { TwoFactorAuthStrategy } from '../middlewares/2fa.strategy';
+import { Notification } from 'src/entities/notifications.entity';
 
 @Module({
   providers: [
@@ -20,7 +21,7 @@ import { TwoFactorAuthStrategy } from '../middlewares/2fa.strategy';
   ],
   controllers: [AuthController],
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Notification]),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '3600s' },

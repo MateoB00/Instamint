@@ -46,7 +46,7 @@ const fieldsFormPersonalInformations = [
   },
 ];
 
-export default function UpdateProfile({ userData }: Props) {
+export default function UpdateProfile({ userData }: Props):React.JSX.Element {
   const {
     formData,
     formYupMessages,

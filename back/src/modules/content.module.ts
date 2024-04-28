@@ -6,12 +6,15 @@ import { NFT } from 'src/entities/nft.entity';
 import { UserService } from 'src/services/user.service';
 import { User } from 'src/entities/user.entity';
 import { Like } from 'src/entities/like.entity';
-
+import { Comment } from 'src/entities/comment.entity';
+import { Notification } from 'src/entities/notifications.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([NFT]),
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Like]),
+    TypeOrmModule.forFeature([Comment]),
+    TypeOrmModule.forFeature([Notification]),
   ],
   controllers: [ContentController],
   providers: [ContentService, UserService],

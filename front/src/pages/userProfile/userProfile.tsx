@@ -41,6 +41,7 @@ export default function UserProfile() {
     handleShowUpdateProfile,
     navigateProfilePage,
     handleSwhowDeleteProfile,
+    handleShowNotifProfile,
   } = useUserProfile();
   useEffect(() => {
     fetchUserData();
@@ -63,6 +64,7 @@ export default function UserProfile() {
               <Button onClick={handleShowDraftsProfile}>Drafts</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
               <Button onClick={handleSwhowDeleteProfile}>Delete Account</Button>
+              <Button onClick={handleShowNotifProfile}>Notifications</Button>
             </div>
             {renderProfileOption(optionsProfiles, userData)}
           </div>

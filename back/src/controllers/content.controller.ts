@@ -9,6 +9,7 @@ import {
   Get,
   Param,
   NotFoundException,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -114,5 +115,27 @@ export class ContentController {
     );
 
     return { message: 'NFT liked successfully', like: newLike };
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('me/notifications')
+  async getMyNotifications(@Request() req) {
+    try {
+      const loggedInUser = req.user;
+      const notifications = await this.userService.findAllNotificationsByUserId(
+        loggedInUser.id,
+      );
+
+      return {
+        statusCode: HttpStatus.OK,
+        data: notifications,
+      };
+    } catch (error) {
+      return {
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Failed to get notifications',
+        error: error.message,
+      };
+    }
   }
 }

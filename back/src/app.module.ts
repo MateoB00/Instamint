@@ -8,7 +8,7 @@ import { ContentModule } from './modules/content.module';
 import { NFT } from './entities/nft.entity';
 import { Comment } from './entities/comment.entity';
 import { Like } from './entities/like.entity';
-
+import { Notification } from 'src/entities/notifications.entity';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -19,7 +19,7 @@ import { Like } from './entities/like.entity';
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        entities: [User, NFT, Like, Comment],
+        entities: [User, NFT, Like, Comment, Notification],
         synchronize: true,
       }),
     }),

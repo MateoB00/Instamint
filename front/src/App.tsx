@@ -7,6 +7,7 @@ import UserProfile from './pages/userProfile/userProfile';
 import TwoFactorPage from './pages/auth/TwoFactorPage';
 import PasswordResetPage from './pages/auth/passwordReset';
 import MinterPage from './pages/searchPage/minterPage';
+import NotificationsPage from './pages/userProfile/NotificationPage';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <Route path="/2faVerification" element={<TwoFactorPage />} />
       <Route path="/reset-password/:token" element={<PasswordResetPage />} />
       <Route path="/other-minter/:link" element={<MinterPage />} />
+      <Route path="/notifications" element={<NotificationsPage />} />
     </Routes>
   );
 }
