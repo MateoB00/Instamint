@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { shemaUpdateUser, catchErrors } from '../../utils/yup/yup';
+import { shemaUpdateUser, catchErrors } from '../../utils/yup/shemas/yup';
 import { userUpdate } from '../../api/user';
 import { UserInterface } from '../../interfaces/userData';
 import { ErrorsYup } from '../../interfaces/yup';

@@ -4,13 +4,13 @@ import { UserInterface } from '../../interfaces/userData';
 
 interface LocationState {
   state: {
-    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations';
+    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Content';
   };
 }
 
 export const useUserProfile = () => {
   const [optionsProfiles, setOptionsProfiles] = useState<
-    'NFTs' | 'Drafts' | 'Informations' | '2FA' | 'Delete Account'
+    'NFTs' | 'Drafts' | 'Informations' | '2FA' | 'Delete Account' | 'Content'
   >('NFTs');
 
   const [userData, setUserData] = useState<UserInterface | null>();
@@ -30,6 +30,10 @@ export const useUserProfile = () => {
 
   const handleShowDraftsProfile = () => {
     setOptionsProfiles('Drafts');
+  };
+
+  const handleShowContentProfile = () => {
+    setOptionsProfiles('Content');
   };
 
   const handleShowUpdateProfile = () => {
@@ -57,6 +61,7 @@ export const useUserProfile = () => {
     fetchUserData,
     handleShowNftsProfile,
     handleShowDraftsProfile,
+    handleShowContentProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
     handleShow2FAProfile,

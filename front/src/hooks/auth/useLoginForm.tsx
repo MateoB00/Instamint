@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { shemaLogin, catchErrors } from '../../utils/yup/yup';
+import { shemaLogin, catchErrors } from '../../utils/yup/shemas/yup';
 import { authLogin } from '../../api/auth';
 import { ErrorsYup } from '../../interfaces/yup';
 import { FormApiMessages } from '../../interfaces/formMessages';
