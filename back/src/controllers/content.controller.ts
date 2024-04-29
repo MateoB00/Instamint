@@ -8,6 +8,7 @@ import {
   BadRequestException,
   Get,
   Param,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -90,5 +91,25 @@ export class ContentController {
     });
 
     return Promise.all(nftsWithLikes);
+  }
+  @UseGuards(AuthGuard('jwt'))
+  @Get('me/notifications')
+  async getMyNotifications(@Request() req) {
+    try {
+      const loggedInUser = req.user;
+      const notifications =
+        await this.contentService.findAllNotificationsByUserId(loggedInUser.id);
+
+      return {
+        statusCode: HttpStatus.OK,
+        data: notifications,
+      };
+    } catch (error) {
+      return {
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Failed to get notifications',
+        error: error.message,
+      };
+    }
   }
 }

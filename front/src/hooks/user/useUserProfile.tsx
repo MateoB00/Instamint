@@ -4,17 +4,22 @@ import { UserInterface } from '../../interfaces/userData';
 
 interface LocationState {
   state: {
-    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations';
+    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Notifications';
   };
 }
-
+/* eslint-disable no-undef, max-lines-per-function */
 export const useUserProfile = () => {
   const [optionsProfiles, setOptionsProfiles] = useState<
-    'NFTs' | 'Drafts' | 'Informations' | '2FA' | 'Delete Account'
+    | 'NFTs'
+    | 'Drafts'
+    | 'Informations'
+    | '2FA'
+    | 'Delete Account'
+    | 'Notifications'
   >('NFTs');
 
   const [userData, setUserData] = useState<UserInterface | null>();
-
+  /* eslint-disable no-undef, max-lines-per-function */
   const fetchUserData = async () => {
     const responseGetMe = await getMe();
     if (responseGetMe === 401) {
@@ -28,6 +33,9 @@ export const useUserProfile = () => {
     setOptionsProfiles('NFTs');
   };
 
+  const handleShowNotifProfile = () => {
+    setOptionsProfiles('Notifications');
+  };
   const handleShowDraftsProfile = () => {
     setOptionsProfiles('Drafts');
   };
@@ -61,5 +69,6 @@ export const useUserProfile = () => {
     navigateProfilePage,
     handleShow2FAProfile,
     handleSwhowDeleteProfile,
+    handleShowNotifProfile,
   };
 };

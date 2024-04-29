@@ -10,6 +10,7 @@ import Button from '../../components/ui/Button';
 import DeleteAccountProfile from '../../components/userProfile/deleteAccountProfile';
 import { UserInterface } from '../../interfaces/userData';
 import ListNFTs from '../../components/userProfile/listNFTs';
+import ListNotifications from '../../components/userProfile/notificationProfile';
 
 function renderProfileOption(
   optionsProfiles: string,
@@ -24,6 +25,9 @@ function renderProfileOption(
       return <UpdateProfile userData={userData} />;
     case 'Delete Account':
       return <DeleteAccountProfile />;
+    case 'Notification':
+      return <ListNotifications />;
+
     default:
       return null;
   }
@@ -41,6 +45,7 @@ export default function UserProfile() {
     handleShowUpdateProfile,
     navigateProfilePage,
     handleSwhowDeleteProfile,
+    handleShowNotifProfile,
   } = useUserProfile();
   useEffect(() => {
     fetchUserData();
@@ -63,6 +68,7 @@ export default function UserProfile() {
               <Button onClick={handleShowDraftsProfile}>Drafts</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
               <Button onClick={handleSwhowDeleteProfile}>Delete Account</Button>
+              <Button onClick={handleShowNotifProfile}>Notifications</Button>
             </div>
             {renderProfileOption(optionsProfiles, userData)}
           </div>
