@@ -7,31 +7,6 @@ import CardProfile from '../../components/userProfile/cardProfile';
 import { useUserProfile } from '../../hooks/user/useUserProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button';
-import DeleteAccountProfile from '../../components/userProfile/deleteAccountProfile';
-import { UserInterface } from '../../interfaces/userData';
-import ListNFTs from '../../components/userProfile/listNFTs';
-import ListNotifications from '../../components/userProfile/notificationProfile';
-
-function renderProfileOption(
-  optionsProfiles: string,
-  userData: UserInterface | null | undefined,
-) {
-  switch (optionsProfiles) {
-    case 'NFTs':
-      return <ListNFTs />;
-    case 'Drafts':
-      return <ItemsProfile optionsProfiles={optionsProfiles} />;
-    case 'Informations':
-      return <UpdateProfile userData={userData} />;
-    case 'Delete Account':
-      return <DeleteAccountProfile />;
-    case 'Notification':
-      return <ListNotifications />;
-
-    default:
-      return null;
-  }
-}
 
 export default function UserProfile() {
   const location = useLocation();
@@ -75,9 +50,7 @@ export default function UserProfile() {
               <Button onClick={handleSwhowDeleteProfile}>Delete Account</Button>
               <Button onClick={handleShowNotifProfile}>Notifications</Button>
             </div>
-            {(optionsProfiles === 'NFTs' ||
-              optionsProfiles === 'Drafts' ||
-              optionsProfiles === 'Content') && (
+            {(optionsProfiles === 'NFTs' || optionsProfiles === 'Drafts') && (
               <ItemsProfile optionsProfiles={optionsProfiles} />
             )}
             {optionsProfiles === 'Informations' && (

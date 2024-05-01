@@ -4,7 +4,12 @@ import { UserInterface } from '../../interfaces/userData';
 
 interface LocationState {
   state: {
-    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Content' | 'Notifications';
+    setOptionsProfiles:
+      | 'NFTs'
+      | 'Drafts'
+      | 'Informations'
+      | 'Content'
+      | 'Notifications';
   };
 }
 /* eslint-disable no-undef, max-lines-per-function */

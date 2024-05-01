@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Notification } from '../../interfaces/notif';
-import { getMyNotifications } from '../../api/content';
+import { getMyNotifications } from '../../api/notification';
 
 const ListNotifications = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
