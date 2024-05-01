@@ -90,7 +90,9 @@ describe('OriginalContentController', () => {
         updatedAt: new Date(),
       };
 
-      jest.spyOn(nftService, 'createDraft').mockResolvedValue(expectedResponse);
+      jest
+        .spyOn(nftService, 'createDraft')
+        .mockResolvedValue(expectedResponse as Nft);
 
       const result = await nftController.createDraft(
         { user: mockUser },
@@ -200,7 +202,7 @@ describe('OriginalContentController', () => {
         isVerified: true,
         isAdmin: false,
       };
-      const mockDraft: Nft = {
+      const mockDraft = {
         id: 1,
         title: 'Unique Digital Art',
         description:
@@ -220,7 +222,7 @@ describe('OriginalContentController', () => {
 
       jest
         .spyOn(nftService, 'getAllDraftsByUser')
-        .mockResolvedValue(expectedResponse);
+        .mockResolvedValue(expectedResponse as Nft[]);
 
       const result = await nftController.getAllByUser({ user: mockUser });
 
