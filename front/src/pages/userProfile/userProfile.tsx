@@ -18,7 +18,6 @@ export default function UserProfile() {
     fetchUserData,
     handleShowNftsProfile,
     handleShowDraftsProfile,
-    handleShowContentProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
     handleSwhowDeleteProfile,
@@ -45,7 +44,6 @@ export default function UserProfile() {
             <div className="navigation">
               <Button onClick={handleShowNftsProfile}>NFTs</Button>
               <Button onClick={handleShowDraftsProfile}>Drafts</Button>
-              <Button onClick={handleShowContentProfile}>Content</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
               <Button onClick={handleSwhowDeleteProfile}>Delete Account</Button>
               <Button onClick={handleShowNotifProfile}>Notifications</Button>

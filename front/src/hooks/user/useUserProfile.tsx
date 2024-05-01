@@ -8,7 +8,6 @@ interface LocationState {
       | 'NFTs'
       | 'Drafts'
       | 'Informations'
-      | 'Content'
       | 'Notifications';
   };
 }
@@ -45,10 +44,6 @@ export const useUserProfile = () => {
     setOptionsProfiles('Drafts');
   };
 
-  const handleShowContentProfile = () => {
-    setOptionsProfiles('Content');
-  };
-
   const handleShowUpdateProfile = () => {
     setOptionsProfiles('Informations');
   };
@@ -74,7 +69,6 @@ export const useUserProfile = () => {
     fetchUserData,
     handleShowNftsProfile,
     handleShowDraftsProfile,
-    handleShowContentProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
     handleShow2FAProfile,
