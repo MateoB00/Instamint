@@ -36,22 +36,26 @@ function renderProfileOption(
 export default function UserProfile() {
   const location = useLocation();
   const navigateReact = useNavigate();
+
   const {
     optionsProfiles,
     userData,
     fetchUserData,
     handleShowNftsProfile,
     handleShowDraftsProfile,
+    handleShowContentProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
     handleSwhowDeleteProfile,
     handleShowNotifProfile,
   } = useUserProfile();
+
   useEffect(() => {
     fetchUserData();
     navigateProfilePage(location);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
+
   if (userData === null) {
     navigateReact('/auth');
   }
@@ -66,11 +70,19 @@ export default function UserProfile() {
             <div className="navigation">
               <Button onClick={handleShowNftsProfile}>NFTs</Button>
               <Button onClick={handleShowDraftsProfile}>Drafts</Button>
+              <Button onClick={handleShowContentProfile}>Content</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
               <Button onClick={handleSwhowDeleteProfile}>Delete Account</Button>
               <Button onClick={handleShowNotifProfile}>Notifications</Button>
             </div>
-            {renderProfileOption(optionsProfiles, userData)}
+            {(optionsProfiles === 'NFTs' ||
+              optionsProfiles === 'Drafts' ||
+              optionsProfiles === 'Content') && (
+              <ItemsProfile optionsProfiles={optionsProfiles} />
+            )}
+            {optionsProfiles === 'Informations' && (
+              <UpdateProfile userData={userData} />
+            )}
           </div>
         </div>
       </section>

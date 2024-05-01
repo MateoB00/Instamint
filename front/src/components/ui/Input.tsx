@@ -25,10 +25,11 @@ const Input: FC<InputProps> = ({
       className="input"
       type={type}
       id={label}
-      value={value}
       name={name}
       placeholder={placeholder}
       disabled={disabled}
+      {...(onChange ? { value } : { defaultValue: value })}
+      readOnly={!onChange}
       onChange={onChange}
     />
   </>

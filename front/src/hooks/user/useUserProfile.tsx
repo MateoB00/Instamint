@@ -4,7 +4,7 @@ import { UserInterface } from '../../interfaces/userData';
 
 interface LocationState {
   state: {
-    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Notifications';
+    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Content' | 'Notifications';
   };
 }
 /* eslint-disable no-undef, max-lines-per-function */
@@ -40,6 +40,10 @@ export const useUserProfile = () => {
     setOptionsProfiles('Drafts');
   };
 
+  const handleShowContentProfile = () => {
+    setOptionsProfiles('Content');
+  };
+
   const handleShowUpdateProfile = () => {
     setOptionsProfiles('Informations');
   };
@@ -65,6 +69,7 @@ export const useUserProfile = () => {
     fetchUserData,
     handleShowNftsProfile,
     handleShowDraftsProfile,
+    handleShowContentProfile,
     handleShowUpdateProfile,
     navigateProfilePage,
     handleShow2FAProfile,

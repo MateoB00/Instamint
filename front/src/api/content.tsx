@@ -64,3 +64,4 @@ export const getMyNotifications = async () => {
 
   return response.json();
 };
+

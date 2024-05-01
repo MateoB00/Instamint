@@ -20,6 +20,6 @@ export default {
   },
   transformIgnorePatterns: ['/node_modules/'],
   moduleNameMapper: {
-    '\\.scss$': 'identity-obj-proxy',
+    '\\.(png|webp|svg|mp4|webm|scss)$': 'identity-obj-proxy',
   },
 };

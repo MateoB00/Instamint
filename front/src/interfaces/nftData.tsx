@@ -1,9 +1,9 @@
-export interface NFT {
-  id: number;
-  user: number;
-  nftImageUrl: string;
-  likes: number;
-  dislikes: number;
-  createdAt: string;
-  updatedAt: string;
+export interface NftInterface {
+  title: string;
+  description: string;
+  hashtags: string[];
+  mediaUrl: string;
+  location: string;
+  pathFirebase: string;
+  isDraft: boolean;
 }
