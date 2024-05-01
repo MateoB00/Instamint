@@ -4,11 +4,7 @@ import { UserInterface } from '../../interfaces/userData';
 
 interface LocationState {
   state: {
-    setOptionsProfiles:
-      | 'NFTs'
-      | 'Drafts'
-      | 'Informations'
-      | 'Notifications';
+    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Notifications';
   };
 }
 /* eslint-disable no-undef, max-lines-per-function */
