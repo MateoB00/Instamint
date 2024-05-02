@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import {
   deleteObject,
   getDownloadURL,
@@ -87,6 +91,29 @@ export class FirebaseService {
       return downloadURL;
     } catch (error) {
       throw error;
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async deleteOneOriginalContent(userId: number, path: string) {
+    try {
+      const refFile = ref(storage, path);
+
+      if (path.includes(`/${userId}/`)) {
+        throw new UnauthorizedException('Bad user');
+      }
+
+      await deleteObject(refFile);
+
+      return {
+        success: true,
+        message: 'Original content has been deleted',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error,
+      };
     }
   }
 }
