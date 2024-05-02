@@ -17,6 +17,26 @@ export const uploadOriginalContent = async (formData: FormData) => {
   return response.json();
 };
 
+export const deleteOneOriginalContent = async (path: string) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/original-content/deleteOne`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ path }),
+    },
+  );
+
+  if (response.status === BAD_REQUEST) {
+    return response.status;
+  }
+
+  return response.json();
+};
+
 export const getAllOriginalContentsByUser = async () => {
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/original-content/allByUser`,
