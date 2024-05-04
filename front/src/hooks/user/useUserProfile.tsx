@@ -7,6 +7,7 @@ interface LocationState {
     setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Notifications';
   };
 }
+// eslint-disable-next-line max-lines-per-function
 export const useUserProfile = () => {
   const [optionsProfiles, setOptionsProfiles] = useState<
     | 'NFTs'
