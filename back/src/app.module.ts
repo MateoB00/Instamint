@@ -8,7 +8,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { NftModule } from './modules/nft.module';
 import { FirebaseModule } from './modules/firebase.module';
 import { OriginalContentModule } from './modules/original-content.module';
-
+import { CommentModule } from './modules/comment.module';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -32,6 +32,7 @@ import { OriginalContentModule } from './modules/original-content.module';
     AuthModule,
     FirebaseModule,
     NftModule,
+    CommentModule,
     OriginalContentModule,
   ],
   controllers: [],
