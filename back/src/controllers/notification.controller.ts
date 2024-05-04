@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { NotificationService } from '../services/notification.service';
+import { NotificationService } from '../services/Notification.service';
 
 @Controller('notifications')
 export class NotificationController {

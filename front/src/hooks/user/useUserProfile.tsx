@@ -7,7 +7,6 @@ interface LocationState {
     setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Notifications';
   };
 }
-/* eslint-disable no-undef, max-lines-per-function */
 export const useUserProfile = () => {
   const [optionsProfiles, setOptionsProfiles] = useState<
     | 'NFTs'
@@ -19,7 +18,6 @@ export const useUserProfile = () => {
   >('NFTs');
 
   const [userData, setUserData] = useState<UserInterface | null>();
-  /* eslint-disable no-undef, max-lines-per-function */
   const fetchUserData = async () => {
     const responseGetMe = await getMe();
     if (responseGetMe === 401) {
