@@ -11,7 +11,6 @@ export class CommentService {
   ) {
     // Do nothing.
   }
-
   findCommentsByPage(
     Id: number,
     page: number,
