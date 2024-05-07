@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Nft } from 'src/entities/nft.entity';
+import { Comment } from 'src/entities/comment.entity';
 import { UserModule } from 'src/modules/user.module';
 import { AuthModule } from 'src/modules/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
@@ -19,7 +20,7 @@ import { CommentModule } from './modules/comment.module';
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        entities: [User, Nft],
+        entities: [User, Nft, Comment],
         synchronize: true,
       }),
     }),
