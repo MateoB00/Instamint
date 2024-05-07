@@ -1,18 +1,27 @@
 import { getMe } from '../../api/user';
 import { useState } from 'react';
 import { UserInterface } from '../../interfaces/userData';
-
 interface LocationState {
   state: {
-    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Content';
+    setOptionsProfiles:
+      | 'NFTs'
+      | 'Drafts'
+      | 'Informations'
+      | 'Content'
+      | 'Comments';
   };
 }
-
+// eslint-disable-next-line max-lines-per-function
 export const useUserProfile = () => {
   const [optionsProfiles, setOptionsProfiles] = useState<
-    'NFTs' | 'Drafts' | 'Informations' | '2FA' | 'Delete Account' | 'Content'
+    | 'NFTs'
+    | 'Drafts'
+    | 'Informations'
+    | '2FA'
+    | 'Delete Account'
+    | 'Content'
+    | 'Comments'
   >('NFTs');
-
   const [userData, setUserData] = useState<UserInterface | null>();
 
   const fetchUserData = async () => {
@@ -47,6 +56,9 @@ export const useUserProfile = () => {
   const handleSwhowDeleteProfile = () => {
     setOptionsProfiles('Delete Account');
   };
+  const handleShowCommentProfile = () => {
+    setOptionsProfiles('Comments');
+  };
 
   const navigateProfilePage = (location: LocationState) => {
     const initialState = location.state || {};
@@ -63,6 +75,7 @@ export const useUserProfile = () => {
     handleShowDraftsProfile,
     handleShowContentProfile,
     handleShowUpdateProfile,
+    handleShowCommentProfile,
     navigateProfilePage,
     handleShow2FAProfile,
     handleSwhowDeleteProfile,

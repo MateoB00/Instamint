@@ -20,6 +20,7 @@ export default function UserProfile() {
     handleShowDraftsProfile,
     handleShowContentProfile,
     handleShowUpdateProfile,
+    handleShowCommentProfile,
     navigateProfilePage,
   } = useUserProfile();
 
@@ -45,6 +46,7 @@ export default function UserProfile() {
               <Button onClick={handleShowDraftsProfile}>Drafts</Button>
               <Button onClick={handleShowContentProfile}>Content</Button>
               <Button onClick={handleShowUpdateProfile}>Informations</Button>
+              <Button onClick={handleShowCommentProfile}>Comments</Button>
             </div>
             {(optionsProfiles === 'NFTs' ||
               optionsProfiles === 'Drafts' ||
