@@ -21,28 +21,20 @@ export class UserController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   findById(@Request() req) {
-    const loggedInUser = req.user;
-
-    return this.userService.findOneById(loggedInUser.id);
+    return this.userService.findOneById(req.user.id);
   }
 
   @Put('me')
   @UseGuards(AuthGuard('jwt'))
   update(@Request() req, @Body() user: User) {
-    const loggedInUser = req.user;
-
-    const reponse = this.userService.update(loggedInUser, user);
-
-    return reponse;
+    return this.userService.update(req.user, user);
   }
 
   @Delete('me')
   @UseGuards(AuthGuard('jwt'))
   async deleteUser(@Request() req) {
     try {
-      const loggedInUser = req.user;
-
-      await this.userService.deleteUser(loggedInUser.id);
+      await this.userService.deleteUser(req.user.id);
 
       return {
         statusCode: HttpStatus.OK,

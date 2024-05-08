@@ -2,12 +2,15 @@ import { useState } from 'react';
 import '../../scss/pages/auth/authPage.scss';
 import '../../scss/pages/auth/authPageResponsive.scss';
 import logo from '../../assets/Image/logo-instamint.svg';
-import LoginForm from '../../components/ui/forms/loginForm';
-import RegisterForm from '../../components/ui/forms/registerForm';
+import RegisterForm from '../../components/ui/forms/registerForm/registerForm';
+import TestLoginForm from '../../components/ui/forms/loginForm/loginForm';
 
 export default function AuthPage() {
   const [showConnexion, setShowConnexion] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+
+  const handleShowRegister = () => setShowRegister((value) => !value);
+  const handleShowConnexion = () => setShowConnexion((value) => !value);
 
   return (
     <section className="authPage">
@@ -21,14 +24,14 @@ export default function AuthPage() {
         <div className="buttons">
           <button
             disabled={Boolean(showRegister || showConnexion)}
-            onClick={() => setShowRegister(true)}
+            onClick={handleShowRegister}
           >
             Register
           </button>
           <span>or</span>
           <button
             disabled={Boolean(showRegister || showConnexion)}
-            onClick={() => setShowConnexion(true)}
+            onClick={handleShowConnexion}
           >
             Log in
           </button>
@@ -37,16 +40,16 @@ export default function AuthPage() {
 
       {showConnexion && (
         <div className="popUp">
-          <button onClick={() => setShowConnexion(false)} className="cross">
+          <button onClick={handleShowConnexion} className="cross">
             ✕
           </button>
-          <LoginForm />
+          <TestLoginForm />
         </div>
       )}
 
       {showRegister && (
         <div className="popUp">
-          <button onClick={() => setShowRegister(false)} className="cross">
+          <button onClick={handleShowRegister} className="cross">
             ✕
           </button>
           <RegisterForm />
