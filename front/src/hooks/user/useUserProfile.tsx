@@ -2,9 +2,6 @@ import { getMe } from '../../api/user';
 import { useState } from 'react';
 import { UserInterface } from '../../interfaces/userData';
 
-
-const HTTP_UNAUTHORIZED = 401;
-
 type OptionsProfileType =
   | 'NFTs'
   | 'Drafts'
@@ -31,6 +28,7 @@ export const useUserProfile = () => {
   const handleSetOptionsProfile = (profileType: OptionsProfileType) => {
     setOptionsProfiles(profileType);
   };
+
   return {
     optionsProfiles,
     userData,

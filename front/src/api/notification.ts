@@ -1,21 +1,11 @@
-const BAD_REQUEST = 400;
+import axios from 'axios';
 
-export const getMyNotifications = async () => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/notifications/me/notifications`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-      credentials: 'include',
+await axios
+  .get(`${import.meta.env.VITE_API_URL}/notifications/me/notifications`, {
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
-
-  if (response.status === BAD_REQUEST) {
-    return response.status;
-  }
-
-  return response.json();
-};
+    withCredentials: true,
+  })
+  .then((response) => response)
+  .catch((error) => error);
