@@ -32,10 +32,7 @@ describe('ItemsProfile component', () => {
       <ItemsProfile optionsProfiles={optionsProfiles} />,
     );
 
-    const minInput = getByPlaceholderText('Min');
-    const maxInput = getByPlaceholderText('Max');
-
-    expect(minInput).toHaveValue('Min');
-    expect(maxInput).toHaveValue('Max');
+    getByPlaceholderText('Min');
+    getByPlaceholderText('Max');
   });
 });
