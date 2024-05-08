@@ -1,12 +1,11 @@
-import { object, string, ref, ValidationError, boolean } from 'yup';
-import { ErrorsYup } from '../../interfaces/yup';
+import { object, string, ref, boolean, array } from 'yup';
 
-export const shemaLogin = object().shape({
+export const schemaLogin = object().shape({
   email: string().email().required('Email is required'),
   password: string().required('Password is required'),
 });
 
-export const shemaRegister = object().shape({
+export const schemaRegister = object().shape({
   email: string().email().required('Email is required'),
   username: string()
     .required()
@@ -22,20 +21,25 @@ export const shemaRegister = object().shape({
   confirmPassword: string().oneOf([ref('password')], 'Passwords must match'),
 });
 
-export const shemaUpdateUser = object().shape({
+export const schemaUpdateUser = object().shape({
   searchByEmailOrPhoneEnabled: boolean(),
   username: string().min(4),
   uniqueLink: string().min(6).matches(/^\S*$/u, 'Link cannot contain spaces'),
+  twoFactorEnabled: boolean(),
 });
 
-export const catchErrors = (errors: ValidationError) => {
-  const newErrors: ErrorsYup = {};
-  errors.inner.forEach((error: { message?: string; path?: string }) => {
-    const { path } = error;
-    if (path) {
-      newErrors[path] = error.message || `Error ${path}`;
-    }
-  });
-
-  return newErrors;
-};
+export const schemaDraft = object().shape({
+  title: string().nullable(),
+  description: string()
+    .min(5)
+    .test('no-at-tags', 'Description cannot contain @', (value) =>
+      typeof value === 'string' ? !/@\w+/u.test(value) : true,
+    )
+    .test('no-hashtags', 'Description cannot contain #', (value) =>
+      typeof value === 'string' ? !/#\w+/u.test(value) : true,
+    )
+    .required('Description is required'),
+  hashtags: array().nullable().max(5),
+  location: string().nullable(),
+  mediaUrl: string().url('Invalid URL format'),
+});

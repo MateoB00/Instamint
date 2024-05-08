@@ -2,21 +2,21 @@ import { getMe } from '../../api/user';
 import { useState } from 'react';
 import { UserInterface } from '../../interfaces/userData';
 
-interface LocationState {
-  state: {
-    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Notifications';
-  };
-}
-// eslint-disable-next-line max-lines-per-function
+
+const HTTP_UNAUTHORIZED = 401;
+
+type OptionsProfileType =
+  | 'NFTs'
+  | 'Drafts'
+  | 'Informations'
+  | '2FA'
+  | 'Delete Account'
+  | 'Content'
+  | 'Notifications';
+
 export const useUserProfile = () => {
-  const [optionsProfiles, setOptionsProfiles] = useState<
-    | 'NFTs'
-    | 'Drafts'
-    | 'Informations'
-    | '2FA'
-    | 'Delete Account'
-    | 'Notifications'
-  >('NFTs');
+  const [optionsProfiles, setOptionsProfiles] =
+    useState<OptionsProfileType>('NFTs');
 
   const [userData, setUserData] = useState<UserInterface | null>();
   const fetchUserData = async () => {
@@ -28,46 +28,14 @@ export const useUserProfile = () => {
     }
   };
 
-  const handleShowNftsProfile = () => {
-    setOptionsProfiles('NFTs');
+  const handleSetOptionsProfile = (profileType: OptionsProfileType) => {
+    setOptionsProfiles(profileType);
   };
-
-  const handleShowNotifProfile = () => {
-    setOptionsProfiles('Notifications');
-  };
-  const handleShowDraftsProfile = () => {
-    setOptionsProfiles('Drafts');
-  };
-
-  const handleShowUpdateProfile = () => {
-    setOptionsProfiles('Informations');
-  };
-
-  const handleShow2FAProfile = () => {
-    setOptionsProfiles('2FA');
-  };
-
-  const handleSwhowDeleteProfile = () => {
-    setOptionsProfiles('Delete Account');
-  };
-
-  const navigateProfilePage = (location: LocationState) => {
-    const initialState = location.state || {};
-    if (initialState.setOptionsProfiles) {
-      setOptionsProfiles(initialState.setOptionsProfiles);
-    }
-  };
-
   return {
     optionsProfiles,
     userData,
     fetchUserData,
-    handleShowNftsProfile,
-    handleShowDraftsProfile,
-    handleShowUpdateProfile,
-    navigateProfilePage,
-    handleShow2FAProfile,
-    handleSwhowDeleteProfile,
-    handleShowNotifProfile,
+    handleSetOptionsProfile,
+    setOptionsProfiles,
   };
 };

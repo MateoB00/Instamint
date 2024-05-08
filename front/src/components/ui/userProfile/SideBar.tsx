@@ -19,8 +19,8 @@ export default function SideBar() {
       <div className="price">
         <span>Price</span>
         <div className="choice">
-          <Input name="min" value={'Min'} type="text" placeholder="Min" />
-          <Input name="max" value={'Max'} type="text" placeholder="Max" />
+          <Input name="min" type="text" placeholder="Min" />
+          <Input name="max" type="text" placeholder="Max" />
         </div>
       </div>
       <div>

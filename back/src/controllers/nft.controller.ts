@@ -19,33 +19,18 @@ export class NftController {
   @Post('create-draft')
   @UseGuards(AuthGuard('jwt'))
   async createDraft(@Request() req, @Body() draft) {
-    const loggedInUser = req.user;
-
-    const response = await this.nftService.createDraft(
-      loggedInUser.email,
-      draft,
-    );
-
-    return response;
+    return await this.nftService.createDraft(req.user.email, draft);
   }
 
   @Put('update-draft')
   @UseGuards(AuthGuard('jwt'))
   async updateDraft(@Request() req, @Body() draft) {
-    const loggedInUser = req.user;
-
-    const response = await this.nftService.updateDraft(loggedInUser, draft);
-
-    return response;
+    return await this.nftService.updateDraft(req.user, draft);
   }
 
   @Get('allByUser')
   @UseGuards(AuthGuard('jwt'))
   async getAllByUser(@Request() req) {
-    const loggedInUser = req.user;
-
-    const response = await this.nftService.getAllDraftsByUser(loggedInUser);
-
-    return response;
+    return await this.nftService.getAllDraftsByUser(req.user);
   }
 }

@@ -43,17 +43,13 @@ export class UserService {
       throw new NotFoundException('User not found.');
     }
 
-    const dataUpdatedUser = { ...existingUser };
-
-    for (const key in changesUser) {
+    Object.keys(changesUser).forEach((key) => {
       if (changesUser[key] !== null) {
-        dataUpdatedUser[key] = changesUser[key];
+        existingUser[key] = changesUser[key];
       }
-    }
-
-    await this.userRepository.update(existingUser.id, {
-      ...dataUpdatedUser,
     });
+
+    await this.userRepository.update(id, existingUser);
 
     return {
       success: true,

@@ -63,9 +63,6 @@ export class User {
   @Column({ default: false })
   isAdmin: boolean;
 
-  @Column({ default: 'private' })
-  profileVisibility: 'private' | 'public';
-
   @OneToMany(() => Notification, (notification) => notification.user)
   notifications: Notification[];
 }
