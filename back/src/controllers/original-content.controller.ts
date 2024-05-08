@@ -40,11 +40,6 @@ export class OriginalContentController {
     const loggedInUser = req.user;
     const { path } = body;
 
-    const response = await this.originalContentService.deleteOne(
-      loggedInUser.id,
-      path,
-    );
-
-    return response;
+    return await this.originalContentService.deleteOne(loggedInUser.id, path);
   }
 }

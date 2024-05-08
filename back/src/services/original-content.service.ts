@@ -40,12 +40,7 @@ export class OriginalContentService {
   }
 
   async deleteOne(userId: number, path: string) {
-    const response = await this.firebaseService.deleteOneOriginalContent(
-      userId,
-      path,
-    );
-
-    return response;
+    return await this.firebaseService.deleteOneOriginalContent(userId, path);
   }
 
   // eslint-disable-next-line class-methods-use-this
