@@ -53,7 +53,6 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
 
@@ -102,7 +101,6 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
 
@@ -147,7 +145,6 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
 

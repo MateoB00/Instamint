@@ -81,7 +81,6 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
 
@@ -113,7 +112,6 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
       jest
@@ -146,7 +144,6 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
       jest
@@ -179,7 +176,6 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
       jest
@@ -215,7 +211,6 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
 
@@ -261,7 +256,6 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
-        profileVisibility: 'private',
         notifications: [],
       };
 
@@ -307,7 +301,6 @@ describe('AuthController', () => {
       updatedAt: new Date(),
       isVerified: true,
       isAdmin: false,
-      profileVisibility: 'private',
       notifications: [],
     };
 
