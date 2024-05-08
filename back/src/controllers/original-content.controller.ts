@@ -21,25 +21,15 @@ export class OriginalContentController {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('file'))
   async uploadOriginalContent(@UploadedFile() file, @Request() req) {
-    const loggedInUser = req.user;
-
-    const response = await this.originalContentService.uploadOriginalContent(
+    return await this.originalContentService.uploadOriginalContent(
       file,
-      loggedInUser,
+      req.user,
     );
-
-    return response;
   }
 
   @Get('allByUser')
   @UseGuards(AuthGuard('jwt'))
   async getAllByUser(@Request() req) {
-    const loggedInUser = req.user;
-
-    const response = await this.originalContentService.getAllByUser(
-      loggedInUser.id,
-    );
-
-    return response;
+    return await this.originalContentService.getAllByUser(req.user.id);
   }
 }
