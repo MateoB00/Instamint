@@ -99,7 +99,7 @@ export class FirebaseService {
     try {
       const refFile = ref(storage, path);
 
-      if (path.includes(`/${userId}/`)) {
+      if (!path.includes(`/${userId}/`)) {
         throw new UnauthorizedException('Bad user');
       }
 
