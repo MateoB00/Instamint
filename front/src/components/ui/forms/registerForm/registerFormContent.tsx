@@ -4,6 +4,7 @@ import Button from '../../Button';
 import { Message } from '../../Message';
 
 const HTTP_OK = 201;
+const colorAccent1 = '#16502d';
 
 const fieldsForm = [
   {
@@ -60,7 +61,7 @@ const RegisterFormContent = (status: {
       />
     ))}
     {status.statusCode === HTTP_OK ? (
-      <Message message={status.message} color="#16502d" />
+      <Message message={status.message} color={colorAccent1} />
     ) : (
       status.message && <Message message={status.message} color="red" />
     )}
