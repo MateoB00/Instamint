@@ -1,69 +1,56 @@
-import { ChangeEvent, useState } from 'react';
-import validateCreateOrUpdateDraft from '../../utils/yup/validates/draft';
-import { NftInterface } from '../../interfaces/nftData';
-import { FormApiMessages } from '../../interfaces/formMessages';
-import { ErrorsYup } from '../../interfaces/yup';
-import useHandleChange from '../form/useHandleChange';
-import { OriginalContentInterface } from '../../interfaces/originalContent';
+import { createDraft, updateDraft } from '../../api/nft';
 
-const initializeFormDataDraft = (): NftInterface => ({
-  title: '',
-  description: '',
-  hashtags: [],
-  mediaUrl: '',
-  location: '',
-  pathFirebase: '',
-  isDraft: true,
-});
+interface Values {
+  title: string;
+  description: string;
+  hashtags: string[];
+  mediaUrl: string;
+  location: string;
+  pathFirebase: string;
+  isDraft: boolean;
+}
+
+interface SetStatusProps {
+  setStatus: (_status: string | object | unknown) => void;
+}
 
 export const useDraftForm = () => {
-  const [formDataDraft, setFormDataDraft] = useState<NftInterface>(
-    initializeFormDataDraft(),
-  );
-
-  const [formYupMessages, setFormYupMessages] = useState<ErrorsYup>({});
-  const [formApiMessages, setFormApiMessages] = useState<FormApiMessages>({
-    apiError: '',
-    apiSuccess: '',
-  });
-
-  const HandleChangeDraft = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
+  const handleCreateDraft = async (
+    values: Values,
+    { setStatus }: SetStatusProps,
   ) => {
-    useHandleChange(e, setFormDataDraft, formDataDraft);
+    try {
+      const response = await createDraft(values);
+
+      setStatus({
+        message: 'Draft has been created',
+        success: response.ok,
+        statusCode: response.status,
+      });
+    } catch (error) {
+      setStatus(error);
+    }
   };
 
-  const handleCreateOrUpdateDraft = (
-    create: boolean,
-    hashtags: string[],
-    originalContentData: OriginalContentInterface | null,
+  const handleUpdateDraft = async (
+    values: Values,
+    { setStatus }: SetStatusProps,
   ) => {
-    if (originalContentData?.url) {
-      formDataDraft.mediaUrl = originalContentData.url;
-    }
+    try {
+      const response = await updateDraft(values);
 
-    if (originalContentData?.path) {
-      formDataDraft.pathFirebase = originalContentData.path;
+      setStatus({
+        message: 'Draft has been updated',
+        success: response.ok,
+        statusCode: response.status,
+      });
+    } catch (error) {
+      setStatus(error);
     }
-
-    if (hashtags) {
-      formDataDraft.hashtags = hashtags;
-    }
-
-    validateCreateOrUpdateDraft(
-      formDataDraft,
-      create,
-      setFormApiMessages,
-      setFormYupMessages,
-    );
   };
 
   return {
-    handleCreateOrUpdateDraft,
-    HandleChangeDraft,
-    formDataDraft,
-    setFormDataDraft,
-    formYupMessages,
-    formApiMessages,
+    handleCreateDraft,
+    handleUpdateDraft,
   };
 };

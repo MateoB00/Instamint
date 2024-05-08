@@ -1,6 +1,6 @@
 import '../../../../scss/components/ui/cards/cardContentModal.scss';
 import { OriginalContentInterface } from '../../../../interfaces/originalContent';
-import DraftForm from '../../forms/draftForm';
+import DraftForm from '../../forms/draftForm/draftForm';
 import MediaDisplay from './common/mediaDisplay';
 import { useEffect, useState } from 'react';
 import { ConfirmationModal } from '../../../modals/confirmation';
@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function OriginalContentCard({ originalContentData }: Props) {
-  const [hashtags, setHashtags] = useState<string[]>([]);
   const [modalState, setModalState] = useState({ open: false, success: false });
 
   useEffect(() => {
@@ -28,8 +27,6 @@ export default function OriginalContentCard({ originalContentData }: Props) {
         mediaName={originalContentData.name}
       />
       <DraftForm
-        hashtags={hashtags}
-        setHashtags={setHashtags}
         originalContentData={originalContentData}
         draftNftData={null}
       />
