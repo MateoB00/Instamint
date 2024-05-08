@@ -1,54 +1,35 @@
+import axios from 'axios';
 import { NftInterface } from '../interfaces/nftData';
 
-const BAD_REQUEST = 400;
-
-export const createDraft = async (formDataDraft: NftInterface) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/nft/create-draft`,
-    {
-      method: 'POST',
+export const createDraft = async (values: NftInterface) =>
+  await axios
+    .post(`${import.meta.env.VITE_API_URL}/nft/create-draft`, values, {
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
-      body: JSON.stringify(formDataDraft),
-    },
-  );
+      withCredentials: true,
+    })
+    .then((response) => response)
+    .catch((error) => error);
 
-  return response;
-};
-
-export const updateDraft = async (formDataDraft: NftInterface) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/nft/update-draft`,
-    {
-      method: 'PUT',
+export const updateDraft = async (values: NftInterface) =>
+  await axios
+    .put(`${import.meta.env.VITE_API_URL}/nft/update-draft`, values, {
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
-      body: JSON.stringify(formDataDraft),
-    },
-  );
+      withCredentials: true,
+    })
+    .then((response) => response)
+    .catch((error) => error);
 
-  return response;
-};
-
-export const getAllDraftsByUser = async () => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/nft/allByUser`,
-    {
-      method: 'GET',
+export const getAllDraftsByUser = async () =>
+  await axios
+    .get(`${import.meta.env.VITE_API_URL}/nft/allByUser`, {
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
-    },
-  );
-
-  if (response.status === BAD_REQUEST) {
-    return response.status;
-  }
-
-  return await response.json();
-};
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
