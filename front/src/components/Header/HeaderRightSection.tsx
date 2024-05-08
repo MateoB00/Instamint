@@ -20,6 +20,11 @@ export default function HeaderRightSection({
   handleClickToNavigateOnProfilePage,
   navigate,
 }: HeaderRightSectionProps) {
+  const logout = () => {
+    authLogout();
+    navigate('/');
+  };
+
   return (
     <div className="right">
       <Button onClick={() => handleClickToNavigateOnProfilePage('NFTs')}>
@@ -31,12 +36,7 @@ export default function HeaderRightSection({
         <img className="icon" src={settingsIcon} alt="settingsIcon" />
       </Button>
       {userData && (
-        <Button
-          onClick={() => {
-            authLogout();
-            navigate('/');
-          }}
-        >
+        <Button onClick={logout}>
           <img className="icon" src={signOutIcon} alt="signOutIcon" />
         </Button>
       )}

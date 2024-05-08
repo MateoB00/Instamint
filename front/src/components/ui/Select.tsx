@@ -10,7 +10,7 @@ interface Props {
   id: string;
   options: Option[];
   selectedValue: string;
-  onChange: ChangeEventHandler;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
   defaultOption: string;
 }
 
