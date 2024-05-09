@@ -42,6 +42,10 @@ export default function CardProfile({ userData }: Props) {
           <div className="draftsDatas">
             <span className="data">0</span>
             <span>Drafts</span>
+            <div className="commentsDatas">
+              <span className="data">0</span>
+              <span>Comments</span>
+            </div>
           </div>
         </div>
       </div>

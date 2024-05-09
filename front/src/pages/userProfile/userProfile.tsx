@@ -8,31 +8,79 @@ import { useUserProfile } from '../../hooks/user/useUserProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button';
 
+type OptionsProfileType =
+  | 'NFTs'
+  | 'Drafts'
+  | 'Informations'
+  | '2FA'
+  | 'Delete Account'
+  | 'Content'
+  | 'Comments';
+
+const renderButtons = (
+  handleSetOptionsProfile: (_profileType: OptionsProfileType) => void,
+) => {
+  const buttons = [
+    { label: 'NFTs', option: 'NFTs' as OptionsProfileType },
+    { label: 'Drafts', option: 'Drafts' as OptionsProfileType },
+    { label: 'Content', option: 'Content' as OptionsProfileType },
+    { label: 'Informations', option: 'Informations' as OptionsProfileType },
+    { label: 'Comments', option: 'Comments' as OptionsProfileType },
+  ];
+
+  return buttons.map(({ label, option }) => (
+    <Button key={option} onClick={() => handleSetOptionsProfile(option)}>
+      {label}
+    </Button>
+  ));
+};
+
+interface LocationState {
+  state: {
+    setOptionsProfiles:
+      | 'NFTs'
+      | 'Drafts'
+      | 'Informations'
+      | 'Content'
+      | 'Comments';
+  };
+}
+
 export default function UserProfile() {
-  const location = useLocation();
-  const navigateReact = useNavigate();
+  const location: LocationState = useLocation();
+  const navigate = useNavigate();
 
   const {
     optionsProfiles,
     userData,
     fetchUserData,
-    handleShowNftsProfile,
-    handleShowDraftsProfile,
-    handleShowContentProfile,
-    handleShowUpdateProfile,
-    handleShowCommentProfile,
-    navigateProfilePage,
+    setOptionsProfiles,
+    handleSetOptionsProfile,
   } = useUserProfile();
 
   useEffect(() => {
     fetchUserData();
-    navigateProfilePage(location);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+    if (userData === null) {
+      navigate('/auth');
+    }
+  }, [fetchUserData, userData, navigate]);
 
-  if (userData === null) {
-    navigateReact('/auth');
-  }
+  useEffect(() => {
+    const initialState = location.state;
+    if (initialState && initialState.setOptionsProfiles) {
+      setOptionsProfiles(initialState.setOptionsProfiles);
+    }
+  }, [location.state, setOptionsProfiles]);
+  // eslint-disable-next-line max-lines-per-function
+  const handleSetOptionsProfileWithRedirect = (
+    profileType: OptionsProfileType,
+  ) => {
+    if (profileType === 'Comments') {
+      navigate(`/nft/${userData?.id}/comments`);
+    } else {
+      handleSetOptionsProfile(profileType);
+    }
+  };
 
   return (
     <>
@@ -42,11 +90,7 @@ export default function UserProfile() {
           {userData && <CardProfile userData={userData} />}
           <div className="itemsChoice">
             <div className="navigation">
-              <Button onClick={handleShowNftsProfile}>NFTs</Button>
-              <Button onClick={handleShowDraftsProfile}>Drafts</Button>
-              <Button onClick={handleShowContentProfile}>Content</Button>
-              <Button onClick={handleShowUpdateProfile}>Informations</Button>
-              <Button onClick={handleShowCommentProfile}>Comments</Button>
+              {renderButtons(handleSetOptionsProfileWithRedirect)}
             </div>
             {(optionsProfiles === 'NFTs' ||
               optionsProfiles === 'Drafts' ||

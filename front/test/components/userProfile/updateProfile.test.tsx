@@ -45,7 +45,15 @@ describe('UpdateProfile component', () => {
         name: 'searchByEmailOrPhoneEnabled',
         type: 'checkbox',
         label: 'Search By Email Or Phone',
-        placeholder: 'Enter your e-mail',
+        placeholder: 'Enter your choice',
+      },
+      {
+        name: 'twoFactorEnabled',
+        type: 'checkbox',
+        label: 'Two Factor Authentication',
+        placeholder: 'Enter your choice',
+        autoComplete: 'twoFactor',
+        qrCode: true,
       },
     ];
 

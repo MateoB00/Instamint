@@ -24,6 +24,7 @@
         justify-content: center;
         width: 50%;
         margin: auto;
+        
         .buttonsForm {
             margin-top: $U4;
             display: flex;
@@ -36,15 +37,6 @@
                 margin: $defaultMargin;
             }
         }
-    }
-
-    p {
-        font-size: $bodyFontSize;
-        font-weight: $bodyFontWeight;
-        color: $colorNeutralDark;
-    }
-    span {
-        color: $colorAccent1;
     }
 }
 

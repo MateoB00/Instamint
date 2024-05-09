@@ -1,63 +1,87 @@
-import { Fragment, useState, useEffect, useCallback } from 'react';
-import Button from '../ui/Button';
-import { Message } from '../ui/Message';
+import React, { useState, useEffect, useCallback } from 'react';
+import { CommentInterface } from '../../interfaces/comments';
+import {
+  createComment,
+  deleteComment,
+  getCommentsByNft,
+} from '../../api/comments';
+import '../../scss/components/userProfile/comments.scss';
 
-interface CommentInterface {
-  id: number;
-  content: string;
-  author: string;
-  createdAt: string;
+interface CommentSectionProps {
+  nftId: string;
 }
 
-interface Props {
-  postId: number | string;
-}
-
-const Comments = ({ postId }: Props) => {
+const CommentSection: React.FC<CommentSectionProps> = ({ nftId }) => {
   const [comments, setComments] = useState<CommentInterface[]>([]);
-  const [page, setPage] = useState(1);
-  const pageSize = 20;
-  const [errorMessage, setErrorMessage] = useState('');
+  const [newComment, setNewComment] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
-  // Use useCallback to memoize loadComments
-  const loadComments = useCallback(async () => {
+  const fetchComments = useCallback(async () => {
     try {
-      const response = await fetch(
-        `/api/comments/${postId}?page=${page}&pageSize=${pageSize}`,
-      );
-      if (!response.ok) {
-        throw new Error('Failed to load comments.');
-      }
-      const newComments: CommentInterface[] = await response.json();
-      setComments((prev) => [...prev, ...newComments]);
-    } catch (error) {
-      setErrorMessage((error as Error).message);
+      const fetchedComments = await getCommentsByNft(nftId);
+      setComments(fetchedComments);
+    } catch (fetchError) {
+      setError('Error fetching comments.');
     }
-  }, [postId, page, pageSize]);
+  }, [nftId]);
+
+  const handleCreateComment = async () => {
+    if (newComment.trim() === '') {
+      return;
+    }
+
+    const commentData: CommentInterface = {
+      userId: 'user-id-placeholder',
+      nftId,
+      content: newComment,
+    };
+
+    try {
+      await createComment(commentData);
+      setNewComment('');
+      setComments([...comments, commentData]);
+    } catch (createError) {
+      setError('Failed to create comment.');
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      await deleteComment(commentId);
+      setComments(comments.filter((comment) => comment.id !== commentId));
+    } catch (deleteError) {
+      setError('Failed to delete comment.');
+    }
+  };
 
   useEffect(() => {
-    loadComments();
-  }, [loadComments]);
+    fetchComments();
+  }, [fetchComments]);
 
   return (
-    <div className="commentsSection">
-      <h1>Comments</h1>
-      {comments.length === 0 && !errorMessage && (
-        <Message message="No comments yet" color="red" />
-      )}
-      {errorMessage && <Message message={errorMessage} color="red" />}
-      {comments.map((comment) => (
-        <Fragment key={comment.id}>
-          <div className="comment">
-            <h3>{comment.author}</h3>
+    <div className="commentSection">
+      <h3>Comments</h3>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <ul>
+        {comments.map((comment) => (
+          <li key={comment.id}>
+            <h3>{comment.userId}</h3>
             <p>{comment.content}</p>
-            <small>{new Date(comment.createdAt).toLocaleString()}</small>
-          </div>
-        </Fragment>
-      ))}
-      <Button onClick={() => setPage(page + 1)} children="Show more comments" />
+            <div>{comment.timestamp}</div>
+            <button onClick={() => handleDeleteComment(comment.id!)}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+      <textarea
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+        placeholder="Add a comment..."
+      />
+      <button onClick={handleCreateComment}>Comment</button>
     </div>
   );
 };
 
-export default Comments;
+export default CommentSection;
