@@ -18,4 +18,4 @@ export const getAllOriginalContentsByUser = async () =>
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((error) => error);
+    .catch((error) => error.response);
