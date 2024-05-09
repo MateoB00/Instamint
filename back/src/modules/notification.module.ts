@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { NftController } from 'src/controllers/nft.controller';
+import { NotificationController } from 'src/controllers/notification.controller';
 import { Notification } from '../entities/notifications.entity';
 import { User } from 'src/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,8 +8,8 @@ import { NotificationService } from 'src/services/Notification.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Notification, User])],
-  controllers: [NftController],
+  controllers: [NotificationController],
   providers: [NotificationService, FirebaseService],
   exports: [NotificationService, FirebaseService],
 })
-export class NftModule {}
+export class NotificationModule {}

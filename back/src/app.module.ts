@@ -9,7 +9,7 @@ import { NftModule } from './modules/nft.module';
 import { FirebaseModule } from './modules/firebase.module';
 import { OriginalContentModule } from './modules/original-content.module';
 import { Notification } from './entities/notifications.entity';
-
+import { NotificationModule } from './modules/notification.module';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -33,6 +33,7 @@ import { Notification } from './entities/notifications.entity';
     AuthModule,
     FirebaseModule,
     NftModule,
+    NotificationModule,
     OriginalContentModule,
   ],
   controllers: [],
