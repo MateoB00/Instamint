@@ -19,7 +19,8 @@ export const useOriginalContent = () => {
     ) {
       return setOriginalContents(null);
     }
-    setOriginalContents(responseGetAllOriginalContents);
+
+    return setOriginalContents(responseGetAllOriginalContents);
   };
 
   const handleShowCard = (originalContent: OriginalContentInterface) => {
