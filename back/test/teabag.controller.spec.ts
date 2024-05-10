@@ -55,6 +55,26 @@ describe('TeabagController', () => {
       isVerified: true,
       isAdmin: false,
     };
+
+    mockTeabag = {
+      id: 1,
+      name: 'name',
+      bio: 'bio',
+      link: 'link',
+      profilePicture: 'test',
+      listNfts: [],
+      creator: mockUser,
+      cooks: [mockUser],
+      followers: [],
+      followed: [],
+      whitelist: [],
+      whitelistStartDate: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      numberFollower: 0,
+      numberFollowed: 0,
+      numberCook: 1,
+    };
   });
 
   it('should be defined', () => {

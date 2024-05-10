@@ -49,7 +49,7 @@ export const useTeabagForm = () => {
   ) => {
     const response = await update(values);
 
-    if (response.status === 200) {
+    if (response.status === HTTP_SUCCESS.OK) {
       return setStatus({
         message: 'Teabag has been updated',
         success: response.ok,
