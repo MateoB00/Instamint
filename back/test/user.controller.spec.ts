@@ -17,6 +17,7 @@ describe('UserController', () => {
           provide: UserService,
           useValue: {
             findOneById: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -45,6 +46,7 @@ describe('UserController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
@@ -72,6 +74,86 @@ describe('UserController', () => {
       await expect(userController.findById(req)).rejects.toThrow(
         'User not found.',
       );
+    });
+  });
+
+  // eslint-disable-next-line max-lines-per-function
+  describe('Update User', () => {
+    it('should update user successfully', async () => {
+      const loggedInUser: User = {
+        id: 1,
+        email: 'Test@test.com',
+        password: 'test',
+        username: 'test',
+        phoneNumber: 'test',
+        profilePicture: 'test',
+        bio: 'test',
+        uniqueLink: 'test',
+        visibility: true,
+        language: 'test',
+        twoFactorEnabled: true,
+        twoFactorSecret: 'test',
+        otpPath: 'test',
+        searchByEmailOrPhoneEnabled: true,
+        lastLogin: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        isVerified: true,
+        isAdmin: false,
+      };
+
+      const changesUser = { ...loggedInUser };
+      changesUser.username = 'username changed';
+      changesUser.searchByEmailOrPhoneEnabled = false;
+      changesUser.uniqueLink = 'unique link changed';
+
+      const expectedResponse = {
+        success: true,
+        message: 'User updated successfully.',
+      };
+
+      jest.spyOn(userService, 'update').mockResolvedValue(expectedResponse);
+
+      const result = await userController.update(
+        { user: loggedInUser },
+        changesUser,
+      );
+
+      expect(result).toEqual(expectedResponse);
+    });
+
+    it('should throw NotFoundException if user not found', async () => {
+      const loggedInUser: User = {
+        id: 1,
+        email: 'Test@test.com',
+        password: 'test',
+        username: 'test',
+        phoneNumber: 'test',
+        profilePicture: 'test',
+        bio: 'test',
+        uniqueLink: 'test',
+        visibility: true,
+        language: 'test',
+        twoFactorEnabled: true,
+        twoFactorSecret: 'test',
+        otpPath: 'test',
+        searchByEmailOrPhoneEnabled: true,
+        lastLogin: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        isVerified: true,
+        isAdmin: false,
+      };
+
+      const changesUser = { ...loggedInUser };
+
+      jest
+        .spyOn(userService, 'update')
+        .mockRejectedValue(new NotFoundException('User not found.'));
+
+      await expect(
+        userController.update({ user: loggedInUser }, changesUser),
+      ).rejects.toThrow('User not found.');
     });
   });
 });

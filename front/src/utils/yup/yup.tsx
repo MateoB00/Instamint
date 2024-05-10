@@ -1,5 +1,5 @@
-import { object, string, ref, ValidationError } from 'yup';
-import { FormAuthMessages } from '../interfaces/formMessages';
+import { object, string, ref, ValidationError, boolean } from 'yup';
+import { ErrorsYup } from '../../interfaces/yup';
 
 export const shemaLogin = object().shape({
   email: string().email().required('Email is required'),
@@ -22,16 +22,14 @@ export const shemaRegister = object().shape({
   confirmPassword: string().oneOf([ref('password')], 'Passwords must match'),
 });
 
-export const catchErrors = (errors: ValidationError) => {
-  const newErrors: FormAuthMessages = {
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-    apiError: '',
-    apiSuccess: '',
-  };
+export const shemaUpdateUser = object().shape({
+  searchByEmailOrPhoneEnabled: boolean(),
+  username: string().min(4),
+  uniqueLink: string().min(6).matches(/^\S*$/u, 'Link cannot contain spaces'),
+});
 
+export const catchErrors = (errors: ValidationError) => {
+  const newErrors: ErrorsYup = {};
   errors.inner.forEach((error: { message?: string; path?: string }) => {
     const { path } = error;
     if (path) {

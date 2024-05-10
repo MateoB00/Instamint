@@ -34,4 +34,45 @@ export class UserService {
 
     return fetchUserById;
   }
+
+  async update(loggedUser: User, changesUser) {
+    const { id } = loggedUser;
+    const existingUser = await this.userRepository.findOne({ where: { id } });
+
+    if (!existingUser) {
+      throw new NotFoundException('User not found.');
+    }
+
+    const dataUpdatedUser = { ...existingUser };
+
+    for (const key in changesUser) {
+      if (changesUser[key] !== null) {
+        dataUpdatedUser[key] = changesUser[key];
+      }
+    }
+
+    await this.userRepository.update(existingUser.id, {
+      ...dataUpdatedUser,
+    });
+
+    return {
+      success: true,
+      message: 'User updated successfully.',
+    };
+  }
+
+  async deleteUser(id: number): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    await this.userRepository.remove(user);
+  }
+
+  async findByLink(uniqueLink: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({
+      where: { uniqueLink },
+      select: ['username', 'bio', 'uniqueLink', 'profilePicture', 'language'],
+    });
+  }
 }

@@ -1,56 +1,51 @@
-import React, { useState } from 'react';
-import PopupSetting from '../ui/popup/PopupSetting.tsx';
+import { useEffect } from 'react';
 import '../../scss/layout/Header.scss';
-import { useTranslation } from 'react-i18next';
+import instamintIcon from '../../assets/Image/logo-instamint.svg';
+import { useNavigate } from 'react-router-dom';
+import { useUserProfile } from '../../hooks/user/useUserProfile';
+import { authLogout } from '../../api/auth';
+import Button from '../ui/Button';
+import HeaderLeftSection from './HeaderLeftSection';
+import HeaderRightSection from './HeaderRightSection';
 
-const Header: React.FC = () => {
-  const { t } = useTranslation();
-  const [isPopupSettingOpen, setPopupSettingOpen] = useState(false);
+export default function Header() {
+  const navigate = useNavigate();
+  const { userData, fetchUserData } = useUserProfile();
 
-  const OpenGearIcon = () => {
-    setPopupSettingOpen(true);
-    // eslint-disable-next-line no-console
-    console.log('Gear icon clicked!');
+  const handleClickToNavigateOnProfilePage = (
+    optionsProfiles: 'NFTs' | 'Informations',
+  ) => {
+    if (userData) {
+      navigate('/me', {
+        state: {
+          setOptionsProfiles: optionsProfiles,
+        },
+      });
+    } else {
+      navigate('/auth');
+    }
   };
 
-  const closePopupSetting = () => {
-    setPopupSettingOpen(false);
-    // eslint-disable-next-line no-console
-    console.log('Popup setting closed!');
-  };
+  useEffect(() => {
+    fetchUserData();
+  });
 
   return (
-    <header className="header">
-      <div className="logo">
-        <img src="./src/assets/image/logo-instamint.ico" />
-        <span className="logo">
-          <h1>{t('appName')}</h1>
-        </span>
+    <header>
+      <div className="header">
+        <HeaderLeftSection />
+        <Button className="instamint">
+          <img src={instamintIcon} alt="instamintIcon" />
+        </Button>
+        <HeaderRightSection
+          userData={userData}
+          handleClickToNavigateOnProfilePage={
+            handleClickToNavigateOnProfilePage
+          }
+          authLogout={authLogout}
+          navigate={navigate}
+        />
       </div>
-      <nav className="nav">
-        <ul>
-          <li>
-            <a href="#">{t('menu.home')}</a>
-          </li>
-          <li>
-            <a href="#">{t('menu.explore')}</a>
-          </li>
-          <li>
-            <a href="#">{t('menu.my.nfts')}</a>
-          </li>
-          <li>
-            <a href="#">{t('menu.profile')}</a>
-          </li>
-          <li>
-            <a href="#" onClick={OpenGearIcon}>
-              <img src="./src/assets/image/gear.png" alt="Gear Icon" />
-            </a>
-            {isPopupSettingOpen && <PopupSetting onClose={closePopupSetting} />}
-          </li>
-        </ul>
-      </nav>
     </header>
   );
-};
-
-export default Header;
+}

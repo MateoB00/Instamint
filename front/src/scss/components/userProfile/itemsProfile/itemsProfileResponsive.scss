@@ -1,0 +1,25 @@
+@import '../../../main.scss';
+
+.items {
+    @media(max-width: 830px) {
+        flex-direction: column;    
+    }
+    .sideBar {
+        @media(max-width: 830px) {
+            width: 50%;
+            margin: auto;
+            padding: $defaultPadding;
+        }
+        @media(max-width: 500px) {
+            width: 65%;
+        }
+    }
+    .nfts {
+        img {
+            @media(max-width: 400px) {
+                width: 8rem;
+                height: 8rem;
+            }
+        }
+    }
+}

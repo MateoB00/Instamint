@@ -1,4 +1,3 @@
-import React from 'react';
 import ButtonComponent from './ui/ButtonComponent.tsx';
 import { useTranslation } from 'react-i18next';
 interface Item {

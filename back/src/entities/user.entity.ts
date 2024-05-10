@@ -5,13 +5,13 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Column()
@@ -23,7 +23,7 @@ export class User {
   @Column()
   bio: string;
 
-  @Column()
+  @Column({ unique: true })
   uniqueLink: string;
 
   @Column({ default: true })
@@ -41,6 +41,9 @@ export class User {
 
   @Column({ nullable: true })
   twoFactorSecret: string;
+
+  @Column({ nullable: true })
+  otpPath: string;
 
   @Column({ default: false })
   searchByEmailOrPhoneEnabled: boolean;
