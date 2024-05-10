@@ -69,6 +69,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ nftId }) => {
             <p>{comment.content}</p>
             <div>{comment.timestamp}</div>
             <button onClick={() => handleDeleteComment(comment.id!)}>
+              {' '}
               Delete
             </button>
           </li>
