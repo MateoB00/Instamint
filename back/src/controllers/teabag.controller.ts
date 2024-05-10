@@ -8,7 +8,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { TeabagService } from 'src/services/teabag.service';
+import { TeabagService } from '../services/teabag.service';
 
 @Controller('teabag')
 export class TeabagController {

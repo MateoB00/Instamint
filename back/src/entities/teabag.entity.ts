@@ -47,7 +47,7 @@ export class Teabag {
 
   @ManyToMany(() => User, { nullable: true })
   @JoinTable()
-  private whitelist: User[];
+  whitelist: User[];
 
   @Column({ type: 'timestamp', nullable: true })
   whitelistStartDate: Date | null;
