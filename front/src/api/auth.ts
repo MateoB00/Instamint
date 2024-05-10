@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const HTTP_OK = 201;
+import { HTTP_SUCCESS } from '../constants/statusCodes';
 
 export const authLogin = async (values: { email: string; password: string }) =>
   await axios
@@ -11,12 +10,12 @@ export const authLogin = async (values: { email: string; password: string }) =>
       withCredentials: true,
     })
     .then((response) => {
-      if (response.status === HTTP_OK) {
+      if (response.status === HTTP_SUCCESS.CREATED) {
         localStorage.setItem('email', values.email);
         localStorage.setItem('password', values.password);
         window.location.href = '/2faVerification';
       }
-      if (response.status === 202) {
+      if (response.status === HTTP_SUCCESS.ACCEPTED) {
         window.location.href = '/me';
       }
     })
