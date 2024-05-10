@@ -19,3 +19,18 @@ export const getAllOriginalContentsByUser = async () =>
     })
     .then((response) => response.data)
     .catch((error) => error.response);
+
+export const deleteOneOriginalContent = async (path: string) =>
+  await axios
+    .post(
+      `${import.meta.env.VITE_API_URL}/original-content/deleteOne`,
+      { path },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    )
+    .then((response) => response.data)
+    .catch((error) => error.response);
