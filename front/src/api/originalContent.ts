@@ -18,7 +18,7 @@ export const getAllOriginalContentsByUser = async () =>
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((error) => error);
+    .catch((error) => error.response);
 
 export const deleteOneOriginalContent = async (path: string) =>
   await axios
@@ -33,4 +33,4 @@ export const deleteOneOriginalContent = async (path: string) =>
       },
     )
     .then((response) => response.data)
-    .catch((error) => error);
+    .catch((error) => error.response);
