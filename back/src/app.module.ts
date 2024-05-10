@@ -8,6 +8,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { NftModule } from './modules/nft.module';
 import { FirebaseModule } from './modules/firebase.module';
 import { OriginalContentModule } from './modules/original-content.module';
+import { TeabagModule } from './modules/teabag.module';
+import { Teabag } from './entities/teabag.entity';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { OriginalContentModule } from './modules/original-content.module';
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        entities: [User, Nft],
+        entities: [User, Nft, Teabag],
         synchronize: true,
       }),
     }),
@@ -33,6 +35,7 @@ import { OriginalContentModule } from './modules/original-content.module';
     FirebaseModule,
     NftModule,
     OriginalContentModule,
+    TeabagModule,
   ],
   controllers: [],
   providers: [],
