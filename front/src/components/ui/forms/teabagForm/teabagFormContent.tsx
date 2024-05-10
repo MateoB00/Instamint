@@ -2,8 +2,8 @@ import { Form } from 'formik';
 import FormField from '../../FormField';
 import Button from '../../Button';
 import { Message } from '../../Message';
+import { HTTP_SUCCESS } from '../../../../constants/statusCodes';
 
-const HTTP_OK = 201;
 const colorAccent1 = '#16502d';
 
 const fieldsForm = [
@@ -60,7 +60,7 @@ const TeabagCreateFormContent = (status: {
         className={`inputForm`}
       />
     ))}
-    {status.statusCode === HTTP_OK ? (
+    {status.statusCode === HTTP_SUCCESS.CREATED ? (
       <Message message={status.message} color={colorAccent1} />
     ) : (
       status.message && <Message message={status.message} color="red" />

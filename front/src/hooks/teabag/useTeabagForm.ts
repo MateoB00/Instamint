@@ -1,4 +1,5 @@
 import { create, update } from '../../api/teabag';
+import { HTTP_SUCCESS } from '../../constants/statusCodes';
 
 interface ValuesCreate {
   name: string;
@@ -27,7 +28,7 @@ export const useTeabagForm = () => {
 
     const response = await create(values);
 
-    if (response.status === 201) {
+    if (response.status === HTTP_SUCCESS.CREATED) {
       return setStatus({
         message: 'Teabag has been created',
         success: response.ok,
