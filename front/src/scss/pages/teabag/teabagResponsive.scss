@@ -35,16 +35,16 @@
 
     .popUp {
         @media (max-width: 1500px) {
-            width: 50%;
+            width: 50% !important;
         }
 
         @media (max-width: 1050px) {
-            width: 65%;
+            width: 65% !important;
         }
 
         @media (max-width: 800px) {
-            width: 100%;
-            height: 100%;
+            width: 100% !important;
+            height: 100% !important;
         }
     }
 }

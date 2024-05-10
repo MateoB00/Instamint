@@ -25,8 +25,8 @@ export class TeabagController {
 
   @Put('update')
   @UseGuards(AuthGuard('jwt'))
-  async update(@Request() req, @Body() teabag) {
-    return await this.teabagService.update(req.user, teabag);
+  async update(@Request() req, @Body() teabagChanges) {
+    return await this.teabagService.update(req.user, teabagChanges);
   }
 
   @Get('all')
