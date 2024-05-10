@@ -69,8 +69,4 @@ export class Teabag {
   get numberCook(): number {
     return this.cooks ? this.cooks.length : 0;
   }
-
-  get whiteList(): User[] {
-    return this.whitelist ? this.whiteList : [];
-  }
 }
