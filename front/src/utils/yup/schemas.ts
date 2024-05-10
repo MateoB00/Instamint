@@ -1,4 +1,4 @@
-import { object, string, ref, boolean, array } from 'yup';
+import { object, string, ref, boolean, array, date } from 'yup';
 
 export const schemaLogin = object().shape({
   email: string().email().required('Email is required'),
@@ -42,4 +42,14 @@ export const schemaDraft = object().shape({
   hashtags: array().nullable().max(5),
   location: string().nullable(),
   mediaUrl: string().url('Invalid URL format'),
+});
+
+export const schemaTeabag = object().shape({
+  name: string().min(2).required('Name is required'),
+  bio: string().min(5).required('Bio is required'),
+  link: string()
+    .min(3)
+    .matches(/^\S*$/u, 'Link cannot contain spaces')
+    .required('Link is required'),
+  whitelistStartDate: date().nullable().notRequired(),
 });
