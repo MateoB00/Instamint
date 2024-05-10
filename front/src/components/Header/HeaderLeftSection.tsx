@@ -7,7 +7,9 @@ import notificationIcon from '../../assets/Icon/header/Bell_light.svg';
 const HeaderLeftSection: React.FC = () => (
   <div className="left">
     <Button>
-      <img className="icon" src={groupIcon} alt="groupIcon" />
+      <a href="/teabag">
+        <img className="icon" src={groupIcon} alt="groupIcon" />
+      </a>
     </Button>
     <Button>
       <img className="icon" src={chatIcon} alt="chatIcon" />
