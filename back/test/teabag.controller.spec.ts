@@ -57,6 +57,7 @@ describe('OriginalContentController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       const mockTeabag: Teabag = {
@@ -111,6 +112,7 @@ describe('OriginalContentController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       const mockTeabag: Teabag = {
@@ -166,6 +168,7 @@ describe('OriginalContentController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       const mockTeabag: Teabag = {
@@ -219,6 +222,7 @@ describe('OriginalContentController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       const mockTeabag: Teabag = {
