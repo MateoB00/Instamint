@@ -1,4 +1,4 @@
-import ListNotifications from '../../components/userProfile/notificationProfile';
+import ListNotifications from '../../components/userProfile/notificationList';
 
 const notificationsPage = () => (
   <div className="container mx-auto px-4 py-6">

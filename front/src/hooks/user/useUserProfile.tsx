@@ -1,8 +1,8 @@
 import { getMe } from '../../api/user';
 import { useState } from 'react';
 import { UserInterface } from '../../interfaces/userData';
+import { HTTP_ERRORS } from '../../constants/statusCodes';
 
-const HTTP_UNAUTHORIZED = 401;
 type OptionsProfileType =
   | 'NFTs'
   | 'Drafts'
@@ -19,7 +19,7 @@ export const useUserProfile = () => {
   const [userData, setUserData] = useState<UserInterface | null>();
   const fetchUserData = async () => {
     const responseGetMe = await getMe();
-    if (responseGetMe === HTTP_UNAUTHORIZED) {
+    if (responseGetMe === HTTP_ERRORS.UNAUTHORIZED) {
       return setUserData(null);
     }
 

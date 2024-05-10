@@ -1,0 +1,12 @@
+@import '../../main.scss';
+
+.allTeabags {
+    width: 100%;
+    margin: $defaultMargin;
+    .teabag {
+        border: 2px solid white;
+        display: flex;
+        justify-content: space-between;
+        padding: $defaultPadding;
+    }
+}

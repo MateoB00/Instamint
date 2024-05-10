@@ -1,6 +1,5 @@
 import { authRegister } from '../../api/auth';
-
-const HTTP_OK = 201;
+import { HTTP_SUCCESS } from '../../constants/statusCodes';
 
 interface Values {
   email: string;
@@ -21,7 +20,7 @@ export const useRegisterForm = () => {
     try {
       const response = await authRegister(values);
       setStatus(response);
-      if (response.status === HTTP_OK) {
+      if (response.status === HTTP_SUCCESS.CREATED) {
         setStatus({
           message: 'User has been created, a confirmation mail was send',
           success: true,
