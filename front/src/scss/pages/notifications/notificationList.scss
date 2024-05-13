@@ -1,35 +1,46 @@
-// src/scss/pages/notifications/notificationList.scss
-.allNotifications {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  
-    .notification {
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      padding: 10px;
-      margin: 10px 0;
-      width: 80%;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
-      .notificationTitle {
-        font-weight: bold;
-        font-size: 1.2em;
-      }
-  
-      .notificationMessage {
-        margin: 5px 0;
-      }
-  
-      .notificationTimestamp {
-        font-size: 0.9em;
-        color: #666;
-      }
+@import '../../main.scss';
+.list-notifications-container {
+  color: $colorNeutralDark;
+  background-color: $colorNeutralLight;
+  padding: $defaultPadding;
+  margin: $defaultMargin;
+  font-family: 'Arial', sans-serif;
+
+  h2 {
+    font-size: $titleFontSize;
+    font-weight: $titleFontWeight;
+    color: $colorAccent2;
+    margin-bottom: $U4;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    background-color: $colorNeutralMedium;
+    margin-bottom: $defaultMargin;
+    padding: $largePadding;
+    border-left: 5px solid $colorAccent1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    h3 {
+      font-size: $headingFontSize;
+      font-weight: $headingFontWeight;
+      color: $colorAccent3;
     }
-  
-    .loading {
-      font-size: 1.5em;
-      color: #333;
+
+    p {
+      font-size: $bodyFontSize;
+      font-weight: $bodyFontWeight;
+      color: $colorNeutralDark;
+    }
+
+    div {
+      font-size: $smallFontSize;
+      font-weight: $smallFontWeight;
+      color: $colorAccent4;
     }
   }
-  
+}
