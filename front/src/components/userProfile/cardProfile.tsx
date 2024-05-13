@@ -3,12 +3,14 @@ import '../../scss/components/userProfile/cardProfile/cardProfile.scss';
 import '../../scss/components/userProfile/cardProfile/cardProfileResponsive.scss';
 import { UserInterface } from '../../interfaces/userData';
 import { initializeBackgroundUserProfile } from '../../utils/granim';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   userData: UserInterface;
 }
 
 export default function CardProfile({ userData }: Props) {
+  const { t } = useTranslation();
   useEffect(() => {
     initializeBackgroundUserProfile();
   });
@@ -29,11 +31,11 @@ export default function CardProfile({ userData }: Props) {
         <div className="userStats">
           <div className="followersDatas">
             <span className="data">0</span>
-            <span>Followers</span>
+            <span>{t('userProfile.followers')}</span>
           </div>
           <div className="followingsDatas">
             <span className="data">0</span>
-            <span>Followings</span>
+            <span>{t('userProfile.following')}</span>
           </div>
           <div className="nftsDatas">
             <span className="data">0</span>

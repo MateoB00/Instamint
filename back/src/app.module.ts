@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
+import { Nft } from 'src/entities/nft.entity';
 import { UserModule } from 'src/modules/user.module';
 import { AuthModule } from 'src/modules/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { NftModule } from './modules/nft.module';
+import { FirebaseModule } from './modules/firebase.module';
+import { OriginalContentModule } from './modules/original-content.module';
 
 @Module({
   imports: [
@@ -15,7 +19,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        entities: [User],
+        entities: [User, Nft],
         synchronize: true,
       }),
     }),
@@ -26,6 +30,9 @@ import { MailerModule } from '@nestjs-modules/mailer';
     }),
     UserModule,
     AuthModule,
+    FirebaseModule,
+    NftModule,
+    OriginalContentModule,
   ],
   controllers: [],
   providers: [],

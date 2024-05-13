@@ -35,17 +35,33 @@ export class UserService {
     return fetchUserById;
   }
 
-  async changeUsername(userId: number, newUsername: string): Promise<boolean> {
-    const userExists = await this.userRepository.findOneBy({
-      username: newUsername,
-    });
+  async update(loggedUser: User, changesUser) {
+    const { id } = loggedUser;
+    const existingUser = await this.userRepository.findOne({ where: { id } });
 
-    if (userExists) {
-      throw new Error('Username is already taken');
+    if (!existingUser) {
+      throw new NotFoundException('User not found.');
     }
 
-    await this.userRepository.update(userId, { username: newUsername });
+    Object.keys(changesUser).forEach((key) => {
+      if (changesUser[key] !== null) {
+        existingUser[key] = changesUser[key];
+      }
+    });
 
-    return true;
+    await this.userRepository.update(id, existingUser);
+
+    return {
+      success: true,
+      message: 'User updated successfully.',
+    };
+  }
+
+  async deleteUser(id: number): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    await this.userRepository.remove(user);
   }
 }

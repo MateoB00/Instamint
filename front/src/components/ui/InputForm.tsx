@@ -4,11 +4,12 @@ import '../../scss/components/ui/input.scss';
 interface InputFormProps {
   type: string;
   label?: string;
-  value: string | number;
+  value: string | number | string[];
   name: string;
   placeholder: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  defaultChecked?: boolean | undefined;
 }
 
 const InputForm: FC<InputFormProps> = ({
@@ -19,11 +20,14 @@ const InputForm: FC<InputFormProps> = ({
   placeholder,
   disabled,
   onChange,
+  defaultChecked,
 }) => (
   <>
-    <label htmlFor={label} className="labelForm">
-      {label}
-    </label>
+    {label && (
+      <label htmlFor={label} className="labelForm">
+        {label}
+      </label>
+    )}
     <input
       className="inputForm"
       type={type}
@@ -33,6 +37,7 @@ const InputForm: FC<InputFormProps> = ({
       placeholder={placeholder}
       disabled={disabled}
       onChange={onChange}
+      defaultChecked={defaultChecked}
     />
   </>
 );

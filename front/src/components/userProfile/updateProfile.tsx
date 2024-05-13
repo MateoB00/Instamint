@@ -3,8 +3,14 @@ import '../../scss/components/userProfile/updateProfile/updateProfile.scss';
 import '../../scss/components/userProfile/updateProfile/updateProfileResponsive.scss';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+import { UserInterface } from '../../interfaces/userData';
+import UserUpdateForm from '../ui/forms/userUpdateForm/userUpdateForm';
 
-export default function UpdateProfile() {
+interface Props {
+  userData: UserInterface | null | undefined;
+}
+
+export default function UpdateProfile({ userData }: Props) {
   const { t } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
 
@@ -41,6 +47,7 @@ export default function UpdateProfile() {
           <h2>{t('setting.confidentialInformations')}</h2>
           <form></form>
         </div>
+        <UserUpdateForm userData={userData} />
       </div>
     </>
   );
