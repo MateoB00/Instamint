@@ -9,14 +9,14 @@ type OptionsProfileType =
   | 'Informations'
   | '2FA'
   | 'Delete Account'
-  | 'Content';
+  | 'Content'
+  | 'Notifications';
 
 export const useUserProfile = () => {
   const [optionsProfiles, setOptionsProfiles] =
     useState<OptionsProfileType>('NFTs');
 
   const [userData, setUserData] = useState<UserInterface | null>();
-
   const fetchUserData = async () => {
     const responseGetMe = await getMe();
     if (responseGetMe === HTTP_ERRORS.UNAUTHORIZED) {

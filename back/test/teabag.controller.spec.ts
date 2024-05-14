@@ -54,6 +54,7 @@ describe('TeabagController', () => {
       updatedAt: new Date(),
       isVerified: true,
       isAdmin: false,
+      notifications: [],
     };
 
     mockTeabag = {

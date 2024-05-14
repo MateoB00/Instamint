@@ -14,7 +14,8 @@ type OptionsProfileType =
   | 'Informations'
   | '2FA'
   | 'Delete Account'
-  | 'Content';
+  | 'Content'
+  | 'Notifications';
 
 const renderButtons = (
   handleSetOptionsProfile: (_profileType: OptionsProfileType) => void,
@@ -24,6 +25,7 @@ const renderButtons = (
     { label: 'Drafts', option: 'Drafts' as OptionsProfileType },
     { label: 'Content', option: 'Content' as OptionsProfileType },
     { label: 'Informations', option: 'Informations' as OptionsProfileType },
+    { label: 'Notifications', option: 'Notifications' as OptionsProfileType },
   ];
 
   return buttons.map(({ label, option }) => (
@@ -32,13 +34,16 @@ const renderButtons = (
     </Button>
   ));
 };
-
 interface LocationState {
   state: {
-    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Content';
+    setOptionsProfiles:
+      | 'NFTs'
+      | 'Drafts'
+      | 'Informations'
+      | 'Content'
+      | 'Notifications';
   };
 }
-
 export default function UserProfile() {
   const location: LocationState = useLocation();
   const navigateReact = useNavigate();

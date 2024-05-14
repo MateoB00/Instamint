@@ -81,6 +81,7 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       jest.spyOn(authService, 'register').mockResolvedValue(mockUser);
@@ -111,6 +112,7 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -142,6 +144,7 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -173,6 +176,7 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -207,6 +211,7 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
@@ -251,6 +256,7 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
@@ -295,6 +301,7 @@ describe('AuthController', () => {
       updatedAt: new Date(),
       isVerified: true,
       isAdmin: false,
+      notifications: [],
     };
 
     jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
