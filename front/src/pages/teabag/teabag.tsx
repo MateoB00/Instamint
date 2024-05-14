@@ -34,7 +34,7 @@ export default function Teabag() {
           </div>
         </div>
         <div className="rightSide">
-          <TeabagList />
+          <TeabagList userData={userData} />
         </div>
         {showFormCreateTeabag && (
           <div className="popUp">

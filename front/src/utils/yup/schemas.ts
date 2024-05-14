@@ -53,3 +53,9 @@ export const schemaTeabag = object().shape({
     .required('Link is required'),
   whitelistStartDate: date().nullable().notRequired(),
 });
+
+export const schemaTeabagUpdate = object().shape({
+  name: string().min(2),
+  bio: string().min(5),
+  link: string().min(3).matches(/^\S*$/u, 'Link cannot contain spaces'),
+});

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Teabag } from '../entities/teabag.entity';
 import { User } from '../entities/user.entity';
@@ -28,6 +32,35 @@ export class TeabagService {
     teabag.profilePicture = '/default_teabag_icon.png';
 
     return await this.teabagRepository.save(teabag);
+  }
+
+  async update(user: User, teabagChanges: Teabag) {
+    const existingTeabag = await this.teabagRepository.findOne({
+      where: { id: teabagChanges.id },
+    });
+    const cooksInExistingTeabag = await this.teabagRepository.findOne({
+      where: { id: teabagChanges.id },
+      select: ['cooks'],
+      relations: ['cooks'],
+    });
+
+    const { cooks } = cooksInExistingTeabag;
+
+    if (!cooks.some((cook) => cook.id === user.id)) {
+      throw new BadRequestException('Current User are not a cook');
+    }
+
+    if (!existingTeabag) {
+      throw new NotFoundException('Teabag not found');
+    }
+
+    Object.keys(teabagChanges).forEach((key) => {
+      if (teabagChanges[key] !== null) {
+        existingTeabag[key] = teabagChanges[key];
+      }
+    });
+
+    return await this.teabagRepository.update(teabagChanges.id, existingTeabag);
   }
 
   async getOneByLink(link: string): Promise<Teabag | undefined> {
