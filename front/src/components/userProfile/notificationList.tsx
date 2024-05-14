@@ -20,8 +20,8 @@ const ListNotifications = () => {
 
   useEffect(() => {
     getMyNotifications().then((res) => {
-      formatDates(res.data);
-      setNotifications(res.data);
+      formatDates(res);
+      setNotifications(res);
     });
   });
 

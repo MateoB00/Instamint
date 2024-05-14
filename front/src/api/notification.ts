@@ -6,9 +6,7 @@ type MyNotification = {
   message: string;
   timestamp: string;
 };
-export const getMyNotifications = async (): Promise<{
-  data: MyNotification[];
-}> =>
+export const getMyNotifications = async (): Promise<MyNotification[]> =>
   await axios
     .get(`${import.meta.env.VITE_API_URL}/notifications/me/notifications`, {
       headers: {
