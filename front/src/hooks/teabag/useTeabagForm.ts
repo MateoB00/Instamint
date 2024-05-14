@@ -1,4 +1,4 @@
-import { create } from '../../api/teabag';
+import { create, update } from '../../api/teabag';
 import { HTTP_SUCCESS } from '../../constants/statusCodes';
 
 interface ValuesCreate {
@@ -7,6 +7,12 @@ interface ValuesCreate {
   link: string;
   whitelist: boolean;
   whitelistStartDate?: Date | null;
+}
+
+interface ValuesUpdate {
+  name: string;
+  bio: string;
+  link: string;
 }
 
 interface SetStatusProps {
@@ -37,7 +43,29 @@ export const useTeabagForm = () => {
     });
   };
 
+  const handleSubmitUpdate = async (
+    values: ValuesUpdate,
+    { setStatus }: SetStatusProps,
+  ) => {
+    const response = await update(values);
+
+    if (response.status === HTTP_SUCCESS.OK) {
+      return setStatus({
+        message: 'Teabag has been updated',
+        success: response.ok,
+        statusCode: response.status,
+      });
+    }
+
+    return setStatus({
+      message: 'failed',
+      success: false,
+      statusCode: response.status,
+    });
+  };
+
   return {
     handleSubmitCreate,
+    handleSubmitUpdate,
   };
 };

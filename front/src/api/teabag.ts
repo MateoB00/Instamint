@@ -8,6 +8,12 @@ interface ValuesCreate {
   whitelistStartDate?: Date | null;
 }
 
+interface ValuesUpdate {
+  name: string;
+  bio: string;
+  link: string;
+}
+
 export const create = async (values: ValuesCreate) =>
   await axios
     .post(`${import.meta.env.VITE_API_URL}/teabag/create`, values, {
@@ -37,4 +43,15 @@ export const getAll = async () =>
       },
     })
     .then((response) => response.data)
+    .catch((error) => error);
+
+export const update = async (values: ValuesUpdate) =>
+  await axios
+    .put(`${import.meta.env.VITE_API_URL}/teabag/update`, values, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+    .then((response) => response)
     .catch((error) => error);
