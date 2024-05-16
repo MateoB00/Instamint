@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Nft } from '../entities/nft.entity';
 import { User } from '../entities/user.entity';
+import { Like } from '../entities/like.entity';
 import { Repository } from 'typeorm';
 import { FirebaseService } from './firebase.service';
 
@@ -14,6 +15,7 @@ export class NftService {
   constructor(
     @InjectRepository(Nft) private nftRepository: Repository<Nft>,
     @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Like) private likeRepository: Repository<Like>,
     private firebaseService: FirebaseService,
   ) {
     // Do nothing.
@@ -76,5 +78,27 @@ export class NftService {
     });
 
     return drafts;
+  }
+
+  async getAllNFTsByUser(user: User): Promise<Nft[]> {
+    return await this.nftRepository.find({
+      where: { user, isDraft: false },
+    });
+  }
+
+  async getLikesCount(nftId: number): Promise<number> {
+    const likesCount = await this.likeRepository.count({
+      where: { nftId, isLike: true },
+    });
+
+    return likesCount;
+  }
+
+  async getDislikesCount(nftId: number): Promise<number> {
+    const dislikesCount = await this.likeRepository.count({
+      where: { nftId, isLike: false },
+    });
+
+    return dislikesCount;
   }
 }

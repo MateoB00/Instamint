@@ -48,4 +48,23 @@ export class NftController {
 
     return response;
   }
+
+  @Get('all-my-nfts')
+  @UseGuards(AuthGuard('jwt'))
+  async getAllNFTs(@Request() req) {
+    const loggedInUser = req.user;
+    const response = await this.nftService.getAllNFTsByUser(loggedInUser);
+    const nftsWithLikes = response.map(async (nft) => {
+      const likesCount = await this.nftService.getLikesCount(nft.id);
+      const dislikesCount = await this.nftService.getDislikesCount(nft.id);
+
+      return {
+        ...nft,
+        likes: likesCount,
+        dislikes: dislikesCount,
+      };
+    });
+
+    return nftsWithLikes;
+  }
 }
