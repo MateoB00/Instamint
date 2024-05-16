@@ -6,6 +6,7 @@ import {
   Request,
   UseGuards,
   Get,
+  Body,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -21,25 +22,24 @@ export class OriginalContentController {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('file'))
   async uploadOriginalContent(@UploadedFile() file, @Request() req) {
-    const loggedInUser = req.user;
-
-    const response = await this.originalContentService.uploadOriginalContent(
+    return await this.originalContentService.uploadOriginalContent(
       file,
-      loggedInUser,
+      req.user,
     );
-
-    return response;
   }
 
   @Get('allByUser')
   @UseGuards(AuthGuard('jwt'))
   async getAllByUser(@Request() req) {
+    return await this.originalContentService.getAllByUser(req.user.id);
+  }
+
+  @Post('deleteOne')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteOne(@Request() req, @Body() body) {
     const loggedInUser = req.user;
+    const { path } = body;
 
-    const response = await this.originalContentService.getAllByUser(
-      loggedInUser.id,
-    );
-
-    return response;
+    return await this.originalContentService.deleteOne(loggedInUser.id, path);
   }
 }

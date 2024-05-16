@@ -8,30 +8,67 @@ import { useUserProfile } from '../../hooks/user/useUserProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button';
 
+type OptionsProfileType =
+  | 'NFTs'
+  | 'Drafts'
+  | 'Informations'
+  | '2FA'
+  | 'Delete Account'
+  | 'Content'
+  | 'Notifications';
+
+const renderButtons = (
+  handleSetOptionsProfile: (_profileType: OptionsProfileType) => void,
+) => {
+  const buttons = [
+    { label: 'NFTs', option: 'NFTs' as OptionsProfileType },
+    { label: 'Drafts', option: 'Drafts' as OptionsProfileType },
+    { label: 'Content', option: 'Content' as OptionsProfileType },
+    { label: 'Informations', option: 'Informations' as OptionsProfileType },
+    { label: 'Notifications', option: 'Notifications' as OptionsProfileType },
+  ];
+
+  return buttons.map(({ label, option }) => (
+    <Button key={option} onClick={() => handleSetOptionsProfile(option)}>
+      {label}
+    </Button>
+  ));
+};
+interface LocationState {
+  state: {
+    setOptionsProfiles:
+      | 'NFTs'
+      | 'Drafts'
+      | 'Informations'
+      | 'Content'
+      | 'Notifications';
+  };
+}
 export default function UserProfile() {
-  const location = useLocation();
+  const location: LocationState = useLocation();
   const navigateReact = useNavigate();
 
   const {
     optionsProfiles,
     userData,
     fetchUserData,
-    handleShowNftsProfile,
-    handleShowDraftsProfile,
-    handleShowContentProfile,
-    handleShowUpdateProfile,
-    navigateProfilePage,
+    setOptionsProfiles,
+    handleSetOptionsProfile,
   } = useUserProfile();
 
   useEffect(() => {
     fetchUserData();
-    navigateProfilePage(location);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+    if (userData === null) {
+      navigateReact('/auth');
+    }
+  }, [fetchUserData, userData, navigateReact]);
 
-  if (userData === null) {
-    navigateReact('/auth');
-  }
+  useEffect(() => {
+    const initialState = location.state;
+    if (initialState && initialState.setOptionsProfiles) {
+      setOptionsProfiles(initialState.setOptionsProfiles);
+    }
+  }, [location.state, optionsProfiles, setOptionsProfiles]);
 
   return (
     <>
@@ -41,10 +78,7 @@ export default function UserProfile() {
           {userData && <CardProfile userData={userData} />}
           <div className="itemsChoice">
             <div className="navigation">
-              <Button onClick={handleShowNftsProfile}>NFTs</Button>
-              <Button onClick={handleShowDraftsProfile}>Drafts</Button>
-              <Button onClick={handleShowContentProfile}>Content</Button>
-              <Button onClick={handleShowUpdateProfile}>Informations</Button>
+              {renderButtons(handleSetOptionsProfile)}
             </div>
             {(optionsProfiles === 'NFTs' ||
               optionsProfiles === 'Drafts' ||

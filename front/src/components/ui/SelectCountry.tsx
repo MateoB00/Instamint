@@ -1,33 +1,28 @@
-import { ChangeEventHandler } from 'react';
+import countries from '../../utils/countries.json';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import Select from './Select';
 
-interface Country {
-  name: string;
-}
-
 interface Props {
-  countries: Country[];
+  setLocation: Dispatch<SetStateAction<string>>;
   selectedCountry: string;
-  onCountryChange: ChangeEventHandler;
 }
 
-const SelectCountry = ({
-  countries,
-  selectedCountry,
-  onCountryChange,
-}: Props) => {
+const SelectCountry = ({ setLocation, selectedCountry }: Props) => {
   const countryOptions = countries.map((country) => ({
     value: country.name,
     name: country.name,
   }));
 
+  const handleSetLocation = (event: ChangeEvent<HTMLSelectElement>) =>
+    setLocation(event.target.value);
+
   return (
     <Select
       name="location"
       id="location"
-      options={countryOptions}
       selectedValue={selectedCountry}
-      onChange={onCountryChange}
+      onChange={handleSetLocation}
+      options={countryOptions}
       defaultOption="Select a country"
     />
   );

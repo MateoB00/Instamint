@@ -1,64 +1,38 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { shemaRegister, catchErrors } from '../../utils/yup/shemas/yup';
 import { authRegister } from '../../api/auth';
-import { ErrorsYup } from '../../interfaces/yup';
-import { FormApiMessages } from '../../interfaces/formMessages';
+import { HTTP_SUCCESS } from '../../constants/statusCodes';
 
-const HTTP_OK = 201;
+interface Values {
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface SetStatusProps {
+  setStatus: (_status: string | object | unknown) => void;
+}
 
 export const useRegisterForm = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const [formYupMessages, setFormYupMessages] = useState<ErrorsYup>({});
-
-  const [formApiMessages, setFormApiMessages] = useState<FormApiMessages>({
-    apiError: '',
-    apiSuccess: '',
-  });
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const updatedErrors = {
-      email: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-      apiError: '',
-      apiSuccess: '',
-    };
-    e.preventDefault();
-
-    shemaRegister
-      .validate(formData, { abortEarly: false })
-      .then(async () => {
-        const response = await authRegister(formData);
-
-        if (response === HTTP_OK) {
-          updatedErrors.apiSuccess = 'Confirmation email has been sent';
-        }
-        if (response.error) {
-          updatedErrors.apiError = response.message;
-        }
-        setFormApiMessages(updatedErrors);
-      })
-      .catch((errors) => {
-        setFormYupMessages(catchErrors(errors));
-      });
+  const handleSubmit = async (
+    values: Values,
+    { setStatus }: SetStatusProps,
+  ) => {
+    try {
+      const response = await authRegister(values);
+      setStatus(response);
+      if (response.status === HTTP_SUCCESS.CREATED) {
+        setStatus({
+          message: 'User has been created, a confirmation mail was send',
+          success: true,
+          statusCode: response.status,
+        });
+      }
+    } catch (error) {
+      setStatus(error);
+    }
   };
 
   return {
-    formData,
-    formYupMessages,
-    formApiMessages,
-    handleChange,
     handleSubmit,
   };
 };

@@ -9,6 +9,10 @@ import { NftModule } from './modules/nft.module';
 import { FirebaseModule } from './modules/firebase.module';
 import { OriginalContentModule } from './modules/original-content.module';
 import { Like } from './entities/like.entity';
+import { TeabagModule } from './modules/teabag.module';
+import { Teabag } from './entities/teabag.entity';
+import { Notification } from './entities/notifications.entity';
+import { NotificationModule } from './modules/notification.module';
 
 @Module({
   imports: [
@@ -20,7 +24,7 @@ import { Like } from './entities/like.entity';
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        entities: [User, Nft, Like],
+        entities: [User, Nft, Teabag, Notification, Like],
         synchronize: true,
       }),
     }),
@@ -33,7 +37,9 @@ import { Like } from './entities/like.entity';
     AuthModule,
     FirebaseModule,
     NftModule,
+    NotificationModule,
     OriginalContentModule,
+    TeabagModule,
   ],
   controllers: [],
   providers: [],

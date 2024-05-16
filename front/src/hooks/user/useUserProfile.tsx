@@ -1,70 +1,40 @@
 import { getMe } from '../../api/user';
 import { useState } from 'react';
 import { UserInterface } from '../../interfaces/userData';
+import { HTTP_ERRORS } from '../../constants/statusCodes';
 
-interface LocationState {
-  state: {
-    setOptionsProfiles: 'NFTs' | 'Drafts' | 'Informations' | 'Content';
-  };
-}
+type OptionsProfileType =
+  | 'NFTs'
+  | 'Drafts'
+  | 'Informations'
+  | '2FA'
+  | 'Delete Account'
+  | 'Content'
+  | 'Notifications';
 
 export const useUserProfile = () => {
-  const [optionsProfiles, setOptionsProfiles] = useState<
-    'NFTs' | 'Drafts' | 'Informations' | '2FA' | 'Delete Account' | 'Content'
-  >('NFTs');
+  const [optionsProfiles, setOptionsProfiles] =
+    useState<OptionsProfileType>('NFTs');
 
   const [userData, setUserData] = useState<UserInterface | null>();
-
   const fetchUserData = async () => {
     const responseGetMe = await getMe();
-    if (responseGetMe === 401) {
-      setUserData(null);
-    } else {
-      setUserData(responseGetMe);
+    if (responseGetMe === HTTP_ERRORS.UNAUTHORIZED) {
+      return setUserData(null);
     }
+
+    return setUserData(responseGetMe);
   };
 
-  const handleShowNftsProfile = () => {
-    setOptionsProfiles('NFTs');
-  };
-
-  const handleShowDraftsProfile = () => {
-    setOptionsProfiles('Drafts');
-  };
-
-  const handleShowContentProfile = () => {
-    setOptionsProfiles('Content');
-  };
-
-  const handleShowUpdateProfile = () => {
-    setOptionsProfiles('Informations');
-  };
-
-  const handleShow2FAProfile = () => {
-    setOptionsProfiles('2FA');
-  };
-
-  const handleSwhowDeleteProfile = () => {
-    setOptionsProfiles('Delete Account');
-  };
-
-  const navigateProfilePage = (location: LocationState) => {
-    const initialState = location.state || {};
-    if (initialState.setOptionsProfiles) {
-      setOptionsProfiles(initialState.setOptionsProfiles);
-    }
+  const handleSetOptionsProfile = (profileType: OptionsProfileType) => {
+    setOptionsProfiles(profileType);
   };
 
   return {
     optionsProfiles,
     userData,
     fetchUserData,
-    handleShowNftsProfile,
-    handleShowDraftsProfile,
-    handleShowContentProfile,
-    handleShowUpdateProfile,
-    navigateProfilePage,
-    handleShow2FAProfile,
-    handleSwhowDeleteProfile,
+    handleSetOptionsProfile,
+    setOptionsProfiles,
   };
 };

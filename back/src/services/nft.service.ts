@@ -32,6 +32,10 @@ export class NftService {
 
     draft.user = existingUser;
 
+    if (draft.description === '' || draft.description === null) {
+      throw new BadRequestException('Description cannot nullable');
+    }
+
     const originalPath = draft.pathFirebase;
     const newDraftPath = originalPath.replace('original-content', 'draft');
     const downloadUrl = await this.firebaseService.moveOriginalContentToDraft(

@@ -1,4 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+import Input from '../ui/Input';
+import Button from '../ui/Button';
 
 interface Props {
   hashtags: string[];
@@ -9,8 +11,10 @@ const HashtagManager = ({ hashtags, setHashtags }: Props) => {
   const [newHashtag, setNewHashtag] = useState('');
 
   const handleAddHashtag = () => {
-    const hashtagArray = [...hashtags, newHashtag];
-    setHashtags(hashtagArray);
+    if (newHashtag !== '' && !hashtags.includes(newHashtag)) {
+      const hashtagArray = [...hashtags, newHashtag];
+      setHashtags(hashtagArray);
+    }
   };
 
   const handleRemoveHashtag = (index: number) => {
@@ -20,21 +24,21 @@ const HashtagManager = ({ hashtags, setHashtags }: Props) => {
 
   return (
     <div className="hashtag">
-      <input
+      <Input
         type="text"
         value={newHashtag}
         onChange={(e) => setNewHashtag(e.target.value)}
         placeholder="#hashtag"
       />
-      <button type="button" onClick={handleAddHashtag}>
+      <Button type="button" onClick={handleAddHashtag}>
         Add Hashtag
-      </button>
+      </Button>
       {hashtags.map((tag: string, index: number) => (
         <div key={index}>
           {tag}
-          <button type="button" onClick={() => handleRemoveHashtag(index)}>
+          <Button type="button" onClick={() => handleRemoveHashtag(index)}>
             Remove
-          </button>
+          </Button>
         </div>
       ))}
     </div>

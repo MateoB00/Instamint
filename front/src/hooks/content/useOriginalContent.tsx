@@ -1,8 +1,7 @@
 import { getAllOriginalContentsByUser } from '../../api/originalContent';
 import { useState } from 'react';
 import { OriginalContentInterface } from '../../interfaces/originalContent';
-
-const UNAUTHORIZED = 401;
+import { HTTP_ERRORS } from '../../constants/statusCodes';
 
 export const useOriginalContent = () => {
   const [originalContents, setOriginalContents] = useState<
@@ -14,11 +13,14 @@ export const useOriginalContent = () => {
 
   const fetchOriginalContents = async () => {
     const responseGetAllOriginalContents = await getAllOriginalContentsByUser();
-    if (responseGetAllOriginalContents === UNAUTHORIZED) {
-      setOriginalContents(null);
-    } else {
-      setOriginalContents(responseGetAllOriginalContents);
+    if (
+      responseGetAllOriginalContents.status ===
+      HTTP_ERRORS.INTERNAL_SERVER_ERROR
+    ) {
+      return setOriginalContents(null);
     }
+
+    return setOriginalContents(responseGetAllOriginalContents);
   };
 
   const handleShowCard = (originalContent: OriginalContentInterface) => {

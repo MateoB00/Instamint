@@ -1,8 +1,7 @@
 import { getAllDraftsByUser } from '../../api/nft';
 import { useState } from 'react';
 import { NftInterface } from '../../interfaces/nftData';
-
-const UNAUTHORIZED = 401;
+import { HTTP_ERRORS } from '../../constants/statusCodes';
 
 export const useDraftCard = () => {
   const [drafts, setDrafts] = useState<NftInterface[] | null>();
@@ -11,7 +10,7 @@ export const useDraftCard = () => {
 
   const fetchDraftsByUser = async () => {
     const responseGetAllDrafts = await getAllDraftsByUser();
-    if (responseGetAllDrafts === UNAUTHORIZED) {
+    if (responseGetAllDrafts === HTTP_ERRORS.UNAUTHORIZED) {
       setDrafts(null);
     } else {
       setDrafts(responseGetAllDrafts);
