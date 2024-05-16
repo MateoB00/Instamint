@@ -45,3 +45,23 @@ export const getAllNftsByUser = async () => {
     .then((response) => response.data)
     .catch((error) => error);
 };
+
+export const likeNFT = async (nftId: number | undefined) => {
+  await axios
+    .post(`${import.meta.env.VITE_API_URL}/content/${nftId}/like`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+};
+
+export const dislikeNFT = async (nftId: number | undefined) => {
+  await axios
+    .post(`${import.meta.env.VITE_API_URL}/content/${nftId}/dislike`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+};
