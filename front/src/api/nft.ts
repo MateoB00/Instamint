@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { NftInterface } from '../interfaces/nftData';
+import { Values } from '../hooks/content/useDraftForm';
 
-export const createDraft = async (values: NftInterface) =>
+export const createDraft = async (values: Values) =>
   await axios
     .post(`${import.meta.env.VITE_API_URL}/nft/create-draft`, values, {
       headers: {
@@ -12,7 +12,7 @@ export const createDraft = async (values: NftInterface) =>
     .then((response) => response)
     .catch((error) => error);
 
-export const updateDraft = async (values: NftInterface) =>
+export const updateDraft = async (values: Values) =>
   await axios
     .put(`${import.meta.env.VITE_API_URL}/nft/update-draft`, values, {
       headers: {

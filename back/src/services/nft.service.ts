@@ -105,4 +105,26 @@ export class NftService {
 
     return dislikesCount;
   }
+
+  async findNFTById(id: number): Promise<Nft | null> {
+    const nft = await this.nftRepository.findOne({ where: { id } });
+    if (!nft) {
+      throw new NotFoundException('NFT not found');
+    }
+
+    return nft;
+  }
+
+  async createLikeOrDislike(
+    user: User,
+    nft: Nft,
+    isLike: boolean,
+  ): Promise<Like> {
+    const newLike = new Like();
+    newLike.user = user.id;
+    newLike.nftId = nft.id;
+    newLike.isLike = isLike;
+
+    return await this.likeRepository.save(newLike);
+  }
 }
