@@ -55,6 +55,7 @@ describe('TeabagController', () => {
       isVerified: true,
       isAdmin: false,
       notifications: [],
+      comments: [],
     };
 
     mockTeabag = {

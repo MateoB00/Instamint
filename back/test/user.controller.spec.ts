@@ -54,6 +54,7 @@ describe('UserController', () => {
         isVerified: true,
         isAdmin: false,
         notifications: [],
+        comments: [],
       };
 
       const req = { user: { id: 1 } };
@@ -102,6 +103,7 @@ describe('UserController', () => {
         isVerified: true,
         isAdmin: false,
         notifications: [],
+        comments: [],
       };
 
       const changesUser = { ...loggedInUser };
@@ -146,6 +148,7 @@ describe('UserController', () => {
         isVerified: true,
         isAdmin: false,
         notifications: [],
+        comments: [],
       };
 
       const changesUser = { ...loggedInUser };

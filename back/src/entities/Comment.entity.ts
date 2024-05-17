@@ -1,16 +1,11 @@
 // Comment.entity.ts
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  postId: number;
-
-  @Column()
-  author: string;
 
   @Column('text')
   content: string;
@@ -21,4 +16,7 @@ export class Comment {
     name: 'created_at',
   })
   createdAt: Date;
+
+  @ManyToOne(() => User, (user) => user.comments)
+  user: User;
 }

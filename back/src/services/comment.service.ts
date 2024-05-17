@@ -16,10 +16,18 @@ export class CommentService {
     pageSize: number,
   ): Promise<Comment[]> {
     return this.commentRepository.find({
-      where: { postId: Id },
+      where: { id: 1 },
       order: { createdAt: 'ASC' },
       skip: (page - 1) * pageSize,
       take: pageSize,
     });
+  }
+  async createComment(userId: number, content: string): Promise<Comment> {
+    const newComment = await this.commentRepository.create({
+      user: { id: userId },
+      content,
+    });
+
+    return await this.commentRepository.save(newComment);
   }
 }
