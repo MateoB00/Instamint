@@ -1,8 +1,7 @@
 import { getMe } from '../../api/user';
 import { useState } from 'react';
 import { UserInterface } from '../../interfaces/userData';
-
-const HTTP_UNAUTHORIZED = 401;
+import { HTTP_ERRORS } from '../../constants/statusCodes';
 
 type OptionsProfileType =
   | 'NFTs'
@@ -11,6 +10,7 @@ type OptionsProfileType =
   | '2FA'
   | 'Delete Account'
   | 'Content'
+  | 'Notifications'
   | 'Comments';
 
 export const useUserProfile = () => {
@@ -18,10 +18,9 @@ export const useUserProfile = () => {
     useState<OptionsProfileType>('NFTs');
 
   const [userData, setUserData] = useState<UserInterface | null>();
-
   const fetchUserData = async () => {
     const responseGetMe = await getMe();
-    if (responseGetMe === HTTP_UNAUTHORIZED) {
+    if (responseGetMe === HTTP_ERRORS.UNAUTHORIZED) {
       return setUserData(null);
     }
 

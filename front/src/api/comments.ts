@@ -1,66 +1,29 @@
-import { CommentInterface } from '../interfaces/comments';
+import axios from 'axios';
 
-const BAD_REQUEST = 400;
-
-export const createComment = async (commentData: CommentInterface) => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/comments`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify(commentData),
-  });
-
-  return response;
-};
-
-export const updateComment = async (commentData: CommentInterface) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/comments/${commentData.id}`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(commentData),
-    },
-  );
-
-  return response;
-};
-
-export const deleteComment = async (commentId: string) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/comments/${commentId}`,
-    {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    },
-  );
-
-  return response;
-};
+export interface CommentInterface {
+  id: number;
+  userId: string;
+  nftId: string;
+  content: string;
+  timestamp?: string;
+}
 
 export const getCommentsByNft = async (nftId: string) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/comments/nft/${nftId}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    },
-  );
-
-  if (response.status === BAD_REQUEST) {
-    return response.status;
+  const response = await axios.get(`/api/comments/${nftId}`);
+  if (response.status === 200) {
+    return response.data as CommentInterface[];
   }
+  throw new Error('Failed to fetch comments');
+};
 
-  return await response.json();
+export const createComment = async (commentData: CommentInterface) => {
+  const response = await axios.post('/api/comments', commentData);
+
+  return response.data;
+};
+
+export const deleteComment = async (commentId: number) => {
+  const response = await axios.delete(`/api/comments/${commentId}`);
+
+  return response.data;
 };

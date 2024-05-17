@@ -19,6 +19,7 @@ describe('OriginalContentController', () => {
           useValue: {
             uploadOriginalContent: jest.fn(),
             getAllByUser: jest.fn(),
+            deleteOne: jest.fn(),
           },
         },
       ],
@@ -183,6 +184,57 @@ describe('OriginalContentController', () => {
       await expect(contentController.getAllByUser(req)).rejects.toThrow(
         errorMessage,
       );
+    });
+  });
+  describe('deleteOne', () => {
+    let mockUser;
+    let mockPath;
+
+    beforeEach(() => {
+      mockUser = { id: 1, username: 'testuser' };
+      mockPath = 'original-content/1/testfile.jpg';
+    });
+
+    it('should delete content successfully', async () => {
+      const expectedResponse = {
+        success: true,
+        message: 'Original content has been deleted',
+      };
+
+      jest
+        .spyOn(originalContentService, 'deleteOne')
+        .mockResolvedValue(expectedResponse);
+
+      const body = { path: mockPath };
+
+      const result = await contentController.deleteOne(
+        { user: mockUser },
+        body,
+      );
+
+      expect(result).toEqual(expectedResponse);
+      expect(originalContentService.deleteOne).toHaveBeenCalledWith(
+        mockUser.id,
+        mockPath,
+      );
+    });
+
+    it('should throw error if path is incorrect', async () => {
+      const incorrectPath = 'original-content/1/nonexistentfile.jpg';
+      const errorResponse = {
+        success: false,
+        message: 'File not found',
+      };
+
+      jest
+        .spyOn(originalContentService, 'deleteOne')
+        .mockRejectedValue(new Error(errorResponse.message));
+
+      const body = { path: incorrectPath };
+
+      await expect(
+        contentController.deleteOne({ user: mockUser }, body),
+      ).rejects.toThrow(errorResponse.message);
     });
   });
 });

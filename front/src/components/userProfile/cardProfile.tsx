@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import '../../scss/components/userProfile/cardProfile/cardProfile.scss';
 import '../../scss/components/userProfile/cardProfile/cardProfileResponsive.scss';
 import { UserInterface } from '../../interfaces/userData';
-import { initializeBackgroundUserProfile } from '../../utils/granim';
+import { initializeBackgroundProfile } from '../../utils/granim';
 
 interface Props {
   userData: UserInterface;
@@ -10,7 +10,7 @@ interface Props {
 
 export default function CardProfile({ userData }: Props) {
   useEffect(() => {
-    initializeBackgroundUserProfile();
+    initializeBackgroundProfile();
   });
 
   return (

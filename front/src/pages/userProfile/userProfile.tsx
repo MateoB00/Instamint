@@ -15,6 +15,7 @@ type OptionsProfileType =
   | '2FA'
   | 'Delete Account'
   | 'Content'
+  | 'Notifications'
   | 'Comments';
 
 const renderButtons = (
@@ -25,6 +26,7 @@ const renderButtons = (
     { label: 'Drafts', option: 'Drafts' as OptionsProfileType },
     { label: 'Content', option: 'Content' as OptionsProfileType },
     { label: 'Informations', option: 'Informations' as OptionsProfileType },
+    { label: 'Notifications', option: 'Notifications' as OptionsProfileType },
     { label: 'Comments', option: 'Comments' as OptionsProfileType },
   ];
 
@@ -42,10 +44,12 @@ interface LocationState {
       | 'Drafts'
       | 'Informations'
       | 'Content'
+      | 'Notifications'
       | 'Comments';
   };
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function UserProfile() {
   const location: LocationState = useLocation();
   const navigate = useNavigate();
@@ -71,7 +75,7 @@ export default function UserProfile() {
       setOptionsProfiles(initialState.setOptionsProfiles);
     }
   }, [location.state, setOptionsProfiles]);
-  // eslint-disable-next-line max-lines-per-function
+
   const handleSetOptionsProfileWithRedirect = (
     profileType: OptionsProfileType,
   ) => {

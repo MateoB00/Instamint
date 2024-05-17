@@ -61,18 +61,20 @@ const DraftFormContent = ({
 }: Props) => {
   const [hashtags, setHashtags] = useState<string[]>([]);
   const [location, setLocation] = useState<string>('');
-
   useEffect(() => {
     if (initialHashtags.length > 0) {
       setHashtags(initialHashtags);
     }
+  }, [initialHashtags]);
+
+  useEffect(() => {
     if (initialLocation) {
       setLocation(initialLocation);
     }
 
     setFieldValue('hashtags', hashtags);
     setFieldValue('location', location);
-  }, [hashtags, setFieldValue, location, initialHashtags, initialLocation]);
+  }, [hashtags, setFieldValue, location, initialLocation]);
 
   return (
     <Form>

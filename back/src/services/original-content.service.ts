@@ -39,6 +39,10 @@ export class OriginalContentService {
     return originalContents;
   }
 
+  async deleteOne(userId: number, path: string) {
+    return await this.firebaseService.deleteOneOriginalContent(userId, path);
+  }
+
   // eslint-disable-next-line class-methods-use-this
   private checkTypeOfFile(file) {
     const MAX_FILE_SIZE_BYTES = 1073741824;
