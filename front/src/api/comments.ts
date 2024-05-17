@@ -8,22 +8,33 @@ export interface CommentInterface {
   timestamp?: string;
 }
 
-export const getCommentsByNft = async (nftId: string) => {
-  const response = await axios.get(`/api/comments/${nftId}`);
-  if (response.status === 200) {
-    return response.data as CommentInterface[];
-  }
-  throw new Error('Failed to fetch comments');
-};
+export const getCommentsByNft = async (nftId: string) =>
+  await axios
+    .get(`${import.meta.env.VITE_API_URL}/comments/${nftId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
 
-export const createComment = async (commentData: CommentInterface) => {
-  const response = await axios.post('/api/comments', commentData);
-
-  return response.data;
-};
-
+export const createComment = async (commentData: CommentInterface) =>
+  await axios
+    .post(`${import.meta.env.VITE_API_URL}/comments/create`, commentData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
 export const deleteComment = async (commentId: number) => {
-  const response = await axios.delete(`/api/comments/${commentId}`);
-
-  return response.data;
+  await axios
+    .delete(`${import.meta.env.VITE_API_URL}/comments/${commentId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
 };
