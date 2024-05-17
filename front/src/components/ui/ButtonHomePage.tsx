@@ -1,14 +1,21 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 interface ButtonHomePageProps {
   onClick: () => void;
 }
 
-const ButtonHomePage: React.FC<ButtonHomePageProps> = ({
-  onClick,
-}: ButtonHomePageProps) => (
-  <div className="button-container">
-    <button onClick={onClick}>Sign In</button>
-  </div>
-);
+function ButtonHomePage({ onClick }: ButtonHomePageProps) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="button-container">
+      <Link to="/auth">
+        <button className="button" onClick={onClick}>
+          {t('button.login')}
+        </button>
+      </Link>
+    </div>
+  );
+}
 
 export default ButtonHomePage;

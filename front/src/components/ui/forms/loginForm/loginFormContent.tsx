@@ -3,9 +3,11 @@ import FormField from '../../FormField';
 import Button from '../../Button';
 import { Message } from '../../Message';
 import { resendEmailConfirmation } from '../../../../api/auth';
+import { useTranslation } from 'react-i18next';
 
 const RenderButtons = (status: { message: string }) => {
   const [field] = useField('email');
+  const { t } = useTranslation();
 
   const resendEmailConfirmationHandler = () => {
     resendEmailConfirmation(field.value);
@@ -14,17 +16,17 @@ const RenderButtons = (status: { message: string }) => {
   return (
     <div className="buttonsForm">
       <Button className="nextButton" type="submit">
-        Connection
+        {t('button.login')}
       </Button>
-      {status.message === 'Email not verified' && (
+      {status.message === t('emailNotVerified') && (
         <Button
-          children={'Send another email'}
+          children={t('sendEmailAgain')}
           onClick={resendEmailConfirmationHandler}
           type="button"
         />
       )}
       <Button className="forgotPasswordButton" type="button">
-        Forgot password ?
+        {t('forgotPassword')}
       </Button>
     </div>
   );
@@ -34,8 +36,8 @@ const fieldsForm = [
   {
     name: 'email',
     type: 'email',
-    label: 'E-mail',
-    placeholder: 'Enter your e-mail',
+    label: 'Email',
+    placeholder: 'Enter your email',
     autoComplete: 'email',
   },
   {

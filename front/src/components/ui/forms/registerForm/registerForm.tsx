@@ -4,14 +4,16 @@ import logo from '../../../../assets/Image/logo-instamint.svg';
 import { schemaRegister } from '../../../../utils/yup/schemas';
 import RegisterFormContent from './registerFormContent';
 import { useRegisterForm } from '../../../../hooks/auth/useRegisterForm';
+import { useTranslation } from 'react-i18next';
 
 export default function RegisterForm() {
   const { handleSubmit } = useRegisterForm();
+  const { t } = useTranslation();
 
   return (
     <div className="authForm">
       <div className="titleForm">
-        <h2>Register</h2>
+        <h2>{t('button.signup')}</h2>
       </div>
       <Formik
         initialValues={{
@@ -26,7 +28,7 @@ export default function RegisterForm() {
         {({ status }) => <RegisterFormContent {...status} />}
       </Formik>
       <p>
-        Don't have an account ? <span>Sign up</span>
+        {t('account')} <span>{t('button.login')}</span>
       </p>
       <img src={logo} alt="logo" />
     </div>
