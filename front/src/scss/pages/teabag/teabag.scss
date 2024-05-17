@@ -1,0 +1,69 @@
+@import '../../main.scss';
+@import './teabagResponsive.scss';
+
+.teabagPage {
+    background-color: $colorAccent1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    .leftSide {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: $defaultMargin;
+        
+        h1 {
+            padding: $defaultPadding;
+            margin: $defaultMargin;
+            font-size: $headingFontSize;
+            color: $colorAccent4;
+            font-weight: $titleFontWeight;
+            text-align: center;
+        }
+        .button {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            margin: $defaultMargin;
+
+            button {
+                background-color: $colorAccent4;
+                border-color: $colorAccent4;
+                padding: $defaultPadding;
+                color: $colorNeutralDark;
+                margin: $defaultMargin;
+                font-size: $bodyFontSize;
+            }
+        }
+    }
+
+    .rightSide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        margin: $defaultMargin;
+    }
+
+    .popUp {
+        position: fixed;
+        z-index: 2;
+        width: 25%;
+        height: fit-content;
+        background-color: $colorAccent4;
+        padding: $defaultPadding;
+        img {
+            width: 10 * $U;
+            height: 10 * $U;
+        }
+
+        .cross {
+            border: none;
+            background-color: transparent;
+            font-size: $subHeadingFontSize;
+            cursor: pointer;
+        }
+    }
+}

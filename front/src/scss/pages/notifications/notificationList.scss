@@ -1,0 +1,46 @@
+@import '../../main.scss';
+.list-notifications-container {
+  color: $colorNeutralDark;
+  background-color: $colorNeutralLight;
+  padding: $defaultPadding;
+  margin: $defaultMargin;
+  font-family: 'Arial', sans-serif;
+
+  h2 {
+    font-size: $titleFontSize;
+    font-weight: $titleFontWeight;
+    color: $colorAccent2;
+    margin-bottom: $U4;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    background-color: $colorNeutralMedium;
+    margin-bottom: $defaultMargin;
+    padding: $largePadding;
+    border-left: 5px solid $colorAccent1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    h3 {
+      font-size: $headingFontSize;
+      font-weight: $headingFontWeight;
+      color: $colorAccent3;
+    }
+
+    p {
+      font-size: $bodyFontSize;
+      font-weight: $bodyFontWeight;
+      color: $colorNeutralDark;
+    }
+
+    div {
+      font-size: $smallFontSize;
+      font-weight: $smallFontWeight;
+      color: $colorAccent4;
+    }
+  }
+}

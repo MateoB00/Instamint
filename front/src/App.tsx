@@ -4,6 +4,9 @@ import AuthPage from './pages/auth/authPage';
 import UserProfile from './pages/userProfile/userProfile';
 import TwoFactorPage from './pages/auth/TwoFactorPage';
 import PasswordResetPage from './pages/auth/passwordReset';
+import NotificationsPage from './pages/userProfile/NotificationPage';
+import Teabag from './pages/teabag/teabag';
+import TeabagProfile from './pages/teabag/teabagProfile';
 
 export default function App() {
   return (
@@ -13,6 +16,9 @@ export default function App() {
       <Route path="/me" element={<UserProfile />} />
       <Route path="/2faVerification" element={<TwoFactorPage />} />
       <Route path="/reset-password/:token" element={<PasswordResetPage />} />
+      <Route path="/notifications" element={<NotificationsPage />} />
+      <Route path="/teabag" element={<Teabag />} />
+      <Route path="/teabag/:link" element={<TeabagProfile />} />
     </Routes>
   );
 }

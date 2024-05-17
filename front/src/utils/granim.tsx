@@ -1,6 +1,6 @@
 import Granim from 'granim';
 
-export function initializeBackgroundUserProfile() {
+export function initializeBackgroundProfile() {
   return new Granim({
     element: '#canvas-basic',
     name: 'granim',

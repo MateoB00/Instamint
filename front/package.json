@@ -30,6 +30,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@nestjs/testing": "^10.3.8",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@types/granim": "^2.0.4",

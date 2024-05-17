@@ -53,6 +53,7 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       const req = { user: { id: 1 } };
@@ -100,6 +101,7 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       const changesUser = { ...loggedInUser };
@@ -143,6 +145,7 @@ describe('UserController', () => {
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       const changesUser = { ...loggedInUser };

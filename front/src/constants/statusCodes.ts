@@ -10,5 +10,6 @@ export const HTTP_ERRORS = {
 export const HTTP_SUCCESS = {
   OK: 200,
   CREATED: 201,
+  ACCEPTED: 202,
   NO_CONTENT: 204,
 };
