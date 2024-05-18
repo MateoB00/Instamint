@@ -1,0 +1,20 @@
+@import '../../../main.scss';
+
+.cardContent {
+    background-color: $colorAccent1;
+    padding: $U;
+    display: flex;
+    border-radius: 5px;
+    height: fit-content;
+    width: fit-content;
+    margin: $U4;
+    position: relative;
+
+    .wenIcon {
+        position: absolute;
+        top: 50%; 
+        left: 50%;
+        transform: translate(-50%, -50%); 
+        filter: invert(1);
+    }
+}

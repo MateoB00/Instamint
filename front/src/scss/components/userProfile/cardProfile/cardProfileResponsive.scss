@@ -1,0 +1,43 @@
+@import '../../../main.scss';
+
+.cardProfile {
+    @media(max-height: 770px) {
+        height: 55vh;
+
+    }
+    .profilePicture {
+        @media(max-width: 700px) {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        img {
+            @media(max-width: 700px) {
+                width: 10 * $U4;
+                height: 10 * $U4;
+        }
+        }
+    }
+    .userDatas {
+        @media(max-width: 700px) {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+        }
+        .userInfos {
+            p {
+                @media(max-width: 700px) {
+                    padding: $defaultPadding;
+                } 
+            }
+        }
+        .userStats {
+            div {
+                span {
+                    @media(max-width: 400px) {
+                        font-size: 3 * $U;
+                    } 
+                }
+            }
+        }
+    }
+}

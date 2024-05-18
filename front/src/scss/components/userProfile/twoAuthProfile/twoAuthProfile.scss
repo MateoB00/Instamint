@@ -1,0 +1,24 @@
+@import '../../../main.scss';
+
+.twoAuthProfile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button {
+        background-color: transparent;
+        border-color: $colorAccent1;
+        padding: $defaultPadding;
+        color: $colorAccent1;
+        margin: $defaultMargin;
+        font-size: $bodyFontSize;
+        width: 20%;
+    }
+    button:hover {
+        background-color: $colorAccent1;
+        color: $colorNeutralLight;
+    }
+    span {
+        color: red;
+    }
+}

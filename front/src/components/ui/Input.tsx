@@ -3,10 +3,10 @@ import '../../scss/components/ui/input.scss';
 
 interface InputProps {
   type: string;
-  label: string;
-  value: string | number;
-  name: string;
-  placeholder: string;
+  label?: string;
+  value?: string | number;
+  name?: string;
+  placeholder?: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
@@ -21,17 +21,15 @@ const Input: FC<InputProps> = ({
   onChange,
 }) => (
   <>
-    <label htmlFor={label} className="labelForm">
-      {label}
-    </label>
     <input
-      className="inputForm"
+      className="input"
       type={type}
       id={label}
-      value={value}
       name={name}
       placeholder={placeholder}
       disabled={disabled}
+      {...(onChange ? { value } : { defaultValue: value })}
+      readOnly={!onChange}
       onChange={onChange}
     />
   </>

@@ -36,47 +36,33 @@ export class UserService {
     return fetchUserById;
   }
 
-  async changeUsername(userId: number, newUsername: string): Promise<boolean> {
-    const userExists = await this.userRepository.findOneBy({
-      username: newUsername,
-    });
-
-    if (userExists) {
-      throw new Error('Username is already taken');
-    }
-
-    await this.userRepository.update(userId, { username: newUsername });
-
-    return true;
-  }
-
   async update(loggedUser: User, changesUser) {
     const { id } = loggedUser;
-
     const existingUser = await this.userRepository.findOne({ where: { id } });
 
     if (!existingUser) {
       throw new NotFoundException('User not found.');
     }
 
-    const dataUpdatedUser = { ...existingUser };
-
-    for (const key in changesUser) {
+    Object.keys(changesUser).forEach((key) => {
       if (changesUser[key] !== null) {
-        dataUpdatedUser[key] = changesUser[key];
+        existingUser[key] = changesUser[key];
       }
-    }
-
-    let hashedPassword = existingUser.password;
-    if (changesUser.password) {
-      hashedPassword = await bcrypt.hash(changesUser.password, 10);
-      dataUpdatedUser.password = hashedPassword;
-    }
-
-    const updatedUser = await this.userRepository.update(existingUser.id, {
-      ...dataUpdatedUser,
     });
 
-    return updatedUser;
+    await this.userRepository.update(id, existingUser);
+
+    return {
+      success: true,
+      message: 'User updated successfully.',
+    };
+  }
+
+  async deleteUser(id: number): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    await this.userRepository.remove(user);
   }
 }

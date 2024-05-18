@@ -34,6 +34,17 @@
   "french": "Français",
   "spanish": "Espagnol",
   "popup.setting.saveChanges": "Sauvegarder les modifications",
+  "setting.personalInformations": "Information personnelle",
+  "setting.confidentialInformations": "Information confidentielle",
+  "userProfile.followers": "Abonnés",
+  "userProfile.following": "Suivi",
+  "userProfile.status": "Statut",
+  "userProfile.button.all": "Tout",
+  "userProfile.button.new": "Nouveau",
+  "userProfile.button.mostLikes": "Plus Likes",
+  "userProfile.price": "Prix",
+  "userProfile.uploadContent": "Télécharger un contenu",
+  "button.upload": "Télécharger",
   "popup.profile.title": "Votre profil",
   "popup.profile.info": "Information du profil",
   "popup.profile.username": "Nom d'utilisateur :",
@@ -58,5 +69,9 @@
   "account": "Vous avez deja un compte ?",
   "button.next": "Suivant",
   "auth.title": "Vendez vos NFTs, maintenant !",
-  "title.bio": "Biographie"
+  "title.bio": "Biographie",
+  "emailNotVerified": "adresse email non vérifiée",
+  "deleteAccount": "Supprimer mon compte",
+  "deleteAccountProfile": "Supprimer le compte",
+  "button.send": "Envoyer"
 }

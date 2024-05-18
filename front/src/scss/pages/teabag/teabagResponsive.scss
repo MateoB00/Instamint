@@ -1,0 +1,50 @@
+@import '../../main.scss';
+
+.teabagPage {
+    @media (max-width: 1000px) {
+        flex-direction: column;
+    }
+
+    .rightSide {
+        @media (max-width: 1000px) {
+            width: 100% !important;
+        }
+        .allTeabags {
+            @media (max-width: 1000px) {
+                width: 100% !important;
+            }
+            .teabag {
+                @media (max-width: 700px) {
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+        }
+    }
+
+    .leftSide {
+        @media (max-width: 550px) {
+            width: 65%;
+        }
+        button {
+            @media (max-width: 1100px) {
+                width: 100%;
+            }
+        }
+    }
+
+    .popUp {
+        @media (max-width: 1500px) {
+            width: 50% !important;
+        }
+
+        @media (max-width: 1050px) {
+            width: 65% !important;
+        }
+
+        @media (max-width: 800px) {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+}

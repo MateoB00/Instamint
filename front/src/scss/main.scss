@@ -1,9 +1,13 @@
 @import './utils/variables';
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-html, body, #root {
-    height: 100%;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+html, body, #root {
+    font-family: 'Work Sans';
 }
 
 // We do not want rounded design, but we may accept extra little rounded corners on actionable elements.
