@@ -50,13 +50,15 @@
 
 .userProfilePage {
     .blocks {
-        .rightSide {
-            .itemsChoice {
-                .navigation {
-                    button {
-                        @media(max-width: 320px) {
-                            font-size: $bodyFontSize;
-                        }
+        .itemsChoice {
+            .navigation {
+                @media(max-width: 550px) {
+                    flex-direction: column ;
+                    margin: auto;
+                }
+                button {
+                    @media(max-width: 320px) {
+                        font-size: $bodyFontSize;
                     }
                 }
             }

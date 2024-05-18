@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import '../../scss/layout/Header.scss';
 import instamintIcon from '../../assets/Image/logo-instamint.svg';
 import { useNavigate } from 'react-router-dom';
-import { useUserProfile } from '../../hooks/useUserProfile';
+import { useUserProfile } from '../../hooks/user/useUserProfile';
 import { authLogout } from '../../api/auth';
 import Button from '../ui/Button';
 import HeaderLeftSection from './HeaderLeftSection';

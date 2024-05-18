@@ -1,9 +1,7 @@
 import React from 'react';
 import '../../../scss/components/ui/profile/EditPicture.scss';
 interface useEditPictureProps {
-  handleProfilePictureChange: (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => void;
+  handleProfilePictureChange: (_e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRestoreOriginal: () => void;
   handleSaveClick: () => void;
 }

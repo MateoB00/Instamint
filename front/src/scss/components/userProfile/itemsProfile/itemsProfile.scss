@@ -49,19 +49,9 @@
         }
     }
 
-    .nfts {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center; 
-        gap: 20px; 
-        padding: $defaultPadding;
-        width: 100%;
-
-        img {
-            border: 8px solid $colorAccent1;
-            border-radius: 10px;
-            width: 10rem;
-            height: 10rem;
-        }
+    .originalContent, .drafts {
+        margin: auto;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
     }
 }

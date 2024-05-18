@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import '../../scss/components/userProfile/cardProfile/cardProfile.scss';
 import '../../scss/components/userProfile/cardProfile/cardProfileResponsive.scss';
 import { UserInterface } from '../../interfaces/userData';
-import { initializeBackgroundUserProfile } from '../../utils/granim';
+import { initializeBackgroundProfile } from '../../utils/granim';
+import { useTranslation } from 'react-i18next';
 import EditPicture from '../ui/profile/EditPicture';
-import { useEditPicture } from '../../hooks/useEditPicture';
-import { t } from 'i18next';
+import { useEditPicture } from '../../hooks/components/userProfile/useEditPicture';
+
 interface Props {
   userData: UserInterface;
 }
@@ -13,8 +14,9 @@ interface Props {
 export default function CardProfile({ userData }: Props) {
   const { handleProfilePictureChange, handleRestoreOriginal, handleSaveClick } =
     useEditPicture();
+  const { t } = useTranslation();
   useEffect(() => {
-    initializeBackgroundUserProfile();
+    initializeBackgroundProfile();
   });
 
   return (

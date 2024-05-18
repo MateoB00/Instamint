@@ -43,6 +43,8 @@
   "userProfile.button.new": "Nouveau",
   "userProfile.button.mostLikes": "Plus Likes",
   "userProfile.price": "Prix",
+  "userProfile.uploadContent": "Télécharger un contenu",
+  "button.upload": "Télécharger",
   "popup.profile.title": "Votre profil",
   "popup.profile.info": "Information du profil",
   "popup.profile.username": "Nom d'utilisateur :",
@@ -65,5 +67,9 @@
   "placeholder.confirm.password": "Confirmez votre mot de passe",
   "account": "Vous avez deja un compte ?",
   "button.next": "Suivant",
-  "auth.title": "Vendez vos NFTs, maintenant !"
+  "auth.title": "Vendez vos NFTs, maintenant !",
+  "emailNotVerified": "adresse email non vérifiée",
+  "deleteAccount": "Supprimer mon compte",
+  "deleteAccountProfile": "Supprimer le compte",
+  "button.send": "Envoyer"
 }

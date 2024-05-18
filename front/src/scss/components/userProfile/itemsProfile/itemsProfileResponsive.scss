@@ -22,4 +22,16 @@
             }
         }
     }
+
+    .originalContent, .drafts {
+        @media(max-width: 1500px) {
+            grid-template-columns: auto auto auto;
+        }
+        @media(max-width: 1150px) {
+            grid-template-columns: auto auto;
+        }
+        @media(max-width: 600px) {
+            grid-template-columns: auto;
+        }
+    }
 }

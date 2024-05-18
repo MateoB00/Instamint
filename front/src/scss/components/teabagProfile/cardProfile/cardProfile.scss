@@ -1,0 +1,41 @@
+@import '../../../main.scss';
+
+.cardProfile {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: $U4;
+    height: 45vh;
+    justify-content: flex-end;
+
+    .teabagPicture {
+        margin-top: $defaultMargin;
+        img {
+            border-radius: 50%;
+            width: 13 * $U4;
+            height: 13 * $U4;
+        }
+    }
+    .teabagDatas {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        color: $colorNeutralLight;
+
+        .teabagStats {
+            display: flex;
+            gap: 2 * $U4;
+            div {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                .data {
+                    font-size: $headingFontSize;
+                    font-weight: $headingFontWeight;
+                }
+            }
+        }
+    }
+}
