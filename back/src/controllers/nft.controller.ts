@@ -6,6 +6,8 @@ import {
   Request,
   Get,
   Put,
+  NotFoundException,
+  Param,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { NftService } from '../services/nft.service';
@@ -51,5 +53,43 @@ export class NftController {
     });
 
     return nftsWithLikes;
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post(':nftId/like')
+  async likeNFT(@Request() req, @Param('nftId') nftId: number) {
+    const loggedInUser = req.user;
+
+    const nft = await this.nftService.findNFTById(nftId);
+    if (!nft) {
+      throw new NotFoundException('NFT not found');
+    }
+
+    const newLike = await this.nftService.createLikeOrDislike(
+      loggedInUser,
+      nft,
+      true,
+    );
+
+    return { message: 'NFT liked successfully', like: newLike };
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post(':nftId/dislike')
+  async dislikeNFT(@Request() req, @Param('nftId') nftId: number) {
+    const loggedInUser = req.user;
+
+    const nft = await this.nftService.findNFTById(nftId);
+    if (!nft) {
+      throw new NotFoundException('NFT not found');
+    }
+
+    const newLike = await this.nftService.createLikeOrDislike(
+      loggedInUser,
+      nft,
+      false,
+    );
+
+    return { message: 'NFT liked successfully', like: newLike };
   }
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { NftInterface } from '../interfaces/nftData';
+import { Values } from '../hooks/content/useDraftForm';
 
-export const createDraft = async (values: NftInterface) =>
+export const createDraft = async (values: Values) =>
   await axios
     .post(`${import.meta.env.VITE_API_URL}/nft/create-draft`, values, {
       headers: {
@@ -12,7 +12,7 @@ export const createDraft = async (values: NftInterface) =>
     .then((response) => response)
     .catch((error) => error);
 
-export const updateDraft = async (values: NftInterface) =>
+export const updateDraft = async (values: Values) =>
   await axios
     .put(`${import.meta.env.VITE_API_URL}/nft/update-draft`, values, {
       headers: {
@@ -41,6 +41,26 @@ export const getAllNftsByUser = async () => {
         'Content-Type': 'application/json',
       },
       withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+};
+
+export const likeNFT = async (nftId: number | undefined) => {
+  await axios
+    .post(`${import.meta.env.VITE_API_URL}/content/${nftId}/like`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+};
+
+export const dislikeNFT = async (nftId: number | undefined) => {
+  await axios
+    .post(`${import.meta.env.VITE_API_URL}/content/${nftId}/dislike`, {
+      method: 'POST',
+      credentials: 'include',
     })
     .then((response) => response.data)
     .catch((error) => error);
