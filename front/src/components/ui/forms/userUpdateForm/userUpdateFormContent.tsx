@@ -5,8 +5,9 @@ import { Message } from '../../Message';
 import { UserInterface } from '../../../../interfaces/userData';
 import { Fragment } from 'react';
 import QRCode from 'qrcode.react';
+import { t } from 'i18next';
 
-const RenderButtons = () => <Button type="submit">Send</Button>;
+const RenderButtons = () => <Button type="submit">{t('button.send')}</Button>;
 
 const fieldsForm = [
   {
@@ -48,7 +49,7 @@ interface Props {
 const UserUpdateFormContent = ({ message, userData }: Props) => (
   <Form>
     <div className="personalInformations">
-      <h1>Personal Informations</h1>
+      <h1>{t('setting.personalInformations')}</h1>
       {fieldsForm.map((field) => (
         <Fragment key={field.name}>
           <FormField

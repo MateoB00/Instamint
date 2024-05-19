@@ -1,4 +1,5 @@
 export interface NftInterface {
+  id: number;
   title: string;
   description: string;
   hashtags: string[];
