@@ -48,7 +48,7 @@ export const deleteUser = async () =>
     .then((response) => response)
     .catch((error) => error);
 
-export const authChangeBio = async (bio: string) => {
+export const authChangeBio = async (bio: string) =>
   await axios
     .put(
       `${import.meta.env.VITE_API_URL}/user/me`,
@@ -62,4 +62,18 @@ export const authChangeBio = async (bio: string) => {
     )
     .then((response) => response)
     .catch((error) => error);
-};
+
+export const authChangePicture = async (profilePicture: string) =>
+  await axios
+    .put(
+      `${import.meta.env.VITE_API_URL}/user/me`,
+      { profilePicture },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    )
+    .then((response) => response)
+    .catch((error) => error);

@@ -1,6 +1,6 @@
 import { createDraft, updateDraft } from '../../api/nft';
 
-interface Values {
+export interface Values {
   title: string;
   description: string;
   hashtags: string[];
