@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { useEffect } from 'react';
 import '../../scss/components/userProfile/cardProfile/cardProfile.scss';
 import '../../scss/components/userProfile/cardProfile/cardProfileResponsive.scss';
@@ -14,8 +15,11 @@ interface Props {
 }
 
 export default function CardProfile({ userData }: Props) {
-  const { handleProfilePictureChange, handleRestoreOriginal, handleSavePictureClick } =
-    useEditPicture();
+  const {
+    handleProfilePictureChange,
+    handleRestoreOriginal,
+    handleSavePictureClick,
+  } = useEditPicture();
   const { t } = useTranslation();
   const { bio, handleChange, handleSaveClick } = useEditBio();
 
