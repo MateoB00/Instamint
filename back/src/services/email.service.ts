@@ -49,4 +49,25 @@ export class EmailService {
       throw new Error('Invalid token');
     }
   }
+  generateChangeEmailToken(user: User) {
+    const payload = {
+      email: user.email,
+    };
+    const token = this.jwtService.sign(payload);
+    return token;
+  }
+  sendChangeEmailToken(user: User, token: string) {  
+    const confirmationUrl = `${process.env.API_URL}/auth/change-email/${token}`;
+    this.mailerService
+      .sendMail({
+        to: user.email,
+        from: process.env.USER_MAILER,
+        subject: 'Instamint - Please confirm your email',
+        text: 'Instamint - Please confirm your email',
+        html: `<a href="${confirmationUrl}">Please confirm your email</a>`,
+      })
+      .catch((error) => {
+        throw new Error(`Failed to send confirmation email ${error}`);
+      });
+  }
 }

@@ -16,6 +16,12 @@ import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
+  sendEmailChangeEmail(user: User, token: void) {
+    throw new Error('Method not implemented.');
+  }
+  generateEmailChangeToken(id: number) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private readonly userService: UserService,
@@ -166,6 +172,14 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
 
+    await this.userRepository.save(user);
+  }
+  async changeEmail(userEmail: string, newEmail: string): Promise<void> {
+    const user = await this.userService.findOneByEmail(userEmail);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    user.email = newEmail;
     await this.userRepository.save(user);
   }
 }

@@ -7,6 +7,7 @@ import PasswordResetPage from './pages/auth/passwordReset';
 import NotificationsPage from './pages/userProfile/NotificationPage';
 import Teabag from './pages/teabag/teabag';
 import TeabagProfile from './pages/teabag/teabagProfile';
+import ChangeEmailPage from './pages/changeEmailPage';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <Route path="/notifications" element={<NotificationsPage />} />
       <Route path="/teabag" element={<Teabag />} />
       <Route path="/teabag/:link" element={<TeabagProfile />} />
+      <Route path="/changeemail" element={<ChangeEmailPage />} />
     </Routes>
   );
 }

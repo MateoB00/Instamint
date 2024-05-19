@@ -136,4 +136,14 @@ export class AuthController {
 
     return { message: 'Password reset successfully' };
   }
+  @Post('change-email-request')
+  async requestEmailChange(@Body('email') email: string) {
+    const user = await this.userService.findOneByEmail(email);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    const token = await this.authService.generateEmailChangeToken(user.id);
+    await this.authService.sendEmailChangeEmail(user, token);
+    return { message: 'Email change request sent successfully' };
+  }
 }

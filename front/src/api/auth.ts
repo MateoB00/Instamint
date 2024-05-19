@@ -121,3 +121,20 @@ export const passwordReset = async (
     )
     .then((response) => response.status)
     .catch((error) => error);
+
+    export const changeEmail = async (emailData: { email: string; newEmail: string }) => {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/auth/change-email`,
+          emailData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        return response.status;
+      } catch (error) {
+        throw error;
+      }
+    };
