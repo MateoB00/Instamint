@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import '../../scss/layout/Header.scss';
+import '../../scss/components/Header/Search/popupSearch.scss';
 import instamintIcon from '../../assets/Image/logo-instamint.svg';
 import { useNavigate } from 'react-router-dom';
 import { useUserProfile } from '../../hooks/user/useUserProfile';
@@ -7,6 +8,7 @@ import { authLogout } from '../../api/auth';
 import Button from '../ui/Button';
 import HeaderLeftSection from './HeaderLeftSection';
 import HeaderRightSection from './HeaderRightSection';
+import BurgerMenu from './BurgerMenu';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -33,7 +35,11 @@ export default function Header() {
   return (
     <header>
       <div className="header">
-        <HeaderLeftSection />
+        {window.innerWidth <= 450 ? (
+          <BurgerMenu />
+        ) : (
+          <HeaderLeftSection userData={userData} />
+        )}
         <Button className="instamint">
           <img src={instamintIcon} alt="instamintIcon" />
         </Button>

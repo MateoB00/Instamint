@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   UseGuards,
+  Query,
   Request,
   Put,
   Body,
@@ -47,5 +48,19 @@ export class UserController {
         error: error.message,
       };
     }
+  }
+
+  @Get('allUsernames')
+  async getAllUsernames() {
+    return await this.userService.getAllUsernames();
+  }
+
+  @Get('search')
+  @UseGuards(AuthGuard('jwt'))
+  searchUsers(
+    @Query('username') username: string,
+    @Query('location') location: string,
+  ) {
+    return this.userService.searchUsers(username, location);
   }
 }

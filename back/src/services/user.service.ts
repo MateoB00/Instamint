@@ -64,4 +64,28 @@ export class UserService {
     }
     await this.userRepository.remove(user);
   }
+
+  async getAllUsernames(): Promise<string[]> {
+    const users = await this.userRepository.find();
+
+    return users.map((user) => user.username);
+  }
+
+  async searchUsers(username: string, location: string): Promise<User[]> {
+    const queryBuilder = await this.userRepository.createQueryBuilder('user');
+
+    if (username) {
+      queryBuilder.andWhere('user.username LIKE :username', {
+        username: `%${username}%`,
+      });
+    }
+
+    if (location) {
+      queryBuilder.andWhere('user.location LIKE :location', {
+        location: `%${location}%`,
+      });
+    }
+
+    return queryBuilder.getMany();
+  }
 }
