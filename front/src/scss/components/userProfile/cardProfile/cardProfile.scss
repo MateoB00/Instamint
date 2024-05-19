@@ -13,6 +13,8 @@
     .profilePicture {
         margin-top: $defaultMargin;
         img {
+            position: relative;
+            top: $U4 * 2;
             border-radius: 50%;
             width: 13 * $U4;
             height: 13 * $U4;

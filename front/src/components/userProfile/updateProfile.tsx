@@ -22,7 +22,6 @@ export default function UpdateProfile({ userData }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await i18n.changeLanguage(language);
-    // OnClose();
   };
 
   return (

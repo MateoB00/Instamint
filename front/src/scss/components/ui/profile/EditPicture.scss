@@ -1,0 +1,36 @@
+@import '../../../main.scss';
+
+.edit-picture {
+  .button-container {
+    position: relative;
+    left: $U4 * 13;
+    bottom: $U4;
+    margin: 0;
+    display: inline;
+    .save {
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+    }
+    .restore {
+      background: transparent;
+      padding: 0;
+      margin-left: $U * 2;
+    }
+    
+    .cancel-icon, 
+    .edit-icon,
+    .check-icon,
+    img {
+      position: relative;
+      top: $U;
+      width: $U * 6;
+      height: $U * 6;
+      border-radius: $U;
+      box-shadow: 0 0 $U * 2 rgba(0, 0, 0, 0.5);
+      border: none;
+    }
+  }
+}
