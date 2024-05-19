@@ -3,6 +3,7 @@ import '../../scss/components/userProfile/itemsProfile/itemsProfileResponsive.sc
 import SideBar from '../ui/userProfile/SideBar';
 import Drafts from '../ui/cards/drafts';
 import OriginalContents from '../ui/cards/originalContents';
+import Nfts from '../ui/cards/nfts';
 
 interface OptionsProfilesProps {
   optionsProfiles: 'NFTs' | 'Drafts' | 'Content';
@@ -15,7 +16,7 @@ export default function ItemsProfile({
     <>
       <div className="items">
         <SideBar />
-        {optionsProfiles === 'NFTs' && <div className="nfts"></div>}
+        {optionsProfiles === 'NFTs' && <Nfts />}
         {optionsProfiles === 'Drafts' && <Drafts />}
         {optionsProfiles === 'Content' && <OriginalContents />}
       </div>

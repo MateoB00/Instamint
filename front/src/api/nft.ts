@@ -33,3 +33,15 @@ export const getAllDraftsByUser = async () =>
     })
     .then((response) => response.data)
     .catch((error) => error);
+
+export const getAllNftsByUser = async () => {
+  await axios
+    .get(`${import.meta.env.VITE_API_URL}/nft/all-my-nfts`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => error);
+};
