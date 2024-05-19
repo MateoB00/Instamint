@@ -10,7 +10,8 @@ type OptionsProfileType =
   | '2FA'
   | 'Delete Account'
   | 'Content'
-  | 'Notifications';
+  | 'Notifications'
+  | 'Comments';
 
 export const useUserProfile = () => {
   const [optionsProfiles, setOptionsProfiles] =

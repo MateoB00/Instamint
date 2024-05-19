@@ -15,7 +15,8 @@ type OptionsProfileType =
   | '2FA'
   | 'Delete Account'
   | 'Content'
-  | 'Notifications';
+  | 'Notifications'
+  | 'Comments';
 
 const renderButtons = (
   handleSetOptionsProfile: (_profileType: OptionsProfileType) => void,
@@ -26,6 +27,7 @@ const renderButtons = (
     { label: 'Content', option: 'Content' as OptionsProfileType },
     { label: 'Informations', option: 'Informations' as OptionsProfileType },
     { label: 'Notifications', option: 'Notifications' as OptionsProfileType },
+    { label: 'Comments', option: 'Comments' as OptionsProfileType },
   ];
 
   return buttons.map(({ label, option }) => (
@@ -34,6 +36,7 @@ const renderButtons = (
     </Button>
   ));
 };
+
 interface LocationState {
   state: {
     setOptionsProfiles:
@@ -41,12 +44,15 @@ interface LocationState {
       | 'Drafts'
       | 'Informations'
       | 'Content'
-      | 'Notifications';
+      | 'Notifications'
+      | 'Comments';
   };
 }
+
+// eslint-disable-next-line max-lines-per-function
 export default function UserProfile() {
   const location: LocationState = useLocation();
-  const navigateReact = useNavigate();
+  const navigate = useNavigate();
 
   const {
     optionsProfiles,
@@ -59,16 +65,26 @@ export default function UserProfile() {
   useEffect(() => {
     fetchUserData();
     if (userData === null) {
-      navigateReact('/auth');
+      navigate('/auth');
     }
-  }, [fetchUserData, userData, navigateReact]);
+  }, [fetchUserData, userData, navigate]);
 
   useEffect(() => {
     const initialState = location.state;
     if (initialState && initialState.setOptionsProfiles) {
       setOptionsProfiles(initialState.setOptionsProfiles);
     }
-  }, [location.state, optionsProfiles, setOptionsProfiles]);
+  }, [location.state, setOptionsProfiles]);
+
+  const handleSetOptionsProfileWithRedirect = (
+    profileType: OptionsProfileType,
+  ) => {
+    if (profileType === 'Comments') {
+      navigate(`/nft/${userData?.id}/comments`);
+    } else {
+      handleSetOptionsProfile(profileType);
+    }
+  };
 
   return (
     <>
@@ -78,7 +94,7 @@ export default function UserProfile() {
           {userData && <CardProfile userData={userData} />}
           <div className="itemsChoice">
             <div className="navigation">
-              {renderButtons(handleSetOptionsProfile)}
+              {renderButtons(handleSetOptionsProfileWithRedirect)}
             </div>
             {(optionsProfiles === 'NFTs' ||
               optionsProfiles === 'Drafts' ||
