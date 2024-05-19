@@ -137,7 +137,6 @@ export const getUserData = async () =>
       throw new Error('Failed to fetch user data');
     })
     .catch((error) => {
-      // Handle errors more specifically if you need to
       throw new Error(
         error.response ? error.response.data.message : error.message,
       );

@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
   ];
 
   const handleButtonClick = () => {
-    // Add your click handling logic here
+    // Do nothing
   };
 
   return (

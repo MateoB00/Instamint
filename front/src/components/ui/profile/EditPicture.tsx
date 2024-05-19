@@ -3,12 +3,12 @@ import '../../../scss/components/ui/profile/EditPicture.scss';
 interface useEditPictureProps {
   handleProfilePictureChange: (_e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRestoreOriginal: () => void;
-  handleSaveClick: () => void;
+  handleSavePictureClick: () => void;
 }
 const useEditPicture: React.FC<useEditPictureProps> = ({
   handleProfilePictureChange,
   handleRestoreOriginal,
-  handleSaveClick,
+  handleSavePictureClick,
 }) => (
   <div className="edit-picture">
     <div className="button-container">
@@ -41,7 +41,7 @@ const useEditPicture: React.FC<useEditPictureProps> = ({
           alt="Cancel"
         />
       </button>
-      <button className="save" onClick={handleSaveClick} title="Save">
+      <button className="save" onClick={handleSavePictureClick} title="Save">
         <img
           className="check-icon"
           src="../src/assets/Image/check.png"

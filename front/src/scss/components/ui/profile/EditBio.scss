@@ -1,0 +1,36 @@
+@import '../../../main.scss';
+
+.edit-bio {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: horizontal;
+  }
+
+  button {
+    margin-top: $U;
+    background-color: $colorAccent1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    .edit-icon,
+    img {
+      background-color: none;
+      position: relative;
+      width: $U * 4;
+      height: $U * 4;
+      border-radius: $U;
+      border: none;
+
+      .save-button{
+        position: relative;
+        display: block;
+        align-items: end;
+      }
+    }
+  }
+}

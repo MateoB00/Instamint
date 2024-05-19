@@ -1,9 +1,12 @@
+/* eslint-disable max-lines-per-function */
 import { useEffect } from 'react';
 import '../../scss/components/userProfile/cardProfile/cardProfile.scss';
 import '../../scss/components/userProfile/cardProfile/cardProfileResponsive.scss';
 import { UserInterface } from '../../interfaces/userData';
 import { initializeBackgroundProfile } from '../../utils/granim';
 import { useTranslation } from 'react-i18next';
+import EditBio from '../ui/profile/EditBio';
+import { useEditBio } from '../../hooks/components/userProfile/useEditBio';
 import EditPicture from '../ui/profile/EditPicture';
 import { useEditPicture } from '../../hooks/components/userProfile/useEditPicture';
 
@@ -12,9 +15,14 @@ interface Props {
 }
 
 export default function CardProfile({ userData }: Props) {
-  const { handleProfilePictureChange, handleRestoreOriginal, handleSaveClick } =
-    useEditPicture();
+  const {
+    handleProfilePictureChange,
+    handleRestoreOriginal,
+    handleSavePictureClick,
+  } = useEditPicture();
   const { t } = useTranslation();
+  const { bio, handleChange, handleSaveClick } = useEditBio();
+
   useEffect(() => {
     initializeBackgroundProfile();
   });
@@ -27,7 +35,7 @@ export default function CardProfile({ userData }: Props) {
         <EditPicture
           handleProfilePictureChange={handleProfilePictureChange}
           handleRestoreOriginal={handleRestoreOriginal}
-          handleSaveClick={handleSaveClick}
+          handleSavePictureClick={handleSavePictureClick}
         />
       </div>
       <div className="userDatas">
@@ -36,6 +44,11 @@ export default function CardProfile({ userData }: Props) {
             {userData.username} | {userData.language}
           </h1>
           <p>{userData.bio}</p>
+          <EditBio
+            bio={bio}
+            handleChange={handleChange}
+            handleSaveClick={handleSaveClick}
+          />
         </div>
         <div className="userStats">
           <div className="followersDatas">

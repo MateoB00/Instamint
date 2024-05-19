@@ -14,7 +14,7 @@ interface ComponentHomePageProps {
 function ComponentHomePage({ title, subtitle, items }: ComponentHomePageProps) {
   const { t } = useTranslation();
   const handleButtonClick = () => {
-    // Add your click handling logic here
+    // Do nothing
   };
 
   return (

@@ -28,7 +28,7 @@ export const useEditPicture = () => {
     setProfilePicture(originalProfilePicture);
   };
 
-  const handleSaveClick = async () => {
+  const handleSavePictureClick = async () => {
     const formData = new FormData();
     formData.append('profilePicture', profilePicture);
 
@@ -48,7 +48,7 @@ export const useEditPicture = () => {
   return {
     handleProfilePictureChange,
     handleRestoreOriginal,
-    handleSaveClick,
+    handleSavePictureClick,
     formErrors,
   };
 };
