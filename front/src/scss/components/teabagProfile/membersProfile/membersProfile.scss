@@ -1,0 +1,12 @@
+@import '../../../main.scss';
+
+.allCooks {
+    width: 100%;
+    margin: $defaultMargin;
+    .cook {
+        border: 2px solid white;
+        display: flex;
+        justify-content: space-between;
+        padding: $defaultPadding;
+    }
+}

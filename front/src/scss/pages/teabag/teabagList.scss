@@ -1,0 +1,35 @@
+@import '../../main.scss';
+
+.allTeabags {
+    width: 100%;
+    margin: $defaultMargin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .myTeabag {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: $defaultMargin;
+        .informations {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+    .teabag {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: $defaultPadding;
+        width: 100%;
+        .informations {
+            border: 2px solid white;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: $defaultPadding;
+        }
+    }
+}

@@ -1,20 +1,66 @@
 @import '../../../main.scss';
+@import './updateProfileResponsive.scss';
 
 .updateProfile {
-    display: flex;
-    justify-content: space-around;
     width: 100%;
+    .formulaire {
+        display: flex;
+    }
+    form {
+        display: flex;
+        text-align: center;
+        justify-content: space-around;
+        width: 100%;
+        .personalInformations {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 40%;
 
-    .personalInformations, .confidentialInformations {
-        width: 40%;
-        h1,h2 {
-            text-align: center;
-            font-size: $headingFontSize;
+                h1 {
+                    text-align: center;
+                    font-size: $headingFontSize;
+                }
+
+                input {
+                    width: 100%;
+                }
+    
+                button {
+                    background-color: transparent;
+                    border-color: $colorAccent1;
+                    padding: $defaultPadding;
+                    color: $colorAccent1;
+                    margin: $defaultMargin;
+                    font-size: $bodyFontSize;
+                    width: 50%;
+                }
+                button:hover {
+                    background-color: $colorAccent1;
+                    color: $colorNeutralLight;
+                }
         }
         form {
             display: flex;
             flex-direction: column;
             text-align: center;
+            .form-group {
+                margin-top: $defaultMargin;
+                select{
+                    margin-left: $defaultMargin;
+                }
+            }
+            button{
+                margin-top: calc($defaultMargin * 2);
+                width: 50%;
+                align-self: center;
+                background-color: $colorAccent1;
+                color: $colorNeutralLight;
+                border: none;
+                border-radius: $U4;
+                padding: $defaultPadding;
+                cursor: pointer;
+            }
         }
   
     }

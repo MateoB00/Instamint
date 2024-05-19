@@ -1,12 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
-interface UseSearchUserProps {
-  onSearch: (_query: string) => void;
-}
-
-export const useSearchUser = ({ onSearch }: UseSearchUserProps) => {
+export const useSearchUser = () => {
+  const [usernames, setUsernames] = useState<string[]>([]);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [locationQuery, setLocationQuery] = useState('');
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const toggleSearch = () => {
@@ -17,19 +15,17 @@ export const useSearchUser = ({ onSearch }: UseSearchUserProps) => {
     setSearchQuery(event.target.value);
   };
 
-  const handleSearchSubmit = () => {
-    onSearch(searchQuery);
+  const handleSearchSubmit = async () => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/user/search?username=${searchQuery}&location=${locationQuery}`,
+    );
+    const data = await response.json();
+    setUsernames(data.map((user: { username: string }) => user.username));
   };
 
   const handleCancel = () => {
     setSearchOpen(false);
   };
-
-  useEffect(() => {
-    if (isSearchOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isSearchOpen]);
 
   return {
     isSearchOpen,
@@ -40,6 +36,11 @@ export const useSearchUser = ({ onSearch }: UseSearchUserProps) => {
     handleCancel,
     searchRef,
     inputRef,
+    usernames,
+    setUsernames,
+    setLocationQuery,
+    setSearchQuery,
+    locationQuery,
   };
 };
 

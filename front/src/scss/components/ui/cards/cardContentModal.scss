@@ -1,0 +1,53 @@
+@import '../../../main.scss';
+@import './cardContentModalResponsive.scss';
+
+.cardContentModal {
+    position: fixed; 
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background-color: $colorAccent1;
+    width: 50%; 
+    height: 60%;
+    z-index: 2; 
+
+
+    .card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    .closeIcon {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .imgContent {
+        width: 50%;
+        margin: $defaultMargin;
+    }
+    form {
+        width: 40%;
+        margin: $defaultMargin;
+        input {
+            margin: $defaultMargin;
+            width: 100%;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            button {
+                padding: $defaultPadding;
+            }
+            .saveButton {
+                background-color: blue;
+            }  
+            .mintButton {
+                background-color: green;
+            }
+        }
+    }
+}

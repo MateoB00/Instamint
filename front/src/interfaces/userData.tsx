@@ -11,6 +11,7 @@ export interface UserInterface {
   language: 'English' | 'French' | 'Spanish';
   twoFactorEnabled: boolean;
   twoFactorSecret: string | null;
+  otpPath: string | null;
   searchByEmailOrPhoneEnabled: boolean;
   lastLogin: Date | null;
   createdAt: Date;

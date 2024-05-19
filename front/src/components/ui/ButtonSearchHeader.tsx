@@ -5,11 +5,7 @@ import searchIcon from '../../assets/Icon/header/Search_light.svg';
 import PopupSearch from '../Header/PopupSearch';
 
 const ButtonSearchHeader: React.FC = () => {
-  const { isSearchOpen, toggleSearch } = useSearchUser({
-    onSearch: () => {
-      //Add search query here
-    },
-  });
+  const { isSearchOpen, toggleSearch } = useSearchUser();
 
   return (
     <div className="search">

@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '../ui/Button';
 import profileIcon from '../../assets/Icon/header/User_light.svg';
 import settingsIcon from '../../assets/Icon/header/Setting_line_light.svg';
@@ -21,6 +20,11 @@ export default function HeaderRightSection({
   handleClickToNavigateOnProfilePage,
   navigate,
 }: HeaderRightSectionProps) {
+  const logout = () => {
+    authLogout();
+    navigate('/');
+  };
+
   return (
     <div className="right">
       <Button onClick={() => handleClickToNavigateOnProfilePage('NFTs')}>
@@ -32,12 +36,7 @@ export default function HeaderRightSection({
         <img className="icon" src={settingsIcon} alt="settingsIcon" />
       </Button>
       {userData && (
-        <Button
-          onClick={() => {
-            authLogout();
-            navigate('/');
-          }}
-        >
+        <Button onClick={logout}>
           <img className="icon" src={signOutIcon} alt="signOutIcon" />
         </Button>
       )}

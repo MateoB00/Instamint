@@ -1,6 +1,17 @@
-import { Controller, Get, UseGuards, Request, Put, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Query,
+  Request,
+  Put,
+  Body,
+  HttpStatus,
+  Delete,
+} from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from '../entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -11,22 +22,45 @@ export class UserController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   findById(@Request() req) {
-    const loggedInUser = req.user;
-
-    return this.userService.findOneById(loggedInUser.id);
+    return this.userService.findOneById(req.user.id);
   }
 
-  @Put('/change-username')
-  async changeUsername(@Request() req, @Body() body) {
-    const userId = req.user.id;
-    const { newUsername } = body;
-    await this.userService.changeUsername(userId, newUsername);
+  @Put('me')
+  @UseGuards(AuthGuard('jwt'))
+  update(@Request() req, @Body() user: User) {
+    return this.userService.update(req.user, user);
+  }
 
-    return { success: true, message: 'Username changed successfully' };
+  @Delete('me')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteUser(@Request() req) {
+    try {
+      await this.userService.deleteUser(req.user.id);
+
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'User deleted successfully',
+      };
+    } catch (error) {
+      return {
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Failed to delete user',
+        error: error.message,
+      };
+    }
   }
 
   @Get('allUsernames')
   async getAllUsernames() {
     return await this.userService.getAllUsernames();
+  }
+
+  @Get('search')
+  @UseGuards(AuthGuard('jwt'))
+  searchUsers(
+    @Query('username') username: string,
+    @Query('location') location: string,
+  ) {
+    return this.userService.searchUsers(username, location);
   }
 }

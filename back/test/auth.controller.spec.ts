@@ -74,12 +74,14 @@ describe('AuthController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       jest.spyOn(authService, 'register').mockResolvedValue(mockUser);
@@ -103,12 +105,14 @@ describe('AuthController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -133,12 +137,14 @@ describe('AuthController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -163,12 +169,14 @@ describe('AuthController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
       jest
         .spyOn(authService, 'register')
@@ -196,12 +204,14 @@ describe('AuthController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
@@ -239,12 +249,14 @@ describe('AuthController', () => {
         language: 'test',
         twoFactorEnabled: true,
         twoFactorSecret: 'test',
+        otpPath: 'test',
         searchByEmailOrPhoneEnabled: true,
         lastLogin: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
         isVerified: true,
         isAdmin: false,
+        notifications: [],
       };
 
       jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);
@@ -282,12 +294,14 @@ describe('AuthController', () => {
       language: 'test',
       twoFactorEnabled: true,
       twoFactorSecret: 'test',
+      otpPath: 'test',
       searchByEmailOrPhoneEnabled: true,
       lastLogin: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
       isVerified: true,
       isAdmin: false,
+      notifications: [],
     };
 
     jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(mockUser);

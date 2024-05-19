@@ -1,10 +1,20 @@
 @import '../../../main.scss';
 
 .updateProfile {
-    .personalInformations, .confidentialInformations {
-        h1,h2 {
-            @media(max-width: 430px) {
-                font-size: $bodyFontSize;
+    form {
+        @media(max-width: 1000px) {
+            flex-direction: column;
+            align-items: center;
+        }
+        .personalInformations {
+            @media(max-width: 1000px) {
+                width: 80% !important;
+                margin: $defaultMargin;
+            }
+            h1 {
+                @media(max-width: 430px) {
+                    font-size: $bodyFontSize;
+                }
             }
         }
     }
