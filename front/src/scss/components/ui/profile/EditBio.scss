@@ -1,50 +1,36 @@
 @import '../../../main.scss';
 
 .edit-bio {
-    strong {
-      font-size: $headingFontSize;
-      color: $colorAccent2;
-    }
-    p {
-      font-size: $bodyFontSize;
-      margin-top: $defaultMargin * 2;
-    }
-    .button-bio {
-      height: 0;
-      border: none;
-      padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: horizontal;
+  }
+
+  button {
+    margin-top: $U;
+    background-color: $colorAccent1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    .edit-icon,
+    img {
+      background-color: none;
       position: relative;
-      bottom: $U4*4.7;
-      left: $U4*6.3;
-      .edit-bio-icon {
-        width: $U*6;
-        height: $U*6;
-        background-color: $colorAccent1;
-        border-radius: $U;
-        box-shadow: 0 0 $U*2 rgba(0, 0, 0, 0.5);
-        border: none;
-        cursor: pointer;
+      width: $U * 4;
+      height: $U * 4;
+      border-radius: $U;
+      border: none;
+
+      .save-button{
+        position: relative;
+        display: block;
+        align-items: end;
       }
     }
-    textarea {
-        margin: $defaultMargin;
-    }
-
-    .button-confirm {
-      margin: $defaultMargin ;
-      background-color: $colorAccent1;
-      color: $colorNeutralLight;
-      border-radius: $U;
-      border: none;
-      cursor: pointer;
-    }
-    .button-cancel {
-      margin: $defaultMargin ;
-      background-color: $colorAccent3;
-      color: $colorNeutralDark;
-      border-radius: $U;
-      border: none;
-      cursor: pointer;
-    }
-
   }
+}

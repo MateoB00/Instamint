@@ -4,6 +4,8 @@ import '../../scss/components/userProfile/cardProfile/cardProfileResponsive.scss
 import { UserInterface } from '../../interfaces/userData';
 import { initializeBackgroundProfile } from '../../utils/granim';
 import { useTranslation } from 'react-i18next';
+import EditBio from '../ui/profile/EditBio';
+import { useEditBio } from '../../hooks/components/userProfile/useEditBio';
 
 interface Props {
   userData: UserInterface;
@@ -11,6 +13,8 @@ interface Props {
 
 export default function CardProfile({ userData }: Props) {
   const { t } = useTranslation();
+  const { bio, handleChange, handleSaveClick } = useEditBio();
+
   useEffect(() => {
     initializeBackgroundProfile();
   });
@@ -27,6 +31,11 @@ export default function CardProfile({ userData }: Props) {
             {userData.username} | {userData.language}
           </h1>
           <p>{userData.bio}</p>
+          <EditBio
+            bio={bio}
+            handleChange={handleChange}
+            handleSaveClick={handleSaveClick}
+          />
         </div>
         <div className="userStats">
           <div className="followersDatas">

@@ -1,56 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../../scss/components/ui/profile/EditBio.scss';
-import { t } from 'i18next';
 
-interface EditBioProps {
-  isEditingBio: boolean;
+interface useEditBioProps {
+  handleSaveClick: () => void;
+  handleChange: (_e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   bio: string;
-  editedBio: string;
-  handleEditBio: () => void;
-  handleCancelEditBio: () => void;
-  handleBioChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handleSaveEditedBio: () => void;
 }
 
-const EditBio: React.FC<EditBioProps> = ({
-  isEditingBio,
+const useEditBio: React.FC<useEditBioProps> = ({
+  handleSaveClick,
+  handleChange,
   bio,
-  editedBio,
-  handleEditBio,
-  handleCancelEditBio,
-  handleBioChange,
-  handleSaveEditedBio,
-}) => (
-  <div className="edit-bio">
-    <strong>{t('title.bio')}</strong>
-    <div>
-      {isEditingBio ? (
-        <textarea value={editedBio} onChange={handleBioChange} />
-      ) : (
-        <p>{bio}</p>
-      )}
-      <div>
-        {isEditingBio ? (
-          <>
-            <button className="button-confirm" onClick={handleSaveEditedBio}>
-              {t('button.confirm')}
-            </button>
-            <button className="button-cancel" onClick={handleCancelEditBio}>
-              {t('button.cancel')}
-            </button>
-          </>
-        ) : (
-          <button className="button-bio" onClick={handleEditBio}>
+}) => {
+  const [editMode, setEditMode] = useState(false);
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
+  return (
+    <div className="edit-bio">
+      {editMode ? (
+        <>
+          <textarea
+            value={bio}
+            onChange={handleChange}
+            placeholder="Edit your biography here..."
+          />
+          <button onClick={handleSaveClick} title="Save your bio">
             <img
-              className="edit-bio-icon"
-              src="../src/assets/Image/edit.png"
-              alt="Edit"
+              className="check-icon"
+              src="../src/assets/Image/check.png"
+              alt="Check"
             />
           </button>
-        )}
-      </div>
+          <button onClick={toggleEditMode} title="Cancel">
+            <img
+              className="cancel-icon"
+              src="../src/assets/Image/close.png"
+              alt="Cancel"
+            />
+          </button>
+        </>
+      ) : (
+        <button
+          className="edit-button"
+          onClick={toggleEditMode}
+          title="Modify your bio"
+        >
+          <img
+            className="edit-icon"
+            src="../src/assets/Image/edit.png"
+            alt="Edit"
+          />
+        </button>
+      )}
     </div>
-  </div>
-);
-
-export default EditBio;
+  );
+};
+export default useEditBio;

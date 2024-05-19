@@ -121,3 +121,23 @@ export const passwordReset = async (
     )
     .then((response) => response.status)
     .catch((error) => error);
+
+export const getUserData = async () =>
+  await axios
+    .get(`${import.meta.env.VITE_API_URL}/user/me`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.data;
+      }
+      throw new Error('Failed to fetch user data');
+    })
+    .catch((error) => {
+      throw new Error(
+        error.response ? error.response.data.message : error.message,
+      );
+    });
